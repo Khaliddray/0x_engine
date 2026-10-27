@@ -104,12 +104,18 @@ Full CRUD endpoints with partial `PATCH` updates and slug conflict validation:
 - PostgreSQL (or local SQLite for lightweight testing)
 
 ### 2. Environment Configuration
-Create a `.env` file in `backend/`:
+Copy `.env.example` to create your local `.env` file:
+
+```bash
+cp .env.example backend/.env
+```
+
+Ensure the database connection string uses the `postgresql+psycopg://` dialect for psycopg 3:
 
 ```env
-DATABASE_URL=postgresql://user:password@localhost:5432/portfolio_db
+DATABASE_URL=postgresql+psycopg://portfolio_user:portfolio_password@localhost:5432/portfolio_db
 SECRET_KEY=replace-with-a-secure-random-secret-key-at-least-32-chars
-ACCESS_TOKEN_EXPIRE_MINUTES=60
+ACCESS_TOKEN_EXPIRE_MINUTES=1440
 ```
 
 ### 3. Install Dependencies

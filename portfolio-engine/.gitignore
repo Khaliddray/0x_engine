@@ -29,6 +29,14 @@ htmlcov/
 .vscode/
 .idea/
 
+# Node & Frontend
+node_modules/
+frontend/dist/
+.vite/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
 # OS files
 .DS_Store
 Thumbs.db
@@ -45,4 +53,3 @@ dist/
 *.db
 *.sqlite
 *.sqlite3
-

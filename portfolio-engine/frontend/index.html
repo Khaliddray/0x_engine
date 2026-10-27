@@ -103,21 +103,6 @@
       background: radial-gradient(circle 500px at center, rgba(234, 88, 12, 0.12) 0%, rgba(154, 52, 18, 0.03) 50%, transparent 70%);
     }
 
-    /* Masked Architectural Grid Pattern */
-    .architectural-grid {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 1;
-      background-image: 
-        linear-gradient(to right, rgba(249, 115, 22, 0.045) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(249, 115, 22, 0.045) 1px, transparent 1px);
-      background-size: 32px 32px;
-      -webkit-mask-image: radial-gradient(ellipse 75% 65% at 50% 25%, #000 20%, transparent 85%);
-      mask-image: radial-gradient(ellipse 75% 65% at 50% 25%, #000 20%, transparent 85%);
-      transform: translateZ(0);
-    }
-
     /* Tactile Grain Noise Overlay */
     .tactile-grain {
       position: fixed;
@@ -194,7 +179,6 @@
     <div class="radial-glow-mid"></div>
     <div class="radial-glow-bottom"></div>
   </div>
-  <div class="architectural-grid"></div>
   <div class="tactile-grain"></div>
 
   <div id="root" class="relative z-10"></div>

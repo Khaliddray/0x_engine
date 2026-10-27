@@ -24,22 +24,24 @@
           },
           colors: {
             brand: {
-              50: '#eef2ff',
-              100: '#e0e7ff',
-              200: '#c7d2fe',
-              300: '#a5b4fc',
-              400: '#818cf8',
-              500: '#6366f1',
-              600: '#4f46e5',
-              700: '#4338ca',
-              900: '#1e1b4b',
+              50: '#fff7ed',
+              100: '#ffedd5',
+              200: '#fed7aa',
+              300: '#fdba74',
+              400: '#fb923c',
+              500: '#f97316',
+              600: '#ea580c',
+              700: '#c2410c',
+              800: '#9a3412',
+              900: '#7c2d12',
+              950: '#431407',
             },
             dark: {
-              bg: '#090d16',
-              surface: '#0f172a',
-              card: '#131e36',
-              border: '#1e293b',
-              hairline: 'rgba(255, 255, 255, 0.07)',
+              bg: '#050505',
+              surface: '#0d0d0e',
+              card: '#121110',
+              border: '#262422',
+              hairline: 'rgba(249, 115, 22, 0.12)',
             }
           }
         }
@@ -57,13 +59,16 @@
       color-scheme: dark;
     }
     body {
-      background-color: #090d16;
-      color: #f1f5f9;
+      background-color: #050505;
+      background-image: 
+        radial-gradient(circle at 50% 0%, #1f0b02 0%, #0d0602 35%, #050505 70%);
+      background-attachment: fixed;
+      color: #f5f5f5;
       font-feature-settings: "cv02", "cv03", "cv04", "cv11";
       overflow-x: hidden;
     }
 
-    /* Ambient Radial Glows */
+    /* Ambient Radial Glows (Fiery orange ambiance on obsidian black) */
     .glow-canvas {
       position: fixed;
       inset: 0;
@@ -77,25 +82,25 @@
       top: -150px;
       left: 50%;
       transform: translateX(-50%);
-      width: 1000px;
-      height: 700px;
-      background: radial-gradient(ellipse 65% 55% at 50% 30%, rgba(99, 102, 241, 0.08) 0%, rgba(99, 102, 241, 0) 70%);
+      width: 1050px;
+      height: 750px;
+      background: radial-gradient(ellipse 70% 55% at 50% 28%, rgba(249, 115, 22, 0.16) 0%, rgba(234, 88, 12, 0.05) 50%, rgba(5, 5, 5, 0) 75%);
     }
     .radial-glow-mid {
       position: absolute;
       top: 35%;
       right: -200px;
-      width: 800px;
-      height: 800px;
-      background: radial-gradient(circle 450px at center, rgba(99, 102, 241, 0.05) 0%, transparent 70%);
+      width: 850px;
+      height: 850px;
+      background: radial-gradient(circle 500px at center, rgba(249, 115, 22, 0.10) 0%, rgba(194, 65, 12, 0.03) 50%, transparent 70%);
     }
     .radial-glow-bottom {
       position: absolute;
       bottom: 5%;
       left: -150px;
-      width: 800px;
-      height: 800px;
-      background: radial-gradient(circle 450px at center, rgba(79, 70, 229, 0.06) 0%, transparent 70%);
+      width: 850px;
+      height: 850px;
+      background: radial-gradient(circle 500px at center, rgba(234, 88, 12, 0.12) 0%, rgba(154, 52, 18, 0.03) 50%, transparent 70%);
     }
 
     /* Masked Architectural Grid Pattern */
@@ -105,8 +110,8 @@
       pointer-events: none;
       z-index: 1;
       background-image: 
-        linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+        linear-gradient(to right, rgba(249, 115, 22, 0.045) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(249, 115, 22, 0.045) 1px, transparent 1px);
       background-size: 32px 32px;
       -webkit-mask-image: radial-gradient(ellipse 75% 65% at 50% 25%, #000 20%, transparent 85%);
       mask-image: radial-gradient(ellipse 75% 65% at 50% 25%, #000 20%, transparent 85%);
@@ -119,29 +124,30 @@
       inset: 0;
       pointer-events: none;
       z-index: 99;
-      opacity: 0.025;
+      opacity: 0.028;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
     }
 
     /* Hairline Structural Framing & Glass Cards */
     .glass-card {
-      background: rgba(15, 23, 42, 0.72);
+      background: rgba(18, 16, 15, 0.82);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
-      border: 1px solid rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(249, 115, 22, 0.12);
       position: relative;
     }
     .glass-card:hover {
-      border-color: rgba(99, 102, 241, 0.35);
+      border-color: rgba(249, 115, 22, 0.45);
+      box-shadow: 0 10px 30px -10px rgba(249, 115, 22, 0.14);
     }
     .hairline-border {
-      border: 1px solid rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(249, 115, 22, 0.12);
     }
     .hairline-b {
-      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+      border-bottom: 1px solid rgba(249, 115, 22, 0.12);
     }
     .hairline-t {
-      border-top: 1px solid rgba(255, 255, 255, 0.07);
+      border-top: 1px solid rgba(249, 115, 22, 0.12);
     }
 
     /* Corner Accent Marks */
@@ -152,7 +158,7 @@
       left: -6px;
       font-family: 'JetBrains Mono', monospace;
       font-size: 11px;
-      color: rgba(99, 102, 241, 0.6);
+      color: rgba(249, 115, 22, 0.75);
       pointer-events: none;
     }
     .corner-mark::after {
@@ -162,7 +168,7 @@
       right: -6px;
       font-family: 'JetBrains Mono', monospace;
       font-size: 11px;
-      color: rgba(99, 102, 241, 0.6);
+      color: rgba(249, 115, 22, 0.75);
       pointer-events: none;
     }
 
@@ -181,7 +187,7 @@
     }
   </style>
 </head>
-<body class="min-h-screen bg-dark-bg text-slate-100 selection:bg-brand-500 selection:text-white relative">
+<body class="min-h-screen bg-dark-bg text-stone-100 selection:bg-brand-500 selection:text-black relative">
   <!-- Architectural Background Layers -->
   <div class="glow-canvas">
     <div class="radial-glow-hero"></div>
@@ -413,7 +419,7 @@
           <header className="sticky top-0 z-50 backdrop-blur-md bg-dark-bg/80 hairline-b">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
               <a href="#hero" className="flex items-center space-x-3 group">
-                <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-brand-600 to-indigo-400 flex items-center justify-center font-bold text-xs font-mono text-white shadow-lg shadow-brand-500/20 group-hover:scale-105 transition-transform">
+                <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-brand-600 via-orange-500 to-amber-400 flex items-center justify-center font-bold text-xs font-mono text-black shadow-lg shadow-brand-500/25 group-hover:scale-105 transition-transform">
                   YK
                 </div>
                 <div className="text-left">
@@ -608,7 +614,7 @@
                             href={link.url} 
                             target="_blank" 
                             rel="noreferrer"
-                            className="px-3 py-1.5 rounded-md bg-dark-surface/60 hover:bg-slate-800 border border-white/5 hover:border-brand-500/30 text-xs text-slate-300 font-mono transition flex items-center"
+                            className="px-3 py-1.5 rounded-md bg-dark-surface/60 hover:bg-stone-900 border border-white/5 hover:border-brand-500/30 text-xs text-slate-300 font-mono transition flex items-center"
                           >
                             <span>{link.platform}</span>
                             <ExternalLinkIcon />
@@ -616,7 +622,7 @@
                         ))}
                         <button
                           onClick={handleCopyEmail}
-                          className="px-3 py-1.5 rounded-md bg-dark-surface/60 hover:bg-slate-800 border border-white/5 hover:border-brand-500/30 text-xs text-brand-300 font-mono transition flex items-center"
+                          className="px-3 py-1.5 rounded-md bg-dark-surface/60 hover:bg-stone-900 border border-white/5 hover:border-brand-500/30 text-xs text-brand-300 font-mono transition flex items-center"
                         >
                           {copiedEmail ? <CheckIcon /> : <CopyIcon />}
                           <span>{copiedEmail ? "Copied Email!" : "Copy Email"}</span>
@@ -628,7 +634,7 @@
                   {/* Architecture Monogram Badge */}
                   <div className="relative">
                     <div className="w-48 h-48 sm:w-56 sm:h-56 rounded-2xl glass-card corner-mark p-1 flex flex-col items-center justify-center text-center shadow-2xl relative overflow-hidden group">
-                      <div className="absolute inset-0 bg-gradient-to-tr from-brand-600/20 via-transparent to-brand-500/10 opacity-70 group-hover:opacity-100 transition-opacity"></div>
+                      <div className="absolute inset-0 bg-gradient-to-tr from-brand-600/25 via-orange-500/10 to-transparent opacity-70 group-hover:opacity-100 transition-opacity"></div>
                       <div className="text-6xl font-black text-brand-400 select-none tracking-tighter relative z-10">
                         YK
                       </div>
@@ -754,7 +760,7 @@
                           className="glass-card rounded-2xl overflow-hidden flex flex-col justify-between transition group hover:-translate-y-1 cursor-pointer"
                         >
                           {project.media && project.media.length > 0 && (
-                            <div className="h-44 w-full overflow-hidden bg-slate-900 border-b border-white/5 relative">
+                            <div className="h-44 w-full overflow-hidden bg-stone-950 border-b border-white/5 relative">
                               <img 
                                 src={project.media[0].url} 
                                 alt={project.media[0].alt_text || project.title} 
@@ -837,7 +843,7 @@
 
                 {/* Project Architecture Detail Modal */}
                 {selectedProject && (
-                  <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-dark-bg/80 backdrop-blur-md">
+                  <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md">
                     <div 
                       className="glass-card rounded-2xl max-w-2xl w-full p-6 sm:p-8 hairline-border relative max-h-[90vh] overflow-y-auto"
                       onClick={(e) => e.stopPropagation()}
@@ -859,7 +865,7 @@
 
                       {/* Modal Media */}
                       {selectedProject.media && selectedProject.media.length > 0 && (
-                        <div className="rounded-xl overflow-hidden mb-6 hairline-border bg-slate-900">
+                        <div className="rounded-xl overflow-hidden mb-6 hairline-border bg-stone-950">
                           <img 
                             src={selectedProject.media[0].url} 
                             alt={selectedProject.media[0].alt_text || selectedProject.title}

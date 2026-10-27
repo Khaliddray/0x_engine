@@ -390,7 +390,7 @@ The backend has progressed through its planned foundation and domain milestones.
 - [x] Automated Pytest test suite with isolated SQLite in-memory fixtures (32 test cases)
 - [x] Docker configuration and multi-container orchestration (`Dockerfile` + `docker-compose.yml`)
 - [x] Public contact inquiry endpoint (`POST /api/contact`)
-- [x] React frontend presentation with architectural surface treatment (ambient glows, masked grid, tactile grain, hairline borders, marquee ticker, project detail modal, search/filtering, and contact workflow)
+- [x] React frontend presentation with architectural surface treatment (high-contrast orange & black palette, ambient radial glows, masked grid, tactile grain, hairline borders, marquee ticker, project detail modal, search/filtering, and contact workflow)
 - [x] OAuth2 form-compatible token endpoint (`POST /api/auth/token`) and Starlette CORS middleware
 
 ### Upcoming Architecture & Implementation Priorities

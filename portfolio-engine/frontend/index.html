@@ -101,8 +101,21 @@
 
     // --- Main Application Component ---
     function App() {
+      const getInitialSlug = () => {
+        try {
+          const path = window.location.pathname;
+          const match = path.match(/^\/portfolio\/([^/]+)/);
+          if (match && match[1]) {
+            return decodeURIComponent(match[1]);
+          }
+        } catch (e) {
+          // Fallback if window is not defined
+        }
+        return "khalid";
+      };
+
+      const [slug, setSlug] = useState(getInitialSlug);
       const [portfolio, setPortfolio] = useState(null);
-      const [slug, setSlug] = useState("khalid");
       const [loading, setLoading] = useState(true);
       const [error, setError] = useState(null);
       const [filterFeatured, setFilterFeatured] = useState(false);
@@ -189,7 +202,7 @@
                 </div>
                 <div className="flex items-center justify-center space-x-4">
                   <button 
-                    onClick={() => fetchPortfolio("khalid")} 
+                    onClick={() => fetchPortfolio(slug)} 
                     className="px-4 py-2 bg-brand-600 hover:bg-brand-500 text-white rounded-lg text-sm font-medium transition"
                   >
                     Retry Connection

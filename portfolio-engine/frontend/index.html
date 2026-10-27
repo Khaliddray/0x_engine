@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Yahaya Khalid — Software Engineer & Architecture Portfolio</title>
-  <meta name="description" content="Personal portfolio and software engineering showcase for Yahaya Khalid, powered by Portfolio Engine API." />
+  <title>Yahaya Khalid — Product Builder & Backend Engineer</title>
+  <meta name="description" content="I build purposeful digital products that turn complex problems into practical, scalable solutions." />
   
   <!-- Plus Jakarta Sans & JetBrains Mono Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -365,18 +365,6 @@
         return portfolio.projects.filter((p) => {
           // Category filter
           if (activeCategory === "featured" && !p.is_featured) return false;
-          if (activeCategory === "distributed") {
-            const isDistributed = (p.title + p.description).toLowerCase().includes("pipeline") || 
-                                  (p.title + p.description).toLowerCase().includes("event") ||
-                                  (p.title + p.description).toLowerCase().includes("distributed");
-            if (!isDistributed) return false;
-          }
-          if (activeCategory === "security") {
-            const isSecurity = (p.title + p.description).toLowerCase().includes("auth") || 
-                               (p.title + p.description).toLowerCase().includes("gateway") ||
-                               (p.title + p.description).toLowerCase().includes("zero-trust");
-            if (!isSecurity) return false;
-          }
 
           // Search query filter
           if (searchQuery.trim() !== "") {
@@ -391,10 +379,10 @@
         });
       }, [portfolio, activeCategory, searchQuery]);
 
-      // Architecture ticker technologies
+      // Verified architecture ticker technologies
       const tickerTechs = [
-        "Python 3.12+", "FastAPI", "PostgreSQL", "SQLAlchemy 2.0", "Docker", "Alembic", 
-        "Redis", "Celery", "Pytest", "Argon2id", "JWT Token Auth", "REST Architecture"
+        "Python", "FastAPI", "PostgreSQL", "SQLAlchemy", "Alembic", 
+        "Pydantic", "REST APIs", "Pytest", "Docker", "Git & GitHub"
       ];
 
       return (
@@ -411,16 +399,16 @@
                     <span>Yahaya Khalid</span>
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
                   </div>
-                  <div className="text-[11px] text-slate-400 font-mono">Systems & Backend Architect</div>
+                  <div className="text-[11px] text-slate-400 font-mono">Product Builder & Backend Engineer</div>
                 </div>
               </a>
 
               {/* Desktop Nav */}
               <nav className="hidden md:flex items-center space-x-7 text-xs font-mono text-slate-300">
                 <a href="#about" className="hover:text-brand-400 transition-colors">01 // ABOUT</a>
-                <a href="#projects" className="hover:text-brand-400 transition-colors">02 // SYSTEMS</a>
-                <a href="#skills" className="hover:text-brand-400 transition-colors">03 // STACK</a>
-                <a href="#experience" className="hover:text-brand-400 transition-colors">04 // EXPERIENCE</a>
+                <a href="#projects" className="hover:text-brand-400 transition-colors">02 // PROJECTS</a>
+                <a href="#stack" className="hover:text-brand-400 transition-colors">03 // STACK</a>
+                <a href="#journey" className="hover:text-brand-400 transition-colors">04 // JOURNEY</a>
                 <a href="#contact" className="hover:text-brand-400 transition-colors">05 // CONTACT</a>
               </nav>
 
@@ -478,28 +466,28 @@
                   onClick={() => setMobileMenuOpen(false)}
                   className="block py-1.5 text-slate-300 hover:text-brand-400"
                 >
-                  02 // SYSTEMS & PROJECTS
+                  02 // PROJECTS
                 </a>
                 <a 
-                  href="#skills" 
+                  href="#stack" 
                   onClick={() => setMobileMenuOpen(false)}
                   className="block py-1.5 text-slate-300 hover:text-brand-400"
                 >
-                  03 // TECHNICAL STACK
+                  03 // STACK
                 </a>
                 <a 
-                  href="#experience" 
+                  href="#journey" 
                   onClick={() => setMobileMenuOpen(false)}
                   className="block py-1.5 text-slate-300 hover:text-brand-400"
                 >
-                  04 // CAREER TIMELINE
+                  04 // JOURNEY
                 </a>
                 <a 
                   href="#contact" 
                   onClick={() => setMobileMenuOpen(false)}
                   className="block py-1.5 text-slate-300 hover:text-brand-400"
                 >
-                  05 // CONTACT & INQUIRIES
+                  05 // CONTACT
                 </a>
               </div>
             )}
@@ -549,15 +537,19 @@
                   <div className="max-w-2xl text-center sm:text-left">
                     <div className="inline-flex items-center space-x-2.5 px-3 py-1 rounded-full text-xs font-mono bg-brand-500/10 text-brand-300 border border-brand-500/20 mb-6">
                       <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                      <span>FastAPI REST Core Active • Latency &lt; 5ms</span>
+                      <span>FastAPI REST Core Active</span>
                     </div>
 
-                    <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-white mb-4 leading-tight">
-                      {portfolio.name}
+                    <div className="text-sm font-mono text-brand-400 uppercase tracking-widest mb-3 font-semibold">
+                      Yahaya Khalid — Product Builder & Backend Engineer
+                    </div>
+
+                    <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white mb-6 leading-tight">
+                      I build purposeful digital products that turn complex problems into practical, scalable solutions.
                     </h1>
 
-                    <p className="text-lg sm:text-xl text-slate-300 font-normal leading-relaxed mb-8">
-                      {portfolio.description}
+                    <p className="text-base sm:text-lg text-slate-300 font-normal leading-relaxed mb-8">
+                      I'm a software developer and product builder focused on building useful software, designing maintainable backend systems, and turning ideas into working products. I value clean architecture, practical problem-solving, and software that can grow with its purpose.
                     </p>
 
                     <div className="flex flex-wrap items-center gap-4 justify-center sm:justify-start">
@@ -565,7 +557,7 @@
                         href="#projects" 
                         className="px-5 py-2.5 rounded-lg bg-brand-600 hover:bg-brand-500 text-white font-medium text-sm transition-all shadow-lg shadow-brand-600/25 flex items-center group"
                       >
-                        <span>Explore Systems</span>
+                        <span>Explore Projects</span>
                         <ArrowUpRight />
                       </a>
 
@@ -573,10 +565,10 @@
                         href="#contact" 
                         className="px-5 py-2.5 rounded-lg glass-card hover:bg-dark-card text-slate-200 font-medium text-sm transition-all flex items-center"
                       >
-                        <span>Direct Inquiry</span>
+                        <span>Get In Touch</span>
                       </a>
 
-                      {portfolio.resume && (
+                      {portfolio.resume && portfolio.resume.file_url && (
                         <a 
                           href={portfolio.resume.file_url} 
                           target="_blank" 
@@ -589,7 +581,7 @@
                       )}
                     </div>
 
-                    {/* Social Channels */}
+                    {/* Social Channels (Verified) */}
                     {portfolio.social_links && portfolio.social_links.length > 0 && (
                       <div className="mt-8 flex flex-wrap items-center gap-2.5 justify-center sm:justify-start">
                         {portfolio.social_links.map((link) => (
@@ -597,7 +589,7 @@
                             key={link.platform} 
                             href={link.url} 
                             target="_blank" 
-                            rel="noreferrer"
+                            rel="noreferrer" 
                             className="px-3 py-1.5 rounded-md bg-dark-surface/60 hover:bg-stone-900 border border-white/5 hover:border-brand-500/30 text-xs text-slate-300 font-mono transition flex items-center"
                           >
                             <span>{link.platform}</span>
@@ -623,7 +615,7 @@
                         YK
                       </div>
                       <div className="text-[10px] font-mono text-slate-400 mt-2 relative z-10 uppercase tracking-widest">
-                        Architectural Core
+                        Product & Backend Core
                       </div>
                     </div>
                   </div>
@@ -646,7 +638,7 @@
                   <section id="about" className="py-12">
                     <div className="flex items-center space-x-3 mb-6">
                       <span className="text-xs font-mono text-brand-400">01 //</span>
-                      <h2 className="text-xl font-bold text-white tracking-tight uppercase font-mono">Architectural Principles</h2>
+                      <h2 className="text-xl font-bold text-white tracking-tight uppercase font-mono">ABOUT</h2>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -671,9 +663,9 @@
                     <div>
                       <div className="flex items-center space-x-3 mb-2">
                         <span className="text-xs font-mono text-brand-400">02 //</span>
-                        <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">Engineered Systems & Projects</h2>
+                        <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">PROJECTS</h2>
                       </div>
-                      <p className="text-slate-400 text-sm">High-throughput backends, distributed microservices, and security architectures.</p>
+                      <p className="text-slate-400 text-sm">Engineered products, structured backend systems, and clean API implementations.</p>
                     </div>
 
                     {/* Search and Category Filter Controls */}
@@ -713,12 +705,6 @@
                           className={`px-3 py-1 rounded-md transition ${activeCategory === 'featured' ? 'bg-brand-600 text-white shadow' : 'text-slate-400 hover:text-white'}`}
                         >
                           Featured
-                        </button>
-                        <button 
-                          onClick={() => setActiveCategory("distributed")}
-                          className={`px-3 py-1 rounded-md transition ${activeCategory === 'distributed' ? 'bg-brand-600 text-white shadow' : 'text-slate-400 hover:text-white'}`}
-                        >
-                          Distributed
                         </button>
                       </div>
                     </div>
@@ -808,7 +794,7 @@
                                     onClick={(e) => e.stopPropagation()}
                                     className="text-xs font-mono text-brand-400 hover:text-brand-300 flex items-center transition"
                                   >
-                                    <span>Live Endpoint</span>
+                                    <span>API Documentation</span>
                                     <ExternalLinkIcon />
                                   </a>
                                 ) : (
@@ -896,7 +882,7 @@
                               rel="noreferrer"
                               className="px-4 py-2 rounded-lg glass-card text-brand-300 hover:text-white font-mono text-xs flex items-center transition"
                             >
-                              <span>Inspect Live</span>
+                              <span>Swagger API Docs</span>
                               <ExternalLinkIcon />
                             </a>
                           )}
@@ -913,47 +899,44 @@
                   </div>
                 )}
 
-                {/* Skills Grid */}
+                {/* 03 // STACK */}
                 {portfolio.skills && portfolio.skills.length > 0 && (
-                  <section id="skills" className="py-14 hairline-t">
+                  <section id="stack" className="py-14 hairline-t">
                     <div className="flex items-center space-x-3 mb-2">
                       <span className="text-xs font-mono text-brand-400">03 //</span>
-                      <h2 className="text-2xl sm:text-3xl font-extrabold text-white">Technical Proficiency & Stack</h2>
+                      <h2 className="text-2xl sm:text-3xl font-extrabold text-white">STACK</h2>
                     </div>
-                    <p className="text-slate-400 text-sm mb-8">Specialized languages, core frameworks, database engines, and architectural standards.</p>
+                    <p className="text-slate-400 text-sm mb-8">Technologies I have genuinely worked with across backend services, data modeling, and testing.</p>
 
-                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
                       {portfolio.skills.map((skill) => (
                         <div key={skill.slug} className="glass-card rounded-xl p-4 flex flex-col justify-between hover:border-brand-500/40 transition">
                           <div>
-                            <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400">
-                              {skill.category || 'Skill'}
+                            <span className="text-[10px] font-mono uppercase tracking-wider text-brand-400 font-semibold">
+                              {skill.category || 'Technology'}
                             </span>
-                            <div className="text-base font-semibold text-white mt-0.5">
+                            <div className="text-base font-semibold text-white mt-1">
                               {skill.name}
                             </div>
                           </div>
-                          {skill.proficiency && (
-                            <div className="mt-3 inline-flex items-center">
-                              <span className="px-2 py-0.5 rounded text-[10px] font-mono font-medium bg-brand-500/15 text-brand-300 border border-brand-500/20">
-                                {skill.proficiency}
-                              </span>
-                            </div>
-                          )}
+                          <div className="mt-3 flex items-center space-x-1.5 text-[11px] font-mono text-slate-400">
+                            <span className="w-1.5 h-1.5 rounded-full bg-brand-500/60"></span>
+                            <span>Verified</span>
+                          </div>
                         </div>
                       ))}
                     </div>
                   </section>
                 )}
 
-                {/* Work Experience */}
+                {/* 04 // JOURNEY */}
                 {portfolio.experience && portfolio.experience.length > 0 && (
-                  <section id="experience" className="py-14 hairline-t">
+                  <section id="journey" className="py-14 hairline-t">
                     <div className="flex items-center space-x-3 mb-2">
                       <span className="text-xs font-mono text-brand-400">04 //</span>
-                      <h2 className="text-2xl sm:text-3xl font-extrabold text-white">Career & Engineering History</h2>
+                      <h2 className="text-2xl sm:text-3xl font-extrabold text-white">JOURNEY</h2>
                     </div>
-                    <p className="text-slate-400 text-sm mb-8">Professional software engineering roles, team leadership, and track record.</p>
+                    <p className="text-slate-400 text-sm mb-8">My focus on building purposeful software, designing maintainable backend architectures, and practical engineering.</p>
 
                     <div className="space-y-6">
                       {portfolio.experience.map((exp) => (
@@ -966,7 +949,7 @@
                               </div>
                             </div>
                             <div className="px-3 py-1 rounded-full text-xs font-mono bg-white/5 text-slate-300 self-start sm:self-auto border border-white/5">
-                              {exp.start_date} → {exp.end_date || 'Present'}
+                              Active Focus
                             </div>
                           </div>
                           <p className="text-slate-300 text-sm leading-relaxed whitespace-pre-line mt-4">
@@ -978,73 +961,16 @@
                   </section>
                 )}
 
-                {/* Education & Certifications */}
-                <section id="education" className="py-14 hairline-t">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    {/* Education */}
-                    <div>
-                      <h3 className="text-xl font-bold text-white mb-4 font-mono flex items-center">
-                        <span className="w-2 h-2 rounded-sm bg-brand-500 mr-2"></span>
-                        Academic Background
-                      </h3>
-                      {portfolio.education && portfolio.education.map((edu) => (
-                        <div key={edu.institution} className="glass-card rounded-2xl p-6 mb-4">
-                          <div className="flex justify-between items-start gap-2">
-                            <div>
-                              <div className="font-bold text-white text-base">{edu.degree} in {edu.field_of_study}</div>
-                              <div className="text-sm text-brand-400 font-mono mt-0.5">{edu.institution}</div>
-                              <div className="text-xs text-slate-400 mt-0.5">{edu.location}</div>
-                            </div>
-                            <span className="text-xs font-mono text-slate-400 bg-white/5 px-2.5 py-1 rounded">
-                              {edu.start_date.slice(0, 4)} – {edu.end_date ? edu.end_date.slice(0, 4) : 'Present'}
-                            </span>
-                          </div>
-                          {edu.description && (
-                            <p className="text-slate-300 text-xs leading-relaxed mt-4">
-                              {edu.description}
-                            </p>
-                          )}
-                        </div>
-                      ))}
-                    </div>
-
-                    {/* Certifications */}
-                    <div>
-                      <h3 className="text-xl font-bold text-white mb-4 font-mono flex items-center">
-                        <span className="w-2 h-2 rounded-sm bg-brand-500 mr-2"></span>
-                        Certifications & Credentials
-                      </h3>
-                      {portfolio.certifications && portfolio.certifications.map((cert) => (
-                        <div key={cert.name} className="glass-card rounded-2xl p-6 mb-4">
-                          <div className="font-bold text-white text-base">{cert.name}</div>
-                          <div className="text-sm text-brand-400 font-mono mt-0.5">{cert.issuer}</div>
-                          <div className="text-xs text-slate-400 font-mono mt-1">
-                            Issued: {cert.issue_date} {cert.credential_id && `• ID: ${cert.credential_id}`}
-                          </div>
-                          {cert.credential_url && (
-                            <a 
-                              href={cert.credential_url} 
-                              target="_blank" 
-                              rel="noreferrer"
-                              className="inline-flex items-center text-xs font-mono text-brand-300 hover:text-white mt-3"
-                            >
-                              <span>Verify Credential</span>
-                              <ExternalLinkIcon />
-                            </a>
-                          )}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </section>
-
-                {/* Contact Workflow Section */}
+                {/* 05 // CONTACT */}
                 <section id="contact" className="py-16 hairline-t">
                   <div className="flex items-center space-x-3 mb-2">
                     <span className="text-xs font-mono text-brand-400">05 //</span>
-                    <h2 className="text-2xl sm:text-3xl font-extrabold text-white">Direct Engineering Inquiries</h2>
+                    <h2 className="text-2xl sm:text-3xl font-extrabold text-white">CONTACT</h2>
                   </div>
-                  <p className="text-slate-400 text-sm mb-8">Discuss systems architecture, high-throughput backend design, or engineering roles.</p>
+                  <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">Let's build something useful.</h3>
+                  <p className="text-slate-400 text-sm mb-8 max-w-2xl leading-relaxed">
+                    I'm interested in building digital products, solving practical engineering problems, collaborating with other developers, and continuing to grow through real-world projects.
+                  </p>
 
                   <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
                     {/* Contact Details & Availability */}
@@ -1052,11 +978,11 @@
                       <div className="glass-card rounded-2xl p-6 corner-mark">
                         <div className="inline-flex items-center space-x-2 px-2.5 py-1 rounded text-xs font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 mb-4">
                           <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                          <span>Open to Opportunities</span>
+                          <span>Open for Collaboration & Projects</span>
                         </div>
-                        <h4 className="text-lg font-bold text-white mb-2">Let's build something exceptional.</h4>
+                        <h4 className="text-base font-bold text-white mb-2">Direct Contact Channels</h4>
                         <p className="text-slate-300 text-sm leading-relaxed mb-6">
-                          Currently open to senior backend engineering, distributed systems, and technical lead positions.
+                          Reach out directly for technical collaboration, software discussions, or product engineering inquiries.
                         </p>
 
                         <div className="space-y-3 font-mono text-xs">
@@ -1076,8 +1002,21 @@
                           </div>
 
                           <div className="pt-2 hairline-t">
+                            <span className="text-slate-500 block">GITHUB</span>
+                            <a 
+                              href="https://github.com/Khaliddray" 
+                              target="_blank" 
+                              rel="noreferrer"
+                              className="text-slate-300 hover:text-white flex items-center gap-1 mt-1"
+                            >
+                              <span>github.com/Khaliddray</span>
+                              <ExternalLinkIcon />
+                            </a>
+                          </div>
+
+                          <div className="pt-2 hairline-t">
                             <span className="text-slate-500 block">LOCATION</span>
-                            <span className="text-slate-300">Remote / Worldwide</span>
+                            <span className="text-slate-300">Abuja, Nigeria (Open to Remote)</span>
                           </div>
                         </div>
                       </div>
@@ -1160,7 +1099,7 @@
           <footer className="hairline-t py-8 bg-dark-bg/90 relative z-10">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 gap-4">
               <div className="font-mono text-[11px]">
-                © {new Date().getFullYear()} Yahaya Khalid • Engineered with FastAPI & React
+                © 2026 Yahaya Khalid · Built with a focus on practical software and continuous improvement
               </div>
               <div className="flex items-center space-x-6 font-mono text-[11px]">
                 <a href={`/api/public/portfolios/${slug}`} target="_blank" className="hover:text-brand-400 transition">JSON API Payload</a>

@@ -1,7 +1,7 @@
 """Database seed script for Portfolio Engine.
 
-Populates initial portfolio data for Yahaya Khalid, sample projects,
-skills, experience, and an administrator account for local development.
+Populates accurate portfolio data for Yahaya Khalid, verified projects (Portfolio Engine),
+genuine technical stack, product building journey, and an administrator account for local development.
 """
 
 from datetime import date
@@ -47,258 +47,178 @@ def seed_database() -> None:
         else:
             print("• Admin user already exists")
 
-        # 2. Seed Portfolio
+        # 2. Seed or update Portfolio
         portfolio = db.query(Portfolio).filter_by(slug="khalid").first()
         if not portfolio:
             portfolio = Portfolio(
                 name="Yahaya Khalid",
                 slug="khalid",
-                description="Senior Software Engineer & Systems Architect specializing in Python, FastAPI, distributed systems, and scalable backend engineering.",
+                description=(
+                    "I'm a software developer and product builder focused on building useful software, "
+                    "designing maintainable backend systems, and turning ideas into working products. "
+                    "I value clean architecture, practical problem-solving, and software that can grow with its purpose."
+                ),
             )
             db.add(portfolio)
             db.flush()
             print("✓ Created portfolio: Yahaya Khalid (slug: khalid)")
         else:
-            print("• Portfolio 'khalid' already exists")
+            portfolio.description = (
+                "I'm a software developer and product builder focused on building useful software, "
+                "designing maintainable backend systems, and turning ideas into working products. "
+                "I value clean architecture, practical problem-solving, and software that can grow with its purpose."
+            )
+            db.flush()
+            print("✓ Updated portfolio: Yahaya Khalid (slug: khalid)")
 
         portfolio_id = portfolio.id
 
+        # Clean existing dependent data for a clean re-seed
+        existing_projects = db.query(Project).filter_by(portfolio_id=portfolio_id).all()
+        for p in existing_projects:
+            db.query(ProjectTechnology).filter_by(project_id=p.id).delete()
+            db.query(ProjectMedia).filter_by(project_id=p.id).delete()
+        db.query(Project).filter_by(portfolio_id=portfolio_id).delete()
+        db.query(PortfolioSection).filter_by(portfolio_id=portfolio_id).delete()
+        db.query(Skill).filter_by(portfolio_id=portfolio_id).delete()
+        db.query(Experience).filter_by(portfolio_id=portfolio_id).delete()
+        db.query(Education).filter_by(portfolio_id=portfolio_id).delete()
+        db.query(Certification).filter_by(portfolio_id=portfolio_id).delete()
+        db.query(SocialLink).filter_by(portfolio_id=portfolio_id).delete()
+        db.query(Resume).filter_by(portfolio_id=portfolio_id).delete()
+        db.flush()
+
         # 3. Seed Portfolio Sections
-        if db.query(PortfolioSection).filter_by(portfolio_id=portfolio_id).count() == 0:
-            sections = [
-                PortfolioSection(
-                    portfolio_id=portfolio_id,
-                    title="About Me",
-                    slug="about-me",
-                    type="narrative",
-                    content=(
-                        "I am a backend engineer dedicated to building resilient, high-throughput systems "
-                        "and maintainable architectures. With deep expertise in Python, asynchronous APIs, "
-                        "relational data modeling, and cloud deployments, I focus on engineering solutions "
-                        "that combine performance with clean design."
-                    ),
-                    position=1,
-                    is_visible=True,
-                ),
-                PortfolioSection(
-                    portfolio_id=portfolio_id,
-                    title="Engineering Philosophy",
-                    slug="engineering-philosophy",
-                    type="narrative",
-                    content=(
-                        "Correctness over cleverness. Separation of concerns across data persistence, "
-                        "domain business rules, and HTTP presentation. Automated test suites as contracts "
-                        "for long-term maintainability."
-                    ),
-                    position=2,
-                    is_visible=True,
-                ),
-            ]
-            db.add_all(sections)
-            db.flush()
-            print(f"✓ Created {len(sections)} portfolio sections")
-
-        # 4. Seed Projects
-        if db.query(Project).filter_by(portfolio_id=portfolio_id).count() == 0:
-            prj_engine = Project(
+        sections = [
+            PortfolioSection(
                 portfolio_id=portfolio_id,
-                title="Portfolio Engine",
-                slug="portfolio-engine",
-                description=(
-                    "Long-term, content-driven personal portfolio API and administration system built with "
-                    "FastAPI, PostgreSQL, SQLAlchemy 2.0, Argon2 authentication, and automated test coverage."
+                title="About Me",
+                slug="about-me",
+                type="narrative",
+                content=(
+                    "I'm a software developer and product builder focused on building useful software, "
+                    "designing maintainable backend systems, and turning ideas into working products. "
+                    "My core focus centers on backend engineering, API development, database design, "
+                    "product development, and maintainable software architecture that can grow with its purpose."
                 ),
-                github_url="https://github.com/Khaliddray/0x-engine",
-                live_url="http://localhost:8000",
-                is_featured=True,
-            )
-            prj_queue = Project(
-                portfolio_id=portfolio_id,
-                title="Distributed Event Pipeline",
-                slug="distributed-event-pipeline",
-                description=(
-                    "Fault-tolerant asynchronous event queue engine with Redis and Python workers, "
-                    "dead-letter queues, and real-time metric tracking."
-                ),
-                github_url="https://github.com/Khaliddray/distributed-event-pipeline",
-                live_url="https://pipeline.example.com",
-                is_featured=True,
-            )
-            prj_guard = Project(
-                portfolio_id=portfolio_id,
-                title="AuthGuard Zero-Trust Gateway",
-                slug="authguard-gateway",
-                description=(
-                    "Microservice API gateway implementing Argon2 password hashing, scoped JWT token "
-                    "authorization, and role-based access control."
-                ),
-                github_url="https://github.com/Khaliddray/authguard-gateway",
-                live_url=None,
-                is_featured=False,
-            )
-            db.add_all([prj_engine, prj_queue, prj_guard])
-            db.flush()
-
-            # Add Technologies to projects
-            techs = [
-                # Portfolio Engine
-                ProjectTechnology(project_id=prj_engine.id, name="Python", slug="python", position=1),
-                ProjectTechnology(project_id=prj_engine.id, name="FastAPI", slug="fastapi", position=2),
-                ProjectTechnology(project_id=prj_engine.id, name="PostgreSQL", slug="postgresql", position=3),
-                ProjectTechnology(project_id=prj_engine.id, name="SQLAlchemy", slug="sqlalchemy", position=4),
-                ProjectTechnology(project_id=prj_engine.id, name="Alembic", slug="alembic", position=5),
-                ProjectTechnology(project_id=prj_engine.id, name="Pytest", slug="pytest", position=6),
-                # Distributed Queue
-                ProjectTechnology(project_id=prj_queue.id, name="Python", slug="python", position=1),
-                ProjectTechnology(project_id=prj_queue.id, name="Redis", slug="redis", position=2),
-                ProjectTechnology(project_id=prj_queue.id, name="Docker", slug="docker", position=3),
-                ProjectTechnology(project_id=prj_queue.id, name="Celery", slug="celery", position=4),
-                # AuthGuard
-                ProjectTechnology(project_id=prj_guard.id, name="Python", slug="python", position=1),
-                ProjectTechnology(project_id=prj_guard.id, name="JWT", slug="jwt", position=2),
-                ProjectTechnology(project_id=prj_guard.id, name="Argon2", slug="argon2", position=3),
-            ]
-            db.add_all(techs)
-
-            # Add Media
-            media = [
-                ProjectMedia(
-                    project_id=prj_engine.id,
-                    url="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1000&auto=format&fit=crop&q=80",
-                    alt_text="Portfolio Engine Architecture",
-                    caption="Backend API Architecture and Schemas",
-                    position=1,
-                ),
-                ProjectMedia(
-                    project_id=prj_queue.id,
-                    url="https://images.unsplash.com/photo-1518770660439-4636190af475?w=1000&auto=format&fit=crop&q=80",
-                    alt_text="Distributed Systems Circuit",
-                    caption="High-throughput message pipeline",
-                    position=1,
-                ),
-            ]
-            db.add_all(media)
-            db.flush()
-            print("✓ Created 3 projects with technologies and media")
-
-        # 5. Seed Skills
-        if db.query(Skill).filter_by(portfolio_id=portfolio_id).count() == 0:
-            skills = [
-                # Backend & Languages
-                Skill(portfolio_id=portfolio_id, name="Python", slug="python", category="Languages", proficiency="Expert", position=1),
-                Skill(portfolio_id=portfolio_id, name="FastAPI", slug="fastapi", category="Frameworks", proficiency="Expert", position=2),
-                Skill(portfolio_id=portfolio_id, name="SQLAlchemy", slug="sqlalchemy", category="Frameworks", proficiency="Advanced", position=3),
-                Skill(portfolio_id=portfolio_id, name="PostgreSQL", slug="postgresql", category="Databases", proficiency="Advanced", position=4),
-                Skill(portfolio_id=portfolio_id, name="Redis", slug="redis", category="Databases", proficiency="Intermediate", position=5),
-                Skill(portfolio_id=portfolio_id, name="Alembic", slug="alembic", category="Database Tooling", proficiency="Advanced", position=6),
-                Skill(portfolio_id=portfolio_id, name="Docker", slug="docker", category="DevOps & Infrastructure", proficiency="Intermediate", position=7),
-                Skill(portfolio_id=portfolio_id, name="Pytest & TDD", slug="pytest", category="Testing", proficiency="Advanced", position=8),
-                Skill(portfolio_id=portfolio_id, name="RESTful Architecture", slug="rest-api", category="Architecture", proficiency="Expert", position=9),
-            ]
-            db.add_all(skills)
-            db.flush()
-            print(f"✓ Created {len(skills)} skills")
-
-        # 6. Seed Experience
-        if db.query(Experience).filter_by(portfolio_id=portfolio_id).count() == 0:
-            experiences = [
-                Experience(
-                    portfolio_id=portfolio_id,
-                    company="Engineering Solutions Ltd",
-                    role="Senior Backend Architect",
-                    employment_type="Full-time",
-                    location="Remote",
-                    start_date=date(2023, 1, 15),
-                    end_date=None,
-                    description="Architected distributed APIs, migration tooling, and asynchronous backend services handling millions of monthly requests with high reliability.",
-                    position=1,
-                    is_visible=True,
-                ),
-                Experience(
-                    portfolio_id=portfolio_id,
-                    company="Tech Systems Inc",
-                    role="Backend Software Engineer",
-                    employment_type="Full-time",
-                    location="Hybrid",
-                    start_date=date(2021, 6, 1),
-                    end_date=date(2022, 12, 31),
-                    description="Implemented RESTful microservices in Python, optimized database queries with SQLAlchemy and PostgreSQL, and integrated comprehensive automated testing.",
-                    position=2,
-                    is_visible=True,
-                ),
-            ]
-            db.add_all(experiences)
-            db.flush()
-            print(f"✓ Created {len(experiences)} experiences")
-
-        # 7. Seed Education
-        if db.query(Education).filter_by(portfolio_id=portfolio_id).count() == 0:
-            education = [
-                Education(
-                    portfolio_id=portfolio_id,
-                    institution="University of Technology",
-                    degree="Bachelor of Science",
-                    field_of_study="Computer Science",
-                    location="Nigeria",
-                    start_date=date(2017, 9, 1),
-                    end_date=date(2021, 5, 30),
-                    description="Graduated with honors. Focused on Distributed Systems, Relational Database Theory, and Algorithms.",
-                    position=1,
-                    is_visible=True,
-                )
-            ]
-            db.add_all(education)
-            db.flush()
-            print("✓ Created education history")
-
-        # 8. Seed Certifications
-        if db.query(Certification).filter_by(portfolio_id=portfolio_id).count() == 0:
-            certs = [
-                Certification(
-                    portfolio_id=portfolio_id,
-                    name="AWS Certified Solutions Architect – Associate",
-                    issuer="Amazon Web Services",
-                    credential_id="AWS-SA-2024-9102",
-                    credential_url="https://aws.amazon.com/verification",
-                    issue_date=date(2024, 2, 10),
-                    description="Validation of distributed system design, cloud security, and high-availability architecture.",
-                    position=1,
-                    is_visible=True,
-                ),
-            ]
-            db.add_all(certs)
-            db.flush()
-            print("✓ Created certifications")
-
-        # 9. Seed Social Links
-        if db.query(SocialLink).filter_by(portfolio_id=portfolio_id).count() == 0:
-            links = [
-                SocialLink(portfolio_id=portfolio_id, platform="GitHub", url="https://github.com/Khaliddray", label="github.com/Khaliddray", position=1, is_visible=True),
-                SocialLink(portfolio_id=portfolio_id, platform="LinkedIn", url="https://linkedin.com/in/yahaya-khalid", label="LinkedIn Profile", position=2, is_visible=True),
-                SocialLink(portfolio_id=portfolio_id, platform="Twitter", url="https://twitter.com/khaliddray", label="@khaliddray", position=3, is_visible=True),
-                SocialLink(portfolio_id=portfolio_id, platform="Email", url="mailto:khalidzak21@gmail.com", label="khalidzak21@gmail.com", position=4, is_visible=True),
-            ]
-            db.add_all(links)
-            db.flush()
-            print(f"✓ Created {len(links)} social links")
-
-        # 10. Seed Resume
-        if db.query(Resume).filter_by(portfolio_id=portfolio_id).count() == 0:
-            resume = Resume(
-                portfolio_id=portfolio_id,
-                title="Yahaya Khalid - Senior Backend Engineer CV",
-                file_url="https://example.com/resumes/yahaya_khalid_cv.pdf",
-                version="2026.1",
-                description="Comprehensive engineering curriculum vitae highlighting technical skills, architectural projects, and career milestones.",
-                is_primary=True,
+                position=1,
                 is_visible=True,
-            )
-            db.add(resume)
-            db.flush()
-            print("✓ Created primary resume reference")
+            ),
+            PortfolioSection(
+                portfolio_id=portfolio_id,
+                title="Engineering Philosophy",
+                slug="engineering-philosophy",
+                type="philosophy",
+                content=(
+                    "Build what solves the problem. Keep the architecture understandable. "
+                    "Design data models carefully, separate responsibilities, and build products "
+                    "that can evolve as requirements change."
+                ),
+                position=2,
+                is_visible=True,
+            ),
+        ]
+        db.add_all(sections)
+        db.flush()
+        print(f"✓ Created {len(sections)} portfolio sections")
+
+        # 4. Seed Verified Project: Portfolio Engine
+        prj_engine = Project(
+            portfolio_id=portfolio_id,
+            title="Portfolio Engine",
+            slug="portfolio-engine",
+            description=(
+                "A dynamic, content-driven portfolio management API that allows portfolio information and "
+                "projects to be managed through structured backend endpoints. It is designed to support future "
+                "growth without rebuilding the entire portfolio whenever the owner's career develops."
+            ),
+            github_url="https://github.com/Khaliddray/0x_engine",
+            live_url="/docs",
+            is_featured=True,
+        )
+        db.add(prj_engine)
+        db.flush()
+
+        # Add Verified Technologies to Portfolio Engine
+        techs = [
+            ProjectTechnology(project_id=prj_engine.id, name="Python", slug="python", position=1),
+            ProjectTechnology(project_id=prj_engine.id, name="FastAPI", slug="fastapi", position=2),
+            ProjectTechnology(project_id=prj_engine.id, name="PostgreSQL", slug="postgresql", position=3),
+            ProjectTechnology(project_id=prj_engine.id, name="SQLAlchemy", slug="sqlalchemy", position=4),
+            ProjectTechnology(project_id=prj_engine.id, name="Alembic", slug="alembic", position=5),
+            ProjectTechnology(project_id=prj_engine.id, name="Pydantic", slug="pydantic", position=6),
+            ProjectTechnology(project_id=prj_engine.id, name="Pytest", slug="pytest", position=7),
+            ProjectTechnology(project_id=prj_engine.id, name="Docker", slug="docker", position=8),
+        ]
+        db.add_all(techs)
+
+        # Add Media
+        media = [
+            ProjectMedia(
+                project_id=prj_engine.id,
+                url="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1000&auto=format&fit=crop&q=80",
+                alt_text="Portfolio Engine Architecture",
+                caption="FastAPI REST API Layer, SQLAlchemy Repositories, and Alembic Migrations",
+                position=1,
+            ),
+        ]
+        db.add_all(media)
+        db.flush()
+        print("✓ Created Portfolio Engine project with technologies and architecture media")
+
+        # 5. Seed Genuine Technical Stack (no unverified proficiency levels)
+        skills = [
+            Skill(portfolio_id=portfolio_id, name="Python", slug="python", category="Languages", proficiency=None, position=1),
+            Skill(portfolio_id=portfolio_id, name="FastAPI", slug="fastapi", category="Frameworks", proficiency=None, position=2),
+            Skill(portfolio_id=portfolio_id, name="PostgreSQL", slug="postgresql", category="Databases", proficiency=None, position=3),
+            Skill(portfolio_id=portfolio_id, name="SQLAlchemy", slug="sqlalchemy", category="Data Access & ORM", proficiency=None, position=4),
+            Skill(portfolio_id=portfolio_id, name="Alembic", slug="alembic", category="Database Migrations", proficiency=None, position=5),
+            Skill(portfolio_id=portfolio_id, name="Pydantic", slug="pydantic", category="Validation & Schemas", proficiency=None, position=6),
+            Skill(portfolio_id=portfolio_id, name="REST APIs", slug="rest-api", category="Architecture", proficiency=None, position=7),
+            Skill(portfolio_id=portfolio_id, name="Git & GitHub", slug="git-github", category="Version Control", proficiency=None, position=8),
+            Skill(portfolio_id=portfolio_id, name="Docker", slug="docker", category="Containerization", proficiency=None, position=9),
+            Skill(portfolio_id=portfolio_id, name="Pytest", slug="pytest", category="Testing & Automation", proficiency=None, position=10),
+        ]
+        db.add_all(skills)
+        db.flush()
+        print(f"✓ Created {len(skills)} verified skills")
+
+        # 6. Seed Journey (Focus on Product Building & Backend Engineering)
+        experiences = [
+            Experience(
+                portfolio_id=portfolio_id,
+                company="Product Building & Backend Systems",
+                role="Product Builder & Backend Engineer",
+                employment_type="Independent Engineering",
+                location="Abuja, Nigeria",
+                start_date=date(2023, 1, 1),
+                end_date=None,
+                description=(
+                    "Focused on building purposeful digital products, designing maintainable backend systems, "
+                    "and turning ideas into working software. Designed and implemented Portfolio Engine from the "
+                    "ground up as a production-grade, content-driven portfolio management API with layered architecture "
+                    "(Routes → Services → Repositories → Models), partial PATCH updates, Argon2 authentication, "
+                    "Alembic database migrations, and 100% passing automated Pytest test suites."
+                ),
+                position=1,
+                is_visible=True,
+            ),
+        ]
+        db.add_all(experiences)
+        db.flush()
+        print("✓ Created Journey entry")
+
+        # 7. Seed Verified Social & Contact Links
+        links = [
+            SocialLink(portfolio_id=portfolio_id, platform="GitHub", url="https://github.com/Khaliddray", label="github.com/Khaliddray", position=1, is_visible=True),
+            SocialLink(portfolio_id=portfolio_id, platform="Email", url="mailto:khalidzak21@gmail.com", label="khalidzak21@gmail.com", position=2, is_visible=True),
+        ]
+        db.add_all(links)
+        db.flush()
+        print(f"✓ Created {len(links)} verified social and contact links")
 
         db.commit()
-        print("\n Seeding completed successfully!")
+        print("\n Seeding completed successfully with accurate, verified developer data!")
     except Exception as e:
         db.rollback()
         print(f"❌ Error during seeding: {e}")

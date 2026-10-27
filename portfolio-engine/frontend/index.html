@@ -6,10 +6,10 @@
   <title>Yahaya Khalid — Product Builder & Backend Engineer</title>
   <meta name="description" content="I build purposeful digital products that turn complex problems into practical, scalable solutions." />
   
-  <!-- Plus Jakarta Sans & JetBrains Mono Fonts -->
+  <!-- Google Fonts: Playfair Display (Serif), Inter (Sans), JetBrains Mono (Code) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -19,7 +19,8 @@
       theme: {
         extend: {
           fontFamily: {
-            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            serif: ['"Playfair Display"', 'Georgia', 'Cambria', 'serif'],
+            sans: ['"Inter"', '"Plus Jakarta Sans"', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', 'sans-serif'],
             mono: ['"JetBrains Mono"', 'monospace'],
           },
           colors: {
@@ -59,6 +60,9 @@
       color-scheme: dark;
     }
     body {
+      font-family: "Inter", "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
       background-color: #050505;
       background-image: 
         radial-gradient(circle at 50% 0%, #1f0b02 0%, #0d0602 35%, #050505 70%);
@@ -66,6 +70,11 @@
       color: #f5f5f5;
       font-feature-settings: "cv02", "cv03", "cv04", "cv11";
       overflow-x: hidden;
+    }
+
+    .editorial-heading {
+      font-family: "Playfair Display", Georgia, Cambria, serif;
+      letter-spacing: -0.015em;
     }
 
     /* Ambient Radial Glows (Fiery orange ambiance on obsidian black) */
@@ -544,8 +553,8 @@
                       Yahaya Khalid — Product Builder & Backend Engineer
                     </div>
 
-                    <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white mb-6 leading-tight">
-                      I build purposeful digital products that turn complex problems into practical, scalable solutions.
+                    <h1 className="text-4xl sm:text-6xl lg:text-[68px] font-serif font-medium tracking-tight text-white mb-6 leading-[1.12]">
+                      I build <span className="italic font-normal text-brand-300">purposeful</span> digital products that turn complex problems into practical, scalable solutions.
                     </h1>
 
                     <p className="text-base sm:text-lg text-slate-300 font-normal leading-relaxed mb-8">
@@ -638,17 +647,17 @@
                   <section id="about" className="py-12">
                     <div className="flex items-center space-x-3 mb-6">
                       <span className="text-xs font-mono text-brand-400">01 //</span>
-                      <h2 className="text-xl font-bold text-white tracking-tight uppercase font-mono">ABOUT</h2>
+                      <h2 className="text-2xl sm:text-4xl font-serif font-medium text-white tracking-tight">About</h2>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       {portfolio.sections.map((sec) => (
                         <div key={sec.slug} className="glass-card rounded-2xl p-6 sm:p-8 corner-mark">
-                          <h3 className="text-lg font-bold text-white mb-3 flex items-center">
+                          <h3 className="text-xl sm:text-2xl font-serif font-medium text-white mb-3 flex items-center">
                             <span className="w-2 h-2 rounded-sm bg-brand-500 mr-2.5"></span>
                             {sec.title}
                           </h3>
-                          <p className="text-slate-300 text-sm leading-relaxed whitespace-pre-line">
+                          <p className="text-slate-300 text-sm leading-relaxed whitespace-pre-line font-sans">
                             {sec.content}
                           </p>
                         </div>
@@ -663,9 +672,9 @@
                     <div>
                       <div className="flex items-center space-x-3 mb-2">
                         <span className="text-xs font-mono text-brand-400">02 //</span>
-                        <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">PROJECTS</h2>
+                        <h2 className="text-2xl sm:text-4xl font-serif font-medium text-white tracking-tight">Projects</h2>
                       </div>
-                      <p className="text-slate-400 text-sm">Engineered products, structured backend systems, and clean API implementations.</p>
+                      <p className="text-slate-400 text-sm font-sans">Engineered products, structured backend systems, and clean API implementations.</p>
                     </div>
 
                     {/* Search and Category Filter Controls */}
@@ -747,7 +756,7 @@
                           <div className="p-6 flex-grow flex flex-col justify-between">
                             <div>
                               <div className="flex items-center justify-between mb-2">
-                                <h3 className="text-lg font-bold text-white group-hover:text-brand-400 transition-colors flex items-center">
+                                <h3 className="text-xl sm:text-2xl font-serif font-medium text-white group-hover:text-brand-400 transition-colors flex items-center">
                                   <span>{project.title}</span>
                                   <ArrowUpRight />
                                 </h3>
@@ -830,7 +839,7 @@
                         {selectedProject.is_featured && <span>• FEATURED</span>}
                       </div>
 
-                      <h3 className="text-2xl font-bold text-white mb-2">{selectedProject.title}</h3>
+                      <h3 className="text-2xl sm:text-3xl font-serif font-medium text-white mb-2">{selectedProject.title}</h3>
                       <p className="text-slate-300 text-sm leading-relaxed mb-6">{selectedProject.description}</p>
 
                       {/* Modal Media */}
@@ -904,9 +913,9 @@
                   <section id="stack" className="py-14 hairline-t">
                     <div className="flex items-center space-x-3 mb-2">
                       <span className="text-xs font-mono text-brand-400">03 //</span>
-                      <h2 className="text-2xl sm:text-3xl font-extrabold text-white">STACK</h2>
+                      <h2 className="text-2xl sm:text-4xl font-serif font-medium text-white tracking-tight">Stack</h2>
                     </div>
-                    <p className="text-slate-400 text-sm mb-8">Technologies I have genuinely worked with across backend services, data modeling, and testing.</p>
+                    <p className="text-slate-400 text-sm mb-8 font-sans">Technologies I have genuinely worked with across backend services, data modeling, and testing.</p>
 
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
                       {portfolio.skills.map((skill) => (
@@ -915,7 +924,7 @@
                             <span className="text-[10px] font-mono uppercase tracking-wider text-brand-400 font-semibold">
                               {skill.category || 'Technology'}
                             </span>
-                            <div className="text-base font-semibold text-white mt-1">
+                            <div className="text-base font-semibold text-white mt-1 font-sans">
                               {skill.name}
                             </div>
                           </div>
@@ -934,16 +943,16 @@
                   <section id="journey" className="py-14 hairline-t">
                     <div className="flex items-center space-x-3 mb-2">
                       <span className="text-xs font-mono text-brand-400">04 //</span>
-                      <h2 className="text-2xl sm:text-3xl font-extrabold text-white">JOURNEY</h2>
+                      <h2 className="text-2xl sm:text-4xl font-serif font-medium text-white tracking-tight">Journey</h2>
                     </div>
-                    <p className="text-slate-400 text-sm mb-8">My focus on building purposeful software, designing maintainable backend architectures, and practical engineering.</p>
+                    <p className="text-slate-400 text-sm mb-8 font-sans">My focus on building purposeful software, designing maintainable backend architectures, and practical engineering.</p>
 
                     <div className="space-y-6">
                       {portfolio.experience.map((exp) => (
                         <div key={exp.company + exp.role} className="glass-card rounded-2xl p-6 sm:p-8 corner-mark">
                           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
                             <div>
-                              <h3 className="text-lg font-bold text-white">{exp.role}</h3>
+                              <h3 className="text-xl sm:text-2xl font-serif font-medium text-white">{exp.role}</h3>
                               <div className="text-sm font-medium text-brand-400 font-mono mt-0.5">
                                 {exp.company} • <span className="text-slate-400">{exp.location}</span>
                               </div>
@@ -952,7 +961,7 @@
                               Active Focus
                             </div>
                           </div>
-                          <p className="text-slate-300 text-sm leading-relaxed whitespace-pre-line mt-4">
+                          <p className="text-slate-300 text-sm leading-relaxed whitespace-pre-line mt-4 font-sans">
                             {exp.description}
                           </p>
                         </div>
@@ -965,10 +974,10 @@
                 <section id="contact" className="py-16 hairline-t">
                   <div className="flex items-center space-x-3 mb-2">
                     <span className="text-xs font-mono text-brand-400">05 //</span>
-                    <h2 className="text-2xl sm:text-3xl font-extrabold text-white">CONTACT</h2>
+                    <h2 className="text-2xl sm:text-4xl font-serif font-medium text-white tracking-tight">Contact</h2>
                   </div>
-                  <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">Let's build something useful.</h3>
-                  <p className="text-slate-400 text-sm mb-8 max-w-2xl leading-relaxed">
+                  <h3 className="text-2xl sm:text-4xl font-serif font-medium text-white mb-2 leading-tight">Let's build something useful.</h3>
+                  <p className="text-slate-400 text-sm mb-8 max-w-2xl leading-relaxed font-sans">
                     I'm interested in building digital products, solving practical engineering problems, collaborating with other developers, and continuing to grow through real-world projects.
                   </p>
 
@@ -980,7 +989,7 @@
                           <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
                           <span>Open for Collaboration & Projects</span>
                         </div>
-                        <h4 className="text-base font-bold text-white mb-2">Direct Contact Channels</h4>
+                        <h4 className="text-lg sm:text-xl font-serif font-medium text-white mb-2">Direct Contact Channels</h4>
                         <p className="text-slate-300 text-sm leading-relaxed mb-6">
                           Reach out directly for technical collaboration, software discussions, or product engineering inquiries.
                         </p>

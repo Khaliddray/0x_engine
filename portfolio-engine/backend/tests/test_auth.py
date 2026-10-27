@@ -87,3 +87,42 @@ def test_users_list_requires_superuser(client, auth_headers, superuser_headers):
     su_res = client.get("/api/users", headers=superuser_headers)
     assert su_res.status_code == 200
     assert len(su_res.json()) >= 1
+
+
+def test_oauth2_token_login_success(client, test_user):
+    response = client.post(
+        "/api/auth/token",
+        data={
+            "username": "developer@example.com",
+            "password": "DevPassword123!",
+        },
+    )
+    assert response.status_code == 200
+    data = response.json()
+    assert "access_token" in data
+    assert data["token_type"] == "bearer"
+
+
+def test_oauth2_token_login_invalid(client, test_user):
+    response = client.post(
+        "/api/auth/token",
+        data={
+            "username": "developer@example.com",
+            "password": "WrongPassword!",
+        },
+    )
+    assert response.status_code == 401
+    assert "Incorrect email or password" in response.json()["detail"]
+
+
+def test_cors_headers_present(client):
+    response = client.options(
+        "/api/auth/me",
+        headers={
+            "Origin": "http://localhost:5173",
+            "Access-Control-Request-Method": "GET",
+        },
+    )
+    assert response.status_code == 200
+    assert response.headers.get("access-control-allow-origin") == "http://localhost:5173"
+    assert "GET" in response.headers.get("access-control-allow-methods", "")

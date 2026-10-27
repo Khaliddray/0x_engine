@@ -138,7 +138,18 @@ uvicorn app.main:app --reload
 ```
 Interactive API documentation will be available at:
 - Swagger UI: `http://localhost:8000/docs`
-- ReDoc: `http://localhost:8000/redoc`
+### 6. Running with Docker Compose (Recommended)
+You can start the PostgreSQL database and FastAPI backend with a single command:
+
+```bash
+docker compose up --build
+```
+
+This will:
+- Spin up PostgreSQL 16 on port 5432 with health check verification.
+- Build the FastAPI container.
+- Automatically execute `alembic upgrade head` to run all migrations.
+- Serve the API and frontend on `http://localhost:8000`.
 
 ---
 

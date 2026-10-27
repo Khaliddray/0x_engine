@@ -390,14 +390,10 @@ The backend has progressed through its planned foundation and domain milestones.
 - [x] Mutation route protection across all endpoints
 - [x] Portfolio administration overview endpoint (`/api/admin/overview`)
 - [x] Automated Pytest test suite with isolated SQLite in-memory fixtures
+- [x] Docker configuration and multi-container orchestration (`Dockerfile` + `docker-compose.yml`)
 
 ### Upcoming Architecture & Implementation Priorities
-1. **Containerization & Deployment**
-   - Docker configuration for the FastAPI backend application
-   - Multi-container orchestration via `docker-compose.yml` (PostgreSQL service + Backend API service)
-   - Production environment variables and database initialization
-
-2. **Frontend Presentation & Content Management**
+1. **Frontend Presentation & Content Management**
    - React-based frontend consuming the public portfolio endpoint (`/api/public/portfolios/{slug}`)
    - Administrative dashboard for managing portfolio sections and projects
 

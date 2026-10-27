@@ -387,15 +387,16 @@ The backend has progressed through its planned foundation and domain milestones.
 - [x] Project Media CRUD
 - [x] Public Portfolio aggregation endpoint (`/api/public/portfolios/{slug}`)
 - [x] User Authentication (Argon2 + JWT tokens)
-- [x] Mutation route protection across all endpoints
-- [x] Portfolio administration overview endpoint (`/api/admin/overview`)
-- [x] Automated Pytest test suite with isolated SQLite in-memory fixtures
+- [x] Automated Pytest test suite with isolated SQLite in-memory fixtures (32 test cases)
 - [x] Docker configuration and multi-container orchestration (`Dockerfile` + `docker-compose.yml`)
+- [x] Public contact inquiry endpoint (`POST /api/contact`)
+- [x] React frontend presentation with architectural surface treatment (ambient glows, masked grid, tactile grain, hairline borders, marquee ticker, project detail modal, search/filtering, and contact workflow)
+- [x] OAuth2 form-compatible token endpoint (`POST /api/auth/token`) and Starlette CORS middleware
 
 ### Upcoming Architecture & Implementation Priorities
-1. **Frontend Presentation & Content Management**
-   - React-based frontend consuming the public portfolio endpoint (`/api/public/portfolios/{slug}`)
-   - Administrative dashboard for managing portfolio sections and projects
+1. **Administrative Content Management Dashboard**
+   - Administrative UI dashboard for managing portfolio sections, projects, media, and credentials
+   - S3 / cloud storage multipart media and resume document upload pipeline
 
 New features should fit naturally into the existing architecture.
 Do not build all future features prematurely.

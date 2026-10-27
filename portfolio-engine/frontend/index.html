@@ -6,10 +6,10 @@
   <title>Yahaya Khalid — Software Engineer & Architecture Portfolio</title>
   <meta name="description" content="Personal portfolio and software engineering showcase for Yahaya Khalid, powered by Portfolio Engine API." />
   
-  <!-- Inter Font -->
+  <!-- Plus Jakarta Sans & JetBrains Mono Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -26,6 +26,8 @@
             brand: {
               50: '#eef2ff',
               100: '#e0e7ff',
+              200: '#c7d2fe',
+              300: '#a5b4fc',
               400: '#818cf8',
               500: '#6366f1',
               600: '#4f46e5',
@@ -37,6 +39,7 @@
               surface: '#0f172a',
               card: '#131e36',
               border: '#1e293b',
+              hairline: 'rgba(255, 255, 255, 0.07)',
             }
           }
         }
@@ -50,39 +53,158 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   
   <style>
+    :root {
+      color-scheme: dark;
+    }
     body {
       background-color: #090d16;
       color: #f1f5f9;
       font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+      overflow-x: hidden;
     }
-    .glow-effect {
-      background: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.15) 0%, rgba(9, 13, 22, 0) 70%);
+
+    /* Ambient Radial Glows */
+    .glow-canvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+      transform: translateZ(0);
     }
+    .radial-glow-hero {
+      position: absolute;
+      top: -150px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1000px;
+      height: 700px;
+      background: radial-gradient(ellipse 65% 55% at 50% 30%, rgba(99, 102, 241, 0.08) 0%, rgba(99, 102, 241, 0) 70%);
+    }
+    .radial-glow-mid {
+      position: absolute;
+      top: 35%;
+      right: -200px;
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle 450px at center, rgba(99, 102, 241, 0.05) 0%, transparent 70%);
+    }
+    .radial-glow-bottom {
+      position: absolute;
+      bottom: 5%;
+      left: -150px;
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle 450px at center, rgba(79, 70, 229, 0.06) 0%, transparent 70%);
+    }
+
+    /* Masked Architectural Grid Pattern */
+    .architectural-grid {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+      background-size: 32px 32px;
+      -webkit-mask-image: radial-gradient(ellipse 75% 65% at 50% 25%, #000 20%, transparent 85%);
+      mask-image: radial-gradient(ellipse 75% 65% at 50% 25%, #000 20%, transparent 85%);
+      transform: translateZ(0);
+    }
+
+    /* Tactile Grain Noise Overlay */
+    .tactile-grain {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 99;
+      opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+
+    /* Hairline Structural Framing & Glass Cards */
     .glass-card {
-      background: rgba(19, 30, 54, 0.65);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(15, 23, 42, 0.72);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      position: relative;
     }
     .glass-card:hover {
-      border-color: rgba(99, 102, 241, 0.3);
+      border-color: rgba(99, 102, 241, 0.35);
+    }
+    .hairline-border {
+      border: 1px solid rgba(255, 255, 255, 0.07);
+    }
+    .hairline-b {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    }
+    .hairline-t {
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    /* Corner Accent Marks */
+    .corner-mark::before {
+      content: '+';
+      position: absolute;
+      top: -9px;
+      left: -6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: rgba(99, 102, 241, 0.6);
+      pointer-events: none;
+    }
+    .corner-mark::after {
+      content: '+';
+      position: absolute;
+      bottom: -9px;
+      right: -6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: rgba(99, 102, 241, 0.6);
+      pointer-events: none;
+    }
+
+    /* Marquee animation */
+    @keyframes marquee {
+      0% { transform: translateX(0%); }
+      100% { transform: translateX(-50%); }
+    }
+    .animate-marquee {
+      display: flex;
+      width: 200%;
+      animation: marquee 28s linear infinite;
+    }
+    .animate-marquee:hover {
+      animation-play-state: paused;
     }
   </style>
 </head>
-<body class="min-h-screen bg-dark-bg text-slate-100 selection:bg-brand-500 selection:text-white">
-  <div id="root"></div>
+<body class="min-h-screen bg-dark-bg text-slate-100 selection:bg-brand-500 selection:text-white relative">
+  <!-- Architectural Background Layers -->
+  <div class="glow-canvas">
+    <div class="radial-glow-hero"></div>
+    <div class="radial-glow-mid"></div>
+    <div class="radial-glow-bottom"></div>
+  </div>
+  <div class="architectural-grid"></div>
+  <div class="tactile-grain"></div>
+
+  <div id="root" class="relative z-10"></div>
 
   <script type="text/babel">
-    const { useState, useEffect } = React;
+    const { useState, useEffect, useMemo } = React;
 
     // --- Icons ---
     const CodeIcon = () => (
-      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
       </svg>
     );
 
     const ExternalLinkIcon = () => (
-      <svg className="w-4 h-4 inline-block ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg className="w-3.5 h-3.5 inline-block ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
       </svg>
     );
@@ -99,6 +221,42 @@
       </svg>
     );
 
+    const CheckIcon = () => (
+      <svg className="w-4 h-4 inline-block mr-1 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 13l4 4L19 7"/>
+      </svg>
+    );
+
+    const CopyIcon = () => (
+      <svg className="w-3.5 h-3.5 inline-block mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"/>
+      </svg>
+    );
+
+    const CloseIcon = () => (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"/>
+      </svg>
+    );
+
+    const SearchIcon = () => (
+      <svg className="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+      </svg>
+    );
+
+    const MenuIcon = () => (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7"/>
+      </svg>
+    );
+
+    const ArrowUpRight = () => (
+      <svg className="w-4 h-4 ml-1 transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 17L17 7M17 7H7M17 7V17"/>
+      </svg>
+    );
+
     // --- Main Application Component ---
     function App() {
       const getInitialSlug = () => {
@@ -108,9 +266,7 @@
           if (match && match[1]) {
             return decodeURIComponent(match[1]);
           }
-        } catch (e) {
-          // Fallback if window is not defined
-        }
+        } catch (e) {}
         return "khalid";
       };
 
@@ -118,7 +274,26 @@
       const [portfolio, setPortfolio] = useState(null);
       const [loading, setLoading] = useState(true);
       const [error, setError] = useState(null);
-      const [filterFeatured, setFilterFeatured] = useState(false);
+
+      // Filtering and Search State
+      const [activeCategory, setActiveCategory] = useState("all");
+      const [searchQuery, setSearchQuery] = useState("");
+      const [selectedProject, setSelectedProject] = useState(null);
+
+      // Feedback states
+      const [copiedEmail, setCopiedEmail] = useState(false);
+      const [copiedCurl, setCopiedCurl] = useState(false);
+      const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+      // Contact Form State
+      const [contactForm, setContactForm] = useState({
+        name: "",
+        email: "",
+        subject: "",
+        message: "",
+      });
+      const [contactSubmitting, setContactSubmitting] = useState(false);
+      const [contactStatus, setContactStatus] = useState(null);
 
       useEffect(() => {
         fetchPortfolio(slug);
@@ -144,57 +319,217 @@
         }
       };
 
+      const handleCopyEmail = (e) => {
+        e.preventDefault();
+        navigator.clipboard.writeText("khalidzak21@gmail.com");
+        setCopiedEmail(true);
+        setTimeout(() => setCopiedEmail(false), 2500);
+      };
+
+      const handleCopyCurl = (e) => {
+        e.preventDefault();
+        const curlCmd = `curl -s ${window.location.origin}/api/public/portfolios/${slug}`;
+        navigator.clipboard.writeText(curlCmd);
+        setCopiedCurl(true);
+        setTimeout(() => setCopiedCurl(false), 2500);
+      };
+
+      const handleContactSubmit = async (e) => {
+        e.preventDefault();
+        setContactSubmitting(true);
+        setContactStatus(null);
+
+        try {
+          const res = await fetch("/api/contact", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(contactForm),
+          });
+
+          if (!res.ok) {
+            throw new Error(`Inquiry submission failed (HTTP ${res.status})`);
+          }
+
+          const data = await res.json();
+          setContactStatus({
+            type: "success",
+            message: data.message || "Your inquiry has been logged! Yahaya Khalid will follow up shortly.",
+          });
+          setContactForm({ name: "", email: "", subject: "", message: "" });
+        } catch (err) {
+          // Fallback to mailto if API fails
+          window.location.href = `mailto:khalidzak21@gmail.com?subject=${encodeURIComponent(contactForm.subject || "Engineering Inquiry")}&body=${encodeURIComponent(`From: ${contactForm.name} (${contactForm.email})\n\n${contactForm.message}`)}`;
+          setContactStatus({
+            type: "info",
+            message: "Opened your default email client to send your message directly.",
+          });
+        } finally {
+          setContactSubmitting(false);
+        }
+      };
+
+      // Filtered projects
+      const filteredProjects = useMemo(() => {
+        if (!portfolio || !portfolio.projects) return [];
+
+        return portfolio.projects.filter((p) => {
+          // Category filter
+          if (activeCategory === "featured" && !p.is_featured) return false;
+          if (activeCategory === "distributed") {
+            const isDistributed = (p.title + p.description).toLowerCase().includes("pipeline") || 
+                                  (p.title + p.description).toLowerCase().includes("event") ||
+                                  (p.title + p.description).toLowerCase().includes("distributed");
+            if (!isDistributed) return false;
+          }
+          if (activeCategory === "security") {
+            const isSecurity = (p.title + p.description).toLowerCase().includes("auth") || 
+                               (p.title + p.description).toLowerCase().includes("gateway") ||
+                               (p.title + p.description).toLowerCase().includes("zero-trust");
+            if (!isSecurity) return false;
+          }
+
+          // Search query filter
+          if (searchQuery.trim() !== "") {
+            const query = searchQuery.toLowerCase();
+            const titleMatch = p.title.toLowerCase().includes(query);
+            const descMatch = (p.description || "").toLowerCase().includes(query);
+            const techMatch = (p.technologies || []).some(t => t.name.toLowerCase().includes(query));
+            if (!titleMatch && !descMatch && !techMatch) return false;
+          }
+
+          return true;
+        });
+      }, [portfolio, activeCategory, searchQuery]);
+
+      // Architecture ticker technologies
+      const tickerTechs = [
+        "Python 3.12+", "FastAPI", "PostgreSQL", "SQLAlchemy 2.0", "Docker", "Alembic", 
+        "Redis", "Celery", "Pytest", "Argon2id", "JWT Token Auth", "REST Architecture"
+      ];
+
       return (
-        <div className="relative min-h-screen glow-effect flex flex-col justify-between">
+        <div className="min-h-screen flex flex-col justify-between relative">
           {/* Header */}
-          <header className="sticky top-0 z-50 backdrop-blur-md bg-dark-bg/80 border-b border-white/5">
+          <header className="sticky top-0 z-50 backdrop-blur-md bg-dark-bg/80 hairline-b">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
               <a href="#hero" className="flex items-center space-x-3 group">
-                <div className="w-9 h-9 rounded-lg bg-gradient-to-tr from-brand-600 to-indigo-400 flex items-center justify-center font-bold text-white shadow-lg shadow-brand-500/20 group-hover:scale-105 transition-transform">
+                <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-brand-600 to-indigo-400 flex items-center justify-center font-bold text-xs font-mono text-white shadow-lg shadow-brand-500/20 group-hover:scale-105 transition-transform">
                   YK
                 </div>
                 <div className="text-left">
-                  <div className="font-semibold text-sm leading-tight text-white">Yahaya Khalid</div>
-                  <div className="text-xs text-slate-400 font-mono">Portfolio Engine</div>
+                  <div className="font-semibold text-sm leading-tight text-white flex items-center gap-1.5">
+                    <span>Yahaya Khalid</span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                  </div>
+                  <div className="text-[11px] text-slate-400 font-mono">Systems & Backend Architect</div>
                 </div>
               </a>
 
-              <nav className="hidden md:flex items-center space-x-7 text-sm font-medium text-slate-300">
-                <a href="#about" className="hover:text-brand-400 transition-colors">About</a>
-                <a href="#projects" className="hover:text-brand-400 transition-colors">Projects</a>
-                <a href="#skills" className="hover:text-brand-400 transition-colors">Skills</a>
-                <a href="#experience" className="hover:text-brand-400 transition-colors">Experience</a>
-                <a href="#education" className="hover:text-brand-400 transition-colors">Credentials</a>
+              {/* Desktop Nav */}
+              <nav className="hidden md:flex items-center space-x-7 text-xs font-mono text-slate-300">
+                <a href="#about" className="hover:text-brand-400 transition-colors">01 // ABOUT</a>
+                <a href="#projects" className="hover:text-brand-400 transition-colors">02 // SYSTEMS</a>
+                <a href="#skills" className="hover:text-brand-400 transition-colors">03 // STACK</a>
+                <a href="#experience" className="hover:text-brand-400 transition-colors">04 // EXPERIENCE</a>
+                <a href="#contact" className="hover:text-brand-400 transition-colors">05 // CONTACT</a>
               </nav>
 
+              {/* Header Right Actions */}
               <div className="flex items-center space-x-3">
+                <button
+                  onClick={handleCopyCurl}
+                  title="Copy API curl command"
+                  className="hidden sm:inline-flex items-center px-2.5 py-1.5 rounded-md text-xs font-mono text-slate-300 bg-white/5 border border-white/10 hover:bg-white/10 transition-all"
+                >
+                  {copiedCurl ? (
+                    <>
+                      <CheckIcon />
+                      <span className="text-emerald-400 font-medium">Copied cURL!</span>
+                    </>
+                  ) : (
+                    <>
+                      <CopyIcon />
+                      <span>API cURL</span>
+                    </>
+                  )}
+                </button>
+
                 <a 
                   href="/docs" 
                   target="_blank" 
-                  className="px-3 py-1.5 rounded-md text-xs font-mono font-medium text-brand-400 bg-brand-500/10 border border-brand-500/20 hover:bg-brand-500/20 transition-all flex items-center"
+                  className="px-3 py-1.5 rounded-md text-xs font-mono font-medium text-brand-300 bg-brand-500/10 border border-brand-500/20 hover:bg-brand-500/20 transition-all flex items-center"
                 >
                   <CodeIcon />
-                  <span className="ml-1.5">Interactive Docs</span>
+                  <span className="ml-1.5">Swagger API</span>
                 </a>
+
+                {/* Mobile Menu Toggle */}
+                <button 
+                  onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                  className="md:hidden p-2 rounded-lg text-slate-300 hover:text-white bg-white/5 border border-white/10"
+                >
+                  <MenuIcon />
+                </button>
               </div>
             </div>
+
+            {/* Mobile Dropdown Menu */}
+            {mobileMenuOpen && (
+              <div className="md:hidden bg-dark-surface/95 backdrop-blur-xl hairline-b px-6 py-4 space-y-3 font-mono text-xs">
+                <a 
+                  href="#about" 
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block py-1.5 text-slate-300 hover:text-brand-400"
+                >
+                  01 // ABOUT
+                </a>
+                <a 
+                  href="#projects" 
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block py-1.5 text-slate-300 hover:text-brand-400"
+                >
+                  02 // SYSTEMS & PROJECTS
+                </a>
+                <a 
+                  href="#skills" 
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block py-1.5 text-slate-300 hover:text-brand-400"
+                >
+                  03 // TECHNICAL STACK
+                </a>
+                <a 
+                  href="#experience" 
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block py-1.5 text-slate-300 hover:text-brand-400"
+                >
+                  04 // CAREER TIMELINE
+                </a>
+                <a 
+                  href="#contact" 
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block py-1.5 text-slate-300 hover:text-brand-400"
+                >
+                  05 // CONTACT & INQUIRIES
+                </a>
+              </div>
+            )}
           </header>
 
           {/* Main Content Area */}
-          <main className="max-w-6xl mx-auto px-4 sm:px-6 py-12 w-full flex-grow">
+          <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8 w-full flex-grow">
             {loading && (
-              <div className="py-24 text-center">
-                <div className="inline-block w-10 h-10 border-4 border-brand-500/20 border-t-brand-500 rounded-full animate-spin"></div>
-                <p className="mt-4 text-slate-400 font-mono text-sm">Fetching portfolio hierarchy from API...</p>
+              <div className="py-32 text-center">
+                <div className="inline-block w-10 h-10 border-2 border-brand-500/20 border-t-brand-400 rounded-full animate-spin"></div>
+                <p className="mt-4 text-slate-400 font-mono text-xs tracking-wider">CONNECTING TO PORTFOLIO ENGINE API...</p>
               </div>
             )}
 
             {error && (
-              <div className="glass-card rounded-2xl p-8 max-w-2xl mx-auto my-12 text-center border-rose-500/30">
-                <div className="w-12 h-12 bg-rose-500/10 text-rose-400 rounded-xl flex items-center justify-center mx-auto mb-4">
-                  ⚠️
+              <div className="glass-card rounded-2xl p-8 max-w-2xl mx-auto my-16 text-center border-rose-500/30">
+                <div className="w-12 h-12 bg-rose-500/10 text-rose-400 rounded-xl flex items-center justify-center mx-auto mb-4 font-mono text-lg">
+                  !
                 </div>
-                <h2 className="text-xl font-bold text-white mb-2">Portfolio Data Not Found</h2>
+                <h2 className="text-xl font-bold text-white mb-2">Portfolio Data Unavailable</h2>
                 <p className="text-slate-400 text-sm mb-6">{error}</p>
                 <div className="p-4 bg-dark-bg/90 rounded-lg text-left text-xs font-mono text-slate-300 mb-6 border border-white/5">
                   <p className="text-slate-500 mb-2"># Quick Setup: Seed the database with demo data</p>
@@ -220,14 +555,14 @@
             {!loading && !error && portfolio && (
               <div>
                 {/* Hero Section */}
-                <section id="hero" className="py-12 sm:py-20 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-10">
-                  <div className="max-w-2xl">
-                    <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 mb-6">
+                <section id="hero" className="py-12 sm:py-20 flex flex-col sm:flex-row items-center justify-between gap-10">
+                  <div className="max-w-2xl text-center sm:text-left">
+                    <div className="inline-flex items-center space-x-2.5 px-3 py-1 rounded-full text-xs font-mono bg-brand-500/10 text-brand-300 border border-brand-500/20 mb-6">
                       <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                      <span>FastAPI Backend Active</span>
+                      <span>FastAPI REST Core Active • Latency &lt; 5ms</span>
                     </div>
 
-                    <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-white mb-4">
+                    <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-white mb-4 leading-tight">
                       {portfolio.name}
                     </h1>
 
@@ -238,9 +573,17 @@
                     <div className="flex flex-wrap items-center gap-4 justify-center sm:justify-start">
                       <a 
                         href="#projects" 
-                        className="px-5 py-2.5 rounded-lg bg-brand-600 hover:bg-brand-500 text-white font-medium text-sm transition-all shadow-lg shadow-brand-600/25 flex items-center"
+                        className="px-5 py-2.5 rounded-lg bg-brand-600 hover:bg-brand-500 text-white font-medium text-sm transition-all shadow-lg shadow-brand-600/25 flex items-center group"
                       >
-                        Explore Featured Work
+                        <span>Explore Systems</span>
+                        <ArrowUpRight />
+                      </a>
+
+                      <a 
+                        href="#contact" 
+                        className="px-5 py-2.5 rounded-lg glass-card hover:bg-dark-card text-slate-200 font-medium text-sm transition-all flex items-center"
+                      >
+                        <span>Direct Inquiry</span>
                       </a>
 
                       {portfolio.resume && (
@@ -248,50 +591,81 @@
                           href={portfolio.resume.file_url} 
                           target="_blank" 
                           rel="noreferrer"
-                          className="px-5 py-2.5 rounded-lg glass-card hover:bg-dark-card text-slate-200 font-medium text-sm transition-all flex items-center"
+                          className="px-4 py-2.5 rounded-lg text-slate-300 hover:text-white font-mono text-xs transition-all flex items-center border border-white/10 hover:border-white/20 bg-white/[0.02]"
                         >
                           <DownloadIcon />
-                          <span>Download Resume</span>
+                          <span>Curriculum Vitae</span>
                         </a>
                       )}
                     </div>
 
-                    {/* Social Links */}
+                    {/* Social Channels */}
                     {portfolio.social_links && portfolio.social_links.length > 0 && (
-                      <div className="mt-8 flex flex-wrap items-center gap-3 justify-center sm:justify-start">
+                      <div className="mt-8 flex flex-wrap items-center gap-2.5 justify-center sm:justify-start">
                         {portfolio.social_links.map((link) => (
                           <a 
                             key={link.platform} 
                             href={link.url} 
                             target="_blank" 
                             rel="noreferrer"
-                            className="px-3.5 py-1.5 rounded-lg bg-slate-900/60 hover:bg-slate-800 border border-white/5 text-xs text-slate-300 font-mono transition flex items-center"
+                            className="px-3 py-1.5 rounded-md bg-dark-surface/60 hover:bg-slate-800 border border-white/5 hover:border-brand-500/30 text-xs text-slate-300 font-mono transition flex items-center"
                           >
                             <span>{link.platform}</span>
                             <ExternalLinkIcon />
                           </a>
                         ))}
+                        <button
+                          onClick={handleCopyEmail}
+                          className="px-3 py-1.5 rounded-md bg-dark-surface/60 hover:bg-slate-800 border border-white/5 hover:border-brand-500/30 text-xs text-brand-300 font-mono transition flex items-center"
+                        >
+                          {copiedEmail ? <CheckIcon /> : <CopyIcon />}
+                          <span>{copiedEmail ? "Copied Email!" : "Copy Email"}</span>
+                        </button>
                       </div>
                     )}
                   </div>
 
+                  {/* Architecture Monogram Badge */}
                   <div className="relative">
-                    <div className="w-48 h-48 sm:w-56 sm:h-56 rounded-2xl bg-gradient-to-tr from-brand-600/30 via-indigo-500/20 to-transparent p-1 border border-white/10 shadow-2xl flex items-center justify-center text-6xl font-extrabold text-brand-400 select-none">
-                      YK
+                    <div className="w-48 h-48 sm:w-56 sm:h-56 rounded-2xl glass-card corner-mark p-1 flex flex-col items-center justify-center text-center shadow-2xl relative overflow-hidden group">
+                      <div className="absolute inset-0 bg-gradient-to-tr from-brand-600/20 via-transparent to-brand-500/10 opacity-70 group-hover:opacity-100 transition-opacity"></div>
+                      <div className="text-6xl font-black text-brand-400 select-none tracking-tighter relative z-10">
+                        YK
+                      </div>
+                      <div className="text-[10px] font-mono text-slate-400 mt-2 relative z-10 uppercase tracking-widest">
+                        Architectural Core
+                      </div>
                     </div>
                   </div>
                 </section>
 
+                {/* Tech Stack Ticker / Infinite Marquee */}
+                <div className="my-10 hairline-t hairline-b py-3.5 overflow-hidden relative">
+                  <div className="flex items-center space-x-6 text-xs font-mono tracking-wider animate-marquee whitespace-nowrap">
+                    {tickerTechs.concat(tickerTechs).map((tech, idx) => (
+                      <div key={idx} className="flex items-center space-x-3 text-slate-400 hover:text-brand-300 transition-colors">
+                        <span className="w-1.5 h-1.5 rounded-full bg-brand-500/60"></span>
+                        <span className="uppercase">{tech}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
                 {/* Narrative Sections (About & Philosophy) */}
                 {portfolio.sections && portfolio.sections.length > 0 && (
-                  <section id="about" className="py-12 border-t border-white/5">
+                  <section id="about" className="py-12">
+                    <div className="flex items-center space-x-3 mb-6">
+                      <span className="text-xs font-mono text-brand-400">01 //</span>
+                      <h2 className="text-xl font-bold text-white tracking-tight uppercase font-mono">Architectural Principles</h2>
+                    </div>
+
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       {portfolio.sections.map((sec) => (
-                        <div key={sec.slug} className="glass-card rounded-2xl p-6 sm:p-8">
-                          <h2 className="text-xl font-bold text-white mb-3 flex items-center">
-                            <span className="w-2.5 h-2.5 rounded-sm bg-brand-500 mr-2.5"></span>
+                        <div key={sec.slug} className="glass-card rounded-2xl p-6 sm:p-8 corner-mark">
+                          <h3 className="text-lg font-bold text-white mb-3 flex items-center">
+                            <span className="w-2 h-2 rounded-sm bg-brand-500 mr-2.5"></span>
                             {sec.title}
-                          </h2>
+                          </h3>
                           <p className="text-slate-300 text-sm leading-relaxed whitespace-pre-line">
                             {sec.content}
                           </p>
@@ -302,34 +676,83 @@
                 )}
 
                 {/* Projects Section */}
-                <section id="projects" className="py-14 border-t border-white/5">
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+                <section id="projects" className="py-14 hairline-t">
+                  <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
                     <div>
-                      <h2 className="text-2xl sm:text-3xl font-extrabold text-white">Engineered Systems & Projects</h2>
-                      <p className="text-slate-400 text-sm mt-1">High-throughput backends, APIs, and microservices.</p>
+                      <div className="flex items-center space-x-3 mb-2">
+                        <span className="text-xs font-mono text-brand-400">02 //</span>
+                        <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">Engineered Systems & Projects</h2>
+                      </div>
+                      <p className="text-slate-400 text-sm">High-throughput backends, distributed microservices, and security architectures.</p>
                     </div>
 
-                    <div className="inline-flex rounded-lg bg-dark-card p-1 border border-white/5 self-start sm:self-auto">
-                      <button 
-                        onClick={() => setFilterFeatured(false)}
-                        className={`px-3 py-1.5 rounded-md text-xs font-medium transition ${!filterFeatured ? 'bg-brand-600 text-white shadow' : 'text-slate-400 hover:text-white'}`}
-                      >
-                        All Projects ({portfolio.projects.length})
-                      </button>
-                      <button 
-                        onClick={() => setFilterFeatured(true)}
-                        className={`px-3 py-1.5 rounded-md text-xs font-medium transition ${filterFeatured ? 'bg-brand-600 text-white shadow' : 'text-slate-400 hover:text-white'}`}
-                      >
-                        Featured Only ({portfolio.projects.filter(p => p.is_featured).length})
-                      </button>
+                    {/* Search and Category Filter Controls */}
+                    <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                      {/* Search Bar */}
+                      <div className="relative">
+                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <SearchIcon />
+                        </div>
+                        <input
+                          type="text"
+                          value={searchQuery}
+                          onChange={(e) => setSearchQuery(e.target.value)}
+                          placeholder="Filter by tech or keyword..."
+                          className="w-full sm:w-56 pl-9 pr-3 py-1.5 rounded-lg bg-dark-surface/80 border border-white/10 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-brand-500 font-mono"
+                        />
+                        {searchQuery && (
+                          <button
+                            onClick={() => setSearchQuery("")}
+                            className="absolute inset-y-0 right-0 pr-2.5 flex items-center text-slate-400 hover:text-white text-xs"
+                          >
+                            ×
+                          </button>
+                        )}
+                      </div>
+
+                      {/* Filter Tabs */}
+                      <div className="inline-flex rounded-lg bg-dark-surface/90 p-1 border border-white/10 font-mono text-xs">
+                        <button 
+                          onClick={() => setActiveCategory("all")}
+                          className={`px-3 py-1 rounded-md transition ${activeCategory === 'all' ? 'bg-brand-600 text-white shadow' : 'text-slate-400 hover:text-white'}`}
+                        >
+                          All ({portfolio.projects.length})
+                        </button>
+                        <button 
+                          onClick={() => setActiveCategory("featured")}
+                          className={`px-3 py-1 rounded-md transition ${activeCategory === 'featured' ? 'bg-brand-600 text-white shadow' : 'text-slate-400 hover:text-white'}`}
+                        >
+                          Featured
+                        </button>
+                        <button 
+                          onClick={() => setActiveCategory("distributed")}
+                          className={`px-3 py-1 rounded-md transition ${activeCategory === 'distributed' ? 'bg-brand-600 text-white shadow' : 'text-slate-400 hover:text-white'}`}
+                        >
+                          Distributed
+                        </button>
+                      </div>
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {portfolio.projects
-                      .filter(p => !filterFeatured || p.is_featured)
-                      .map((project) => (
-                        <div key={project.slug} className="glass-card rounded-2xl overflow-hidden flex flex-col justify-between transition group hover:-translate-y-1">
+                  {/* Projects Grid */}
+                  {filteredProjects.length === 0 ? (
+                    <div className="glass-card rounded-2xl p-12 text-center my-6">
+                      <p className="text-slate-400 font-mono text-sm">No systems matching filter "{searchQuery}".</p>
+                      <button
+                        onClick={() => { setActiveCategory("all"); setSearchQuery(""); }}
+                        className="mt-3 px-3 py-1.5 rounded-md text-xs font-mono text-brand-300 bg-brand-500/10 border border-brand-500/20"
+                      >
+                        Reset filters
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      {filteredProjects.map((project) => (
+                        <div 
+                          key={project.slug} 
+                          onClick={() => setSelectedProject(project)}
+                          className="glass-card rounded-2xl overflow-hidden flex flex-col justify-between transition group hover:-translate-y-1 cursor-pointer"
+                        >
                           {project.media && project.media.length > 0 && (
                             <div className="h-44 w-full overflow-hidden bg-slate-900 border-b border-white/5 relative">
                               <img 
@@ -338,8 +761,8 @@
                                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80"
                               />
                               {project.is_featured && (
-                                <span className="absolute top-3 right-3 px-2.5 py-1 rounded bg-brand-600/90 backdrop-blur-sm text-[11px] font-semibold text-white uppercase tracking-wider">
-                                  Featured
+                                <span className="absolute top-3 right-3 px-2.5 py-0.5 rounded bg-brand-600/90 backdrop-blur-sm text-[10px] font-mono font-semibold text-white uppercase tracking-wider">
+                                  Featured System
                                 </span>
                               )}
                             </div>
@@ -348,8 +771,9 @@
                           <div className="p-6 flex-grow flex flex-col justify-between">
                             <div>
                               <div className="flex items-center justify-between mb-2">
-                                <h3 className="text-lg font-bold text-white group-hover:text-brand-400 transition-colors">
-                                  {project.title}
+                                <h3 className="text-lg font-bold text-white group-hover:text-brand-400 transition-colors flex items-center">
+                                  <span>{project.title}</span>
+                                  <ArrowUpRight />
                                 </h3>
                               </div>
                               <p className="text-slate-300 text-sm leading-relaxed mb-5">
@@ -362,54 +786,155 @@
                               {project.technologies && project.technologies.length > 0 && (
                                 <div className="flex flex-wrap gap-1.5 mb-5">
                                   {project.technologies.map((t) => (
-                                    <span key={t.slug} className="px-2.5 py-1 rounded-md text-[11px] font-mono bg-dark-bg/80 text-brand-300 border border-brand-500/20">
+                                    <span key={t.slug} className="px-2 py-0.5 rounded text-[10px] font-mono bg-dark-bg/80 text-brand-300 border border-brand-500/20">
                                       {t.name}
                                     </span>
                                   ))}
                                 </div>
                               )}
 
-                              {/* Action Links */}
-                              <div className="flex items-center space-x-3 pt-4 border-t border-white/5">
-                                {project.github_url && (
+                              {/* Verified Action Links */}
+                              <div className="flex items-center space-x-3 pt-4 hairline-t">
+                                {project.github_url ? (
                                   <a 
                                     href={project.github_url} 
                                     target="_blank" 
                                     rel="noreferrer" 
+                                    onClick={(e) => e.stopPropagation()}
                                     className="text-xs font-mono text-slate-300 hover:text-white flex items-center transition"
                                   >
                                     <GitHubIcon />
-                                    <span>Source Code</span>
+                                    <span>Source Repository</span>
                                   </a>
+                                ) : (
+                                  <span className="text-[11px] font-mono text-slate-500">Proprietary Architecture</span>
                                 )}
-                                {project.live_url && (
+
+                                {project.live_url ? (
                                   <a 
                                     href={project.live_url} 
                                     target="_blank" 
                                     rel="noreferrer" 
+                                    onClick={(e) => e.stopPropagation()}
                                     className="text-xs font-mono text-brand-400 hover:text-brand-300 flex items-center transition"
                                   >
-                                    <span>Live Preview</span>
+                                    <span>Live Endpoint</span>
                                     <ExternalLinkIcon />
                                   </a>
+                                ) : (
+                                  <span className="text-[11px] font-mono text-slate-500 bg-white/5 px-2 py-0.5 rounded">
+                                    Backend Service
+                                  </span>
                                 )}
                               </div>
                             </div>
                           </div>
                         </div>
                       ))}
-                  </div>
+                    </div>
+                  )}
                 </section>
+
+                {/* Project Architecture Detail Modal */}
+                {selectedProject && (
+                  <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-dark-bg/80 backdrop-blur-md">
+                    <div 
+                      className="glass-card rounded-2xl max-w-2xl w-full p-6 sm:p-8 hairline-border relative max-h-[90vh] overflow-y-auto"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <button 
+                        onClick={() => setSelectedProject(null)}
+                        className="absolute top-5 right-5 p-1.5 rounded-lg text-slate-400 hover:text-white bg-white/5 hover:bg-white/10 transition"
+                      >
+                        <CloseIcon />
+                      </button>
+
+                      <div className="inline-flex items-center space-x-2 px-2.5 py-1 rounded text-[11px] font-mono bg-brand-500/10 text-brand-300 border border-brand-500/20 mb-3">
+                        <span>SYSTEM SPECIFICATION</span>
+                        {selectedProject.is_featured && <span>• FEATURED</span>}
+                      </div>
+
+                      <h3 className="text-2xl font-bold text-white mb-2">{selectedProject.title}</h3>
+                      <p className="text-slate-300 text-sm leading-relaxed mb-6">{selectedProject.description}</p>
+
+                      {/* Modal Media */}
+                      {selectedProject.media && selectedProject.media.length > 0 && (
+                        <div className="rounded-xl overflow-hidden mb-6 hairline-border bg-slate-900">
+                          <img 
+                            src={selectedProject.media[0].url} 
+                            alt={selectedProject.media[0].alt_text || selectedProject.title}
+                            className="w-full h-56 object-cover"
+                          />
+                          {selectedProject.media[0].caption && (
+                            <div className="p-2.5 text-center text-xs font-mono text-slate-400 hairline-t bg-dark-surface/60">
+                              {selectedProject.media[0].caption}
+                            </div>
+                          )}
+                        </div>
+                      )}
+
+                      {/* Technologies Breakdown */}
+                      <div className="mb-6">
+                        <div className="text-xs font-mono uppercase text-slate-400 mb-2">Architectural Dependencies:</div>
+                        <div className="flex flex-wrap gap-2">
+                          {selectedProject.technologies && selectedProject.technologies.map((t) => (
+                            <span key={t.slug} className="px-2.5 py-1 rounded text-xs font-mono bg-dark-bg text-brand-300 border border-brand-500/20">
+                              {t.name}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Action Links */}
+                      <div className="flex items-center justify-between pt-4 hairline-t">
+                        <div className="flex items-center space-x-4">
+                          {selectedProject.github_url && (
+                            <a 
+                              href={selectedProject.github_url}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-500 text-white font-medium text-xs font-mono flex items-center transition"
+                            >
+                              <GitHubIcon />
+                              <span>View Source Code</span>
+                            </a>
+                          )}
+                          {selectedProject.live_url && (
+                            <a 
+                              href={selectedProject.live_url}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="px-4 py-2 rounded-lg glass-card text-brand-300 hover:text-white font-mono text-xs flex items-center transition"
+                            >
+                              <span>Inspect Live</span>
+                              <ExternalLinkIcon />
+                            </a>
+                          )}
+                        </div>
+
+                        <button 
+                          onClick={() => setSelectedProject(null)}
+                          className="text-xs font-mono text-slate-400 hover:text-white"
+                        >
+                          Close [ESC]
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )}
 
                 {/* Skills Grid */}
                 {portfolio.skills && portfolio.skills.length > 0 && (
-                  <section id="skills" className="py-14 border-t border-white/5">
-                    <h2 className="text-2xl sm:text-3xl font-extrabold text-white mb-2">Technical Proficiency</h2>
-                    <p className="text-slate-400 text-sm mb-8">Languages, frameworks, databases, and architectural standards.</p>
+                  <section id="skills" className="py-14 hairline-t">
+                    <div className="flex items-center space-x-3 mb-2">
+                      <span className="text-xs font-mono text-brand-400">03 //</span>
+                      <h2 className="text-2xl sm:text-3xl font-extrabold text-white">Technical Proficiency & Stack</h2>
+                    </div>
+                    <p className="text-slate-400 text-sm mb-8">Specialized languages, core frameworks, database engines, and architectural standards.</p>
 
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
                       {portfolio.skills.map((skill) => (
-                        <div key={skill.slug} className="glass-card rounded-xl p-4 flex flex-col justify-between">
+                        <div key={skill.slug} className="glass-card rounded-xl p-4 flex flex-col justify-between hover:border-brand-500/40 transition">
                           <div>
                             <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400">
                               {skill.category || 'Skill'}
@@ -433,17 +958,22 @@
 
                 {/* Work Experience */}
                 {portfolio.experience && portfolio.experience.length > 0 && (
-                  <section id="experience" className="py-14 border-t border-white/5">
-                    <h2 className="text-2xl sm:text-3xl font-extrabold text-white mb-2">Career & Experience</h2>
-                    <p className="text-slate-400 text-sm mb-8">Professional software engineering roles and track record.</p>
+                  <section id="experience" className="py-14 hairline-t">
+                    <div className="flex items-center space-x-3 mb-2">
+                      <span className="text-xs font-mono text-brand-400">04 //</span>
+                      <h2 className="text-2xl sm:text-3xl font-extrabold text-white">Career & Engineering History</h2>
+                    </div>
+                    <p className="text-slate-400 text-sm mb-8">Professional software engineering roles, team leadership, and track record.</p>
 
                     <div className="space-y-6">
                       {portfolio.experience.map((exp) => (
-                        <div key={exp.company + exp.role} className="glass-card rounded-2xl p-6 sm:p-8">
+                        <div key={exp.company + exp.role} className="glass-card rounded-2xl p-6 sm:p-8 corner-mark">
                           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
                             <div>
                               <h3 className="text-lg font-bold text-white">{exp.role}</h3>
-                              <div className="text-sm font-medium text-brand-400">{exp.company} • <span className="text-slate-400">{exp.location}</span></div>
+                              <div className="text-sm font-medium text-brand-400 font-mono mt-0.5">
+                                {exp.company} • <span className="text-slate-400">{exp.location}</span>
+                              </div>
                             </div>
                             <div className="px-3 py-1 rounded-full text-xs font-mono bg-white/5 text-slate-300 self-start sm:self-auto border border-white/5">
                               {exp.start_date} → {exp.end_date || 'Present'}
@@ -459,17 +989,20 @@
                 )}
 
                 {/* Education & Certifications */}
-                <section id="education" className="py-14 border-t border-white/5">
+                <section id="education" className="py-14 hairline-t">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     {/* Education */}
                     <div>
-                      <h2 className="text-xl font-bold text-white mb-4">Academic Background</h2>
+                      <h3 className="text-xl font-bold text-white mb-4 font-mono flex items-center">
+                        <span className="w-2 h-2 rounded-sm bg-brand-500 mr-2"></span>
+                        Academic Background
+                      </h3>
                       {portfolio.education && portfolio.education.map((edu) => (
-                        <div key={edu.institution} className="glass-card rounded-2xl p-6">
+                        <div key={edu.institution} className="glass-card rounded-2xl p-6 mb-4">
                           <div className="flex justify-between items-start gap-2">
                             <div>
                               <div className="font-bold text-white text-base">{edu.degree} in {edu.field_of_study}</div>
-                              <div className="text-sm text-brand-400 mt-0.5">{edu.institution}</div>
+                              <div className="text-sm text-brand-400 font-mono mt-0.5">{edu.institution}</div>
                               <div className="text-xs text-slate-400 mt-0.5">{edu.location}</div>
                             </div>
                             <span className="text-xs font-mono text-slate-400 bg-white/5 px-2.5 py-1 rounded">
@@ -487,11 +1020,14 @@
 
                     {/* Certifications */}
                     <div>
-                      <h2 className="text-xl font-bold text-white mb-4">Certifications & Licenses</h2>
+                      <h3 className="text-xl font-bold text-white mb-4 font-mono flex items-center">
+                        <span className="w-2 h-2 rounded-sm bg-brand-500 mr-2"></span>
+                        Certifications & Credentials
+                      </h3>
                       {portfolio.certifications && portfolio.certifications.map((cert) => (
                         <div key={cert.name} className="glass-card rounded-2xl p-6 mb-4">
                           <div className="font-bold text-white text-base">{cert.name}</div>
-                          <div className="text-sm text-brand-400 mt-0.5">{cert.issuer}</div>
+                          <div className="text-sm text-brand-400 font-mono mt-0.5">{cert.issuer}</div>
                           <div className="text-xs text-slate-400 font-mono mt-1">
                             Issued: {cert.issue_date} {cert.credential_id && `• ID: ${cert.credential_id}`}
                           </div>
@@ -511,20 +1047,135 @@
                     </div>
                   </div>
                 </section>
+
+                {/* Contact Workflow Section */}
+                <section id="contact" className="py-16 hairline-t">
+                  <div className="flex items-center space-x-3 mb-2">
+                    <span className="text-xs font-mono text-brand-400">05 //</span>
+                    <h2 className="text-2xl sm:text-3xl font-extrabold text-white">Direct Engineering Inquiries</h2>
+                  </div>
+                  <p className="text-slate-400 text-sm mb-8">Discuss systems architecture, high-throughput backend design, or engineering roles.</p>
+
+                  <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
+                    {/* Contact Details & Availability */}
+                    <div className="md:col-span-2 space-y-6">
+                      <div className="glass-card rounded-2xl p-6 corner-mark">
+                        <div className="inline-flex items-center space-x-2 px-2.5 py-1 rounded text-xs font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 mb-4">
+                          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                          <span>Open to Opportunities</span>
+                        </div>
+                        <h4 className="text-lg font-bold text-white mb-2">Let's build something exceptional.</h4>
+                        <p className="text-slate-300 text-sm leading-relaxed mb-6">
+                          Currently open to senior backend engineering, distributed systems, and technical lead positions.
+                        </p>
+
+                        <div className="space-y-3 font-mono text-xs">
+                          <div>
+                            <span className="text-slate-500 block">DIRECT EMAIL</span>
+                            <div className="flex items-center justify-between mt-1">
+                              <a href="mailto:khalidzak21@gmail.com" className="text-brand-300 hover:underline">
+                                khalidzak21@gmail.com
+                              </a>
+                              <button 
+                                onClick={handleCopyEmail}
+                                className="px-2 py-0.5 rounded text-[10px] bg-white/5 border border-white/10 hover:bg-white/10 text-slate-300"
+                              >
+                                {copiedEmail ? "Copied!" : "Copy"}
+                              </button>
+                            </div>
+                          </div>
+
+                          <div className="pt-2 hairline-t">
+                            <span className="text-slate-500 block">LOCATION</span>
+                            <span className="text-slate-300">Remote / Worldwide</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Interactive Form */}
+                    <div className="md:col-span-3">
+                      <form onSubmit={handleContactSubmit} className="glass-card rounded-2xl p-6 sm:p-8 space-y-4">
+                        {contactStatus && (
+                          <div className={`p-4 rounded-xl text-xs font-mono ${contactStatus.type === 'success' ? 'bg-emerald-500/10 text-emerald-300 border border-emerald-500/20' : 'bg-brand-500/10 text-brand-300 border border-brand-500/20'}`}>
+                            {contactStatus.message}
+                          </div>
+                        )}
+
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                          <div>
+                            <label className="block text-xs font-mono text-slate-400 mb-1.5">YOUR NAME</label>
+                            <input 
+                              type="text"
+                              required
+                              value={contactForm.name}
+                              onChange={(e) => setContactForm({ ...contactForm, name: e.target.value })}
+                              placeholder="e.g. Alex Smith"
+                              className="w-full px-3.5 py-2.5 rounded-lg bg-dark-bg/80 border border-white/10 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-brand-500 font-sans"
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-xs font-mono text-slate-400 mb-1.5">EMAIL ADDRESS</label>
+                            <input 
+                              type="email"
+                              required
+                              value={contactForm.email}
+                              onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })}
+                              placeholder="alex@company.com"
+                              className="w-full px-3.5 py-2.5 rounded-lg bg-dark-bg/80 border border-white/10 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-brand-500 font-sans"
+                            />
+                          </div>
+                        </div>
+
+                        <div>
+                          <label className="block text-xs font-mono text-slate-400 mb-1.5">SUBJECT / TOPIC</label>
+                          <input 
+                            type="text"
+                            required
+                            value={contactForm.subject}
+                            onChange={(e) => setContactForm({ ...contactForm, subject: e.target.value })}
+                            placeholder="Engineering Role / Architecture Discussion"
+                            className="w-full px-3.5 py-2.5 rounded-lg bg-dark-bg/80 border border-white/10 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-brand-500 font-sans"
+                          />
+                        </div>
+
+                        <div>
+                          <label className="block text-xs font-mono text-slate-400 mb-1.5">MESSAGE</label>
+                          <textarea 
+                            rows="4"
+                            required
+                            value={contactForm.message}
+                            onChange={(e) => setContactForm({ ...contactForm, message: e.target.value })}
+                            placeholder="Details about your engineering project, role requirements, or collaboration..."
+                            className="w-full px-3.5 py-2.5 rounded-lg bg-dark-bg/80 border border-white/10 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-brand-500 font-sans"
+                          ></textarea>
+                        </div>
+
+                        <button 
+                          type="submit"
+                          disabled={contactSubmitting}
+                          className="w-full sm:w-auto px-6 py-2.5 rounded-lg bg-brand-600 hover:bg-brand-500 disabled:opacity-50 text-white font-medium text-xs font-mono transition shadow-lg shadow-brand-600/20"
+                        >
+                          {contactSubmitting ? "DISPATCHING INQUIRY..." : "TRANSMIT MESSAGE →"}
+                        </button>
+                      </form>
+                    </div>
+                  </div>
+                </section>
               </div>
             )}
           </main>
 
           {/* Footer */}
-          <footer className="border-t border-white/5 py-8 bg-dark-bg/90">
+          <footer className="hairline-t py-8 bg-dark-bg/90 relative z-10">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 gap-4">
-              <div>
+              <div className="font-mono text-[11px]">
                 © {new Date().getFullYear()} Yahaya Khalid • Engineered with FastAPI & React
               </div>
-              <div className="flex items-center space-x-6 font-mono">
-                <a href="/api/public/portfolios/khalid" target="_blank" className="hover:text-brand-400 transition">JSON API Payload</a>
+              <div className="flex items-center space-x-6 font-mono text-[11px]">
+                <a href={`/api/public/portfolios/${slug}`} target="_blank" className="hover:text-brand-400 transition">JSON API Payload</a>
                 <a href="/docs" target="_blank" className="hover:text-brand-400 transition">Swagger UI</a>
-                <a href="/health" target="_blank" className="hover:text-brand-400 transition">System Health</a>
+                <a href="/health" target="_blank" className="hover:text-brand-400 transition">Health Status</a>
               </div>
             </div>
           </footer>

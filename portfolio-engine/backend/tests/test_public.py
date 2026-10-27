@@ -92,3 +92,20 @@ def test_frontend_html_rendering_on_portfolio_slug(client):
     assert response.status_code == 200
     assert "<!DOCTYPE html>" in response.text
 
+
+def test_contact_inquiry_submission(client):
+    response = client.post(
+        "/api/contact",
+        json={
+            "name": "Jane Engineer",
+            "email": "jane@example.com",
+            "subject": "Distributed Architecture Collaboration",
+            "message": "Hello Yahaya, I would love to connect regarding high-throughput systems.",
+        },
+    )
+    assert response.status_code == 201
+    data = response.json()
+    assert data["success"] is True
+    assert "received" in data["message"].lower()
+    assert "received_at" in data
+

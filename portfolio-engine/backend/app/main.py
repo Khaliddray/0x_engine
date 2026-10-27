@@ -20,6 +20,7 @@ from app.api.routes.public_portfolios import router as public_portfolio_router
 from app.api.routes.auth import router as auth_router
 from app.api.routes.users import router as user_router
 from app.api.routes.admin import router as admin_router
+from app.api.routes.contact import router as contact_router
 
 
 app = FastAPI(
@@ -53,9 +54,20 @@ app.include_router(resume_router)
 app.include_router(project_technology_router)
 app.include_router(project_media_router)
 app.include_router(public_portfolio_router)
+app.include_router(contact_router)
 
 FRONTEND_DIR = Path(__file__).resolve().parent.parent.parent / "frontend"
-FRONTEND_INDEX = FRONTEND_DIR / "index.html"
+FRONTEND_DIST_INDEX = FRONTEND_DIR / "dist" / "index.html"
+FRONTEND_SRC_INDEX = FRONTEND_DIR / "index.html"
+
+
+def get_frontend_index() -> Path | None:
+    if FRONTEND_DIST_INDEX.is_file():
+        return FRONTEND_DIST_INDEX
+    if FRONTEND_SRC_INDEX.is_file():
+        return FRONTEND_SRC_INDEX
+    return None
+
 
 if FRONTEND_DIR.is_dir():
     app.mount("/static", StaticFiles(directory=FRONTEND_DIR), name="static")
@@ -64,8 +76,9 @@ if FRONTEND_DIR.is_dir():
 @app.get("/")
 def root(request: Request):
     accept_header = request.headers.get("accept", "")
-    if "text/html" in accept_header and FRONTEND_INDEX.is_file():
-        return FileResponse(FRONTEND_INDEX)
+    frontend_file = get_frontend_index()
+    if "text/html" in accept_header and frontend_file:
+        return FileResponse(frontend_file)
 
     return {
         "name": "Portfolio Engine API",
@@ -77,7 +90,8 @@ def root(request: Request):
 @app.get("/portfolio/{slug}")
 @app.get("/portfolio")
 def view_portfolio(slug: str | None = None):
-    if FRONTEND_INDEX.is_file():
-        return FileResponse(FRONTEND_INDEX)
+    frontend_file = get_frontend_index()
+    if frontend_file:
+        return FileResponse(frontend_file)
     return {"message": "Frontend not found"}
 

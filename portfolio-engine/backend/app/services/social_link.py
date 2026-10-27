@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 
-from app.models.portfolio import Portfolio
 from app.models.social_link import SocialLink
+from app.repositories.portfolio import PortfolioRepository
 from app.repositories.social_link import SocialLinkRepository
 from app.schemas.social_link import SocialLinkCreate, SocialLinkUpdate
 
@@ -18,9 +18,10 @@ class SocialLinkService:
     def __init__(self, db: Session):
         self.db = db
         self.repository = SocialLinkRepository(db)
+        self.portfolio_repository = PortfolioRepository(db)
 
     def create(self, data: SocialLinkCreate) -> SocialLink:
-        portfolio = self.db.get(Portfolio, data.portfolio_id)
+        portfolio = self.portfolio_repository.get_by_id(data.portfolio_id)
 
         if portfolio is None:
             raise PortfolioNotFoundError(
@@ -55,7 +56,7 @@ class SocialLinkService:
         self,
         portfolio_id: int,
     ) -> list[SocialLink]:
-        portfolio = self.db.get(Portfolio, portfolio_id)
+        portfolio = self.portfolio_repository.get_by_id(portfolio_id)
 
         if portfolio is None:
             raise PortfolioNotFoundError(
@@ -74,9 +75,8 @@ class SocialLinkService:
         updates = data.model_dump(exclude_unset=True)
 
         if "portfolio_id" in updates:
-            portfolio = self.db.get(
-                Portfolio,
-                updates["portfolio_id"],
+            portfolio = self.portfolio_repository.get_by_id(
+                updates["portfolio_id"]
             )
 
             if portfolio is None:

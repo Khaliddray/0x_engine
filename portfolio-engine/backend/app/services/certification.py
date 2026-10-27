@@ -1,8 +1,8 @@
 from sqlalchemy.orm import Session
 
 from app.models.certification import Certification
-from app.models.portfolio import Portfolio
 from app.repositories.certification import CertificationRepository
+from app.repositories.portfolio import PortfolioRepository
 from app.schemas.certification import CertificationCreate, CertificationUpdate
 
 
@@ -18,9 +18,10 @@ class CertificationService:
     def __init__(self, db: Session):
         self.db = db
         self.repository = CertificationRepository(db)
+        self.portfolio_repository = PortfolioRepository(db)
 
     def create(self, data: CertificationCreate) -> Certification:
-        portfolio = self.db.get(Portfolio, data.portfolio_id)
+        portfolio = self.portfolio_repository.get_by_id(data.portfolio_id)
 
         if portfolio is None:
             raise PortfolioNotFoundError(
@@ -59,7 +60,7 @@ class CertificationService:
         self,
         portfolio_id: int,
     ) -> list[Certification]:
-        portfolio = self.db.get(Portfolio, portfolio_id)
+        portfolio = self.portfolio_repository.get_by_id(portfolio_id)
 
         if portfolio is None:
             raise PortfolioNotFoundError(
@@ -78,9 +79,8 @@ class CertificationService:
         updates = data.model_dump(exclude_unset=True)
 
         if "portfolio_id" in updates:
-            portfolio = self.db.get(
-                Portfolio,
-                updates["portfolio_id"],
+            portfolio = self.portfolio_repository.get_by_id(
+                updates["portfolio_id"]
             )
 
             if portfolio is None:

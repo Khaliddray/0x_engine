@@ -1,8 +1,8 @@
 from sqlalchemy.orm import Session
 
 from app.models.education import Education
-from app.models.portfolio import Portfolio
 from app.repositories.education import EducationRepository
+from app.repositories.portfolio import PortfolioRepository
 from app.schemas.education import EducationCreate, EducationUpdate
 
 
@@ -18,9 +18,10 @@ class EducationService:
     def __init__(self, db: Session):
         self.db = db
         self.repository = EducationRepository(db)
+        self.portfolio_repository = PortfolioRepository(db)
 
     def create(self, data: EducationCreate) -> Education:
-        portfolio = self.db.get(Portfolio, data.portfolio_id)
+        portfolio = self.portfolio_repository.get_by_id(data.portfolio_id)
 
         if portfolio is None:
             raise PortfolioNotFoundError(
@@ -59,7 +60,7 @@ class EducationService:
         self,
         portfolio_id: int,
     ) -> list[Education]:
-        portfolio = self.db.get(Portfolio, portfolio_id)
+        portfolio = self.portfolio_repository.get_by_id(portfolio_id)
 
         if portfolio is None:
             raise PortfolioNotFoundError(
@@ -78,9 +79,8 @@ class EducationService:
         updates = data.model_dump(exclude_unset=True)
 
         if "portfolio_id" in updates:
-            portfolio = self.db.get(
-                Portfolio,
-                updates["portfolio_id"],
+            portfolio = self.portfolio_repository.get_by_id(
+                updates["portfolio_id"]
             )
 
             if portfolio is None:

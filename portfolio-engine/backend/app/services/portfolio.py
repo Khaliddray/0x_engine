@@ -5,6 +5,10 @@ from app.repositories.portfolio import PortfolioRepository
 from app.schemas.portfolio import PortfolioCreate, PortfolioUpdate
 
 
+class PortfolioSlugExistsError(Exception):
+    """Raised when a portfolio slug already exists."""
+
+
 class PortfolioService:
     def __init__(self, db: Session):
         self.repository = PortfolioRepository(db)
@@ -13,7 +17,7 @@ class PortfolioService:
         existing_portfolio = self.repository.get_by_slug(data.slug)
 
         if existing_portfolio is not None:
-            raise ValueError("Portfolio slug already exists")
+            raise PortfolioSlugExistsError("Portfolio slug already exists")
 
         portfolio = Portfolio(
             name=data.name,
@@ -50,7 +54,7 @@ class PortfolioService:
                 existing_portfolio is not None
                 and existing_portfolio.id != portfolio_id
             ):
-                raise ValueError("Portfolio slug already exists")
+                raise PortfolioSlugExistsError("Portfolio slug already exists")
 
         for field, value in update_data.items():
             setattr(portfolio, field, value)

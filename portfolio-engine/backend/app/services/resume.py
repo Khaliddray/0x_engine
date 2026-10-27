@@ -1,8 +1,8 @@
 from sqlalchemy import update
 from sqlalchemy.orm import Session
 
-from app.models.portfolio import Portfolio
 from app.models.resume import Resume
+from app.repositories.portfolio import PortfolioRepository
 from app.repositories.resume import ResumeRepository
 from app.schemas.resume import ResumeCreate, ResumeUpdate
 
@@ -19,6 +19,7 @@ class ResumeService:
     def __init__(self, db: Session):
         self.db = db
         self.repository = ResumeRepository(db)
+        self.portfolio_repository = PortfolioRepository(db)
 
     def _set_primary_resume(
         self,
@@ -42,8 +43,7 @@ class ResumeService:
         self.db.execute(statement)
 
     def create(self, data: ResumeCreate) -> Resume:
-        portfolio = self.db.get(
-            Portfolio,
+        portfolio = self.portfolio_repository.get_by_id(
             data.portfolio_id,
         )
 
@@ -86,8 +86,7 @@ class ResumeService:
         self,
         portfolio_id: int,
     ) -> list[Resume]:
-        portfolio = self.db.get(
-            Portfolio,
+        portfolio = self.portfolio_repository.get_by_id(
             portfolio_id,
         )
 
@@ -117,8 +116,7 @@ class ResumeService:
         )
 
         if "portfolio_id" in updates:
-            portfolio = self.db.get(
-                Portfolio,
+            portfolio = self.portfolio_repository.get_by_id(
                 updates["portfolio_id"],
             )
 

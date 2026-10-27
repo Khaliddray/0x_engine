@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 
-from app.models.portfolio import Portfolio
 from app.models.portfolio_section import PortfolioSection
+from app.repositories.portfolio import PortfolioRepository
 from app.repositories.portfolio_section import PortfolioSectionRepository
 from app.schemas.portfolio_section import (
     PortfolioSectionCreate,
@@ -25,12 +25,13 @@ class PortfolioSectionService:
     def __init__(self, db: Session):
         self.db = db
         self.repository = PortfolioSectionRepository(db)
+        self.portfolio_repository = PortfolioRepository(db)
 
     def create(
         self,
         data: PortfolioSectionCreate,
     ) -> PortfolioSection:
-        portfolio = self.db.get(Portfolio, data.portfolio_id)
+        portfolio = self.portfolio_repository.get_by_id(data.portfolio_id)
 
         if portfolio is None:
             raise PortfolioNotFoundError(
@@ -73,7 +74,7 @@ class PortfolioSectionService:
         self,
         portfolio_id: int,
     ) -> list[PortfolioSection]:
-        portfolio = self.db.get(Portfolio, portfolio_id)
+        portfolio = self.portfolio_repository.get_by_id(portfolio_id)
 
         if portfolio is None:
             raise PortfolioNotFoundError(
@@ -92,8 +93,7 @@ class PortfolioSectionService:
         updates = data.model_dump(exclude_unset=True)
 
         if "portfolio_id" in updates:
-            portfolio = self.db.get(
-                Portfolio,
+            portfolio = self.portfolio_repository.get_by_id(
                 updates["portfolio_id"],
             )
 

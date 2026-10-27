@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 
-from app.models.portfolio import Portfolio
 from app.models.skill import Skill
+from app.repositories.portfolio import PortfolioRepository
 from app.repositories.skill import SkillRepository
 from app.schemas.skill import SkillCreate, SkillUpdate
 
@@ -22,13 +22,13 @@ class SkillService:
     def __init__(self, db: Session):
         self.db = db
         self.repository = SkillRepository(db)
+        self.portfolio_repository = PortfolioRepository(db)
 
     def create(
         self,
         data: SkillCreate,
     ) -> Skill:
-        portfolio = self.db.get(
-            Portfolio,
+        portfolio = self.portfolio_repository.get_by_id(
             data.portfolio_id,
         )
 
@@ -78,8 +78,7 @@ class SkillService:
         self,
         portfolio_id: int,
     ) -> list[Skill]:
-        portfolio = self.db.get(
-            Portfolio,
+        portfolio = self.portfolio_repository.get_by_id(
             portfolio_id,
         )
 
@@ -104,8 +103,7 @@ class SkillService:
         )
 
         if "portfolio_id" in updates:
-            portfolio = self.db.get(
-                Portfolio,
+            portfolio = self.portfolio_repository.get_by_id(
                 updates["portfolio_id"],
             )
 

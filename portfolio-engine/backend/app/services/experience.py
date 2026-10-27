@@ -1,8 +1,8 @@
 from sqlalchemy.orm import Session
 
 from app.models.experience import Experience
-from app.models.portfolio import Portfolio
 from app.repositories.experience import ExperienceRepository
+from app.repositories.portfolio import PortfolioRepository
 from app.schemas.experience import ExperienceCreate, ExperienceUpdate
 
 
@@ -18,9 +18,10 @@ class ExperienceService:
     def __init__(self, db: Session):
         self.db = db
         self.repository = ExperienceRepository(db)
+        self.portfolio_repository = PortfolioRepository(db)
 
     def create(self, data: ExperienceCreate) -> Experience:
-        portfolio = self.db.get(Portfolio, data.portfolio_id)
+        portfolio = self.portfolio_repository.get_by_id(data.portfolio_id)
 
         if portfolio is None:
             raise PortfolioNotFoundError(
@@ -59,7 +60,7 @@ class ExperienceService:
         self,
         portfolio_id: int,
     ) -> list[Experience]:
-        portfolio = self.db.get(Portfolio, portfolio_id)
+        portfolio = self.portfolio_repository.get_by_id(portfolio_id)
 
         if portfolio is None:
             raise PortfolioNotFoundError(
@@ -78,9 +79,8 @@ class ExperienceService:
         updates = data.model_dump(exclude_unset=True)
 
         if "portfolio_id" in updates:
-            portfolio = self.db.get(
-                Portfolio,
-                updates["portfolio_id"],
+            portfolio = self.portfolio_repository.get_by_id(
+                updates["portfolio_id"]
             )
 
             if portfolio is None:

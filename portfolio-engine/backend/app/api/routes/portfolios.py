@@ -8,7 +8,10 @@ from app.schemas.portfolio import (
     PortfolioResponse,
     PortfolioUpdate,
 )
-from app.services.portfolio import PortfolioService
+from app.services.portfolio import (
+    PortfolioService,
+    PortfolioSlugExistsError,
+)
 
 
 router = APIRouter(
@@ -31,7 +34,7 @@ def create_portfolio(
 
     try:
         return service.create(data)
-    except ValueError as exc:
+    except PortfolioSlugExistsError as exc:
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
             detail=str(exc),
@@ -83,7 +86,7 @@ def update_portfolio(
 
     try:
         portfolio = service.update(portfolio_id, data)
-    except ValueError as exc:
+    except PortfolioSlugExistsError as exc:
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
             detail=str(exc),

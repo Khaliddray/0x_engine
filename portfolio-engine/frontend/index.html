@@ -6,6 +6,12 @@
   <title>Yahaya Khalid — Product Builder & Backend Engineer</title>
   <meta name="description" content="I build purposeful digital products that turn complex problems into practical, scalable solutions." />
   
+  <!-- Favicon Configuration -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon.png" />
+
   <!-- Google Fonts: Playfair Display (Serif), Inter (Sans), JetBrains Mono (Code) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -44,21 +50,21 @@
               accent: '#f56a6a',
             },
             dark: {
-              bg: '#080809',
-              sidebar: '#0e0e11',
-              surface: '#121215',
-              card: '#16161b',
-              border: '#23232a',
-              hairline: 'rgba(249, 115, 22, 0.12)',
+              bg: '#030E0A',
+              sidebar: '#020906',
+              surface: '#071A12',
+              card: '#0A2118',
+              border: '#143528',
+              hairline: 'rgba(249, 115, 22, 0.15)',
             },
             light: {
-              bg: '#f8fafc',
-              sidebar: '#f1f5f9',
+              bg: '#fdfbf7',
+              sidebar: '#f8f6f0',
               surface: '#ffffff',
               card: '#ffffff',
-              border: '#e2e8f0',
-              text: '#1e293b',
-              muted: '#64748b',
+              border: '#e6dfd5',
+              text: '#1a2320',
+              muted: '#5e6f67',
             }
           }
         }
@@ -81,18 +87,20 @@
       transition: background-color 0.3s ease, color 0.3s ease;
     }
 
-    .dark body {
-      background-color: #080809;
-      background-image: radial-gradient(circle at 60% 0%, #1c0c04 0%, #0d0806 35%, #080809 75%);
+    html.dark,
+    html.dark body {
+      background-color: #030E0A;
+      background-image: radial-gradient(circle at 60% 0%, #05140E 0%, #030E0A 50%);
       background-attachment: fixed;
-      color: #f5f5f5;
+      color: #F5F0E6;
     }
 
-    body:not(.dark-mode):not(.dark) {
-      background-color: #f8fafc;
-      background-image: radial-gradient(circle at 60% 0%, #fff1eb 0%, #fdf6f0 35%, #f8fafc 75%);
+    html:not(.dark),
+    html:not(.dark) body {
+      background-color: #fdfbf7;
+      background-image: radial-gradient(circle at 60% 0%, #fff5ee 0%, #fcf8f2 35%, #fdfbf7 75%);
       background-attachment: fixed;
-      color: #1e293b;
+      color: #1a2320;
     }
 
     .editorial-heading {
@@ -138,50 +146,50 @@
 
     /* Structural Framing & Cards */
     .dark .glass-card {
-      background: rgba(18, 18, 21, 0.82);
+      background: rgba(18, 43, 34, 0.85);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(249, 115, 22, 0.12);
+      border: 1px solid rgba(249, 115, 22, 0.15);
     }
     .dark .glass-card:hover {
       border-color: rgba(249, 115, 22, 0.38);
-      box-shadow: 0 10px 30px -10px rgba(249, 115, 22, 0.12);
+      box-shadow: 0 10px 30px -10px rgba(249, 115, 22, 0.15);
     }
-    
-    body:not(.dark) .glass-card {
+
+    html:not(.dark) .glass-card {
       background: #ffffff;
-      border: 1px solid rgba(210, 215, 217, 0.85);
+      border: 1px solid rgba(230, 223, 213, 0.85);
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
     }
-    body:not(.dark) .glass-card:hover {
+    html:not(.dark) .glass-card:hover {
       border-color: #f56a6a;
       box-shadow: 0 10px 25px -8px rgba(245, 106, 106, 0.15);
     }
 
     .dark .hairline-border {
-      border: 1px solid rgba(249, 115, 22, 0.12);
+      border: 1px solid rgba(249, 115, 22, 0.15);
     }
     .dark .hairline-b {
-      border-bottom: 1px solid rgba(249, 115, 22, 0.12);
+      border-bottom: 1px solid rgba(249, 115, 22, 0.15);
     }
     .dark .hairline-t {
-      border-top: 1px solid rgba(249, 115, 22, 0.12);
+      border-top: 1px solid rgba(249, 115, 22, 0.15);
     }
     .dark .hairline-r {
-      border-right: 1px solid rgba(249, 115, 22, 0.12);
+      border-right: 1px solid rgba(249, 115, 22, 0.15);
     }
 
-    body:not(.dark) .hairline-border {
-      border: 1px solid rgba(210, 215, 217, 0.85);
+    html:not(.dark) .hairline-border {
+      border: 1px solid rgba(230, 223, 213, 0.85);
     }
-    body:not(.dark) .hairline-b {
-      border-bottom: 1px solid rgba(210, 215, 217, 0.85);
+    html:not(.dark) .hairline-b {
+      border-bottom: 1px solid rgba(230, 223, 213, 0.85);
     }
-    body:not(.dark) .hairline-t {
-      border-top: 1px solid rgba(210, 215, 217, 0.85);
+    html:not(.dark) .hairline-t {
+      border-top: 1px solid rgba(230, 223, 213, 0.85);
     }
-    body:not(.dark) .hairline-r {
-      border-right: 1px solid rgba(210, 215, 217, 0.85);
+    html:not(.dark) .hairline-r {
+      border-right: 1px solid rgba(230, 223, 213, 0.85);
     }
 
     /* Corner Accent Marks */
@@ -232,12 +240,41 @@
       background: transparent;
     }
     .dark ::-webkit-scrollbar-thumb {
-      background: #27272a;
+      background: #1F3E32;
       border-radius: 3px;
     }
-    body:not(.dark) ::-webkit-scrollbar-thumb {
+    html:not(.dark) ::-webkit-scrollbar-thumb {
       background: #cbd5e1;
       border-radius: 3px;
+    }
+
+    /* Dark Theme Typography, Surface & Border Overrides */
+    .dark .dark\:text-white {
+      color: #F5F0E6;
+    }
+    .dark .dark\:text-slate-200 {
+      color: #dce6e1;
+    }
+    .dark .dark\:text-slate-300 {
+      color: #c2d4cb;
+    }
+    .dark .dark\:text-slate-400 {
+      color: #97b0a6;
+    }
+    .dark .dark\:text-slate-500 {
+      color: #718c81;
+    }
+    .dark .dark\:border-white\/10 {
+      border-color: rgba(151, 176, 166, 0.2);
+    }
+    .dark .dark\:border-white\/5 {
+      border-color: rgba(151, 176, 166, 0.1);
+    }
+    .dark .dark\:bg-white\/5 {
+      background-color: rgba(151, 176, 166, 0.08);
+    }
+    .dark .dark\:bg-white\/\[0\.02\] {
+      background-color: rgba(151, 176, 166, 0.03);
     }
   </style>
 </head>
@@ -252,7 +289,7 @@
   <div id="root" class="relative z-10"></div>
 
   <script type="text/babel">
-    const { useState, useEffect, useMemo } = React;
+    const { useState, useEffect, useMemo, useCallback } = React;
 
     // --- Icons ---
     const CodeIcon = () => (
@@ -268,26 +305,26 @@
     );
 
     const GitHubIcon = () => (
-      <svg className="w-4 h-4 inline-block mr-1.5" fill="currentColor" viewBox="0 0 24 24">
+      <svg className="w-4 h-4 inline-block" fill="currentColor" viewBox="0 0 24 24">
         <path fillRule="evenodd" clipRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+      </svg>
+    );
+
+    const LinkedInIcon = () => (
+      <svg className="w-4 h-4 inline-block" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/>
+      </svg>
+    );
+
+    const XIcon = () => (
+      <svg className="w-4 h-4 inline-block" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
       </svg>
     );
 
     const DownloadIcon = () => (
       <svg className="w-4 h-4 inline-block mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
-      </svg>
-    );
-
-    const CheckIcon = () => (
-      <svg className="w-4 h-4 inline-block mr-1 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 13l4 4L19 7"/>
-      </svg>
-    );
-
-    const CopyIcon = () => (
-      <svg className="w-3.5 h-3.5 inline-block mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"/>
       </svg>
     );
 
@@ -305,7 +342,7 @@
 
     const MenuIcon = () => (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7"/>
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"/>
       </svg>
     );
 
@@ -340,25 +377,120 @@
       </svg>
     );
 
+    // --- Route Normalization Helper ---
+    function resolveRoute(pathname) {
+      const cleanPath = pathname.replace(/\/$/, '') || '/';
+      if (cleanPath === '/admin') {
+        window.location.href = '/admin';
+        return 'admin';
+      }
+      if (cleanPath === '/' || cleanPath.startsWith('/portfolio')) return 'home';
+      if (cleanPath === '/about') return 'about';
+      if (cleanPath === '/projects') return 'projects';
+      if (cleanPath === '/stack') return 'stack';
+      if (cleanPath === '/journey') return 'journey';
+      if (cleanPath === '/contact') return 'contact';
+      return 'not-found';
+    }
+
+    // --- Verified Stack Data Definitions ---
+    const VERIFIED_STACK = [
+      {
+        category: "Languages",
+        name: "Python",
+        description: "Primary backend language. Implemented across REST endpoints, automated test suites, and data models.",
+        verified: true,
+      },
+      {
+        category: "Frameworks",
+        name: "FastAPI",
+        description: "High-performance asynchronous Python API framework with dependency injection and Pydantic contracts.",
+        verified: true,
+      },
+      {
+        category: "Databases",
+        name: "PostgreSQL",
+        description: "Primary relational storage for portfolios, projects, and users with relational constraints.",
+        verified: true,
+      },
+      {
+        category: "Data Access & ORM",
+        name: "SQLAlchemy",
+        description: "SQLAlchemy 2.0 declarative models, repository design patterns, and transactional sessions.",
+        verified: true,
+      },
+      {
+        category: "Database Migrations",
+        name: "Alembic",
+        description: "Version-controlled database schema migrations managing evolution and table constraints.",
+        verified: true,
+      },
+      {
+        category: "Validation & Schemas",
+        name: "Pydantic",
+        description: "Pydantic v2 schemas enforcing strict request payload validation and response contracts.",
+        verified: true,
+      },
+      {
+        category: "Architecture",
+        name: "REST APIs",
+        description: "Layered architecture cleanly separating Routes, Services, Repositories, and Database Models.",
+        verified: true,
+      },
+      {
+        category: "Version Control",
+        name: "Git & GitHub",
+        description: "Disciplined version control, incremental commits, atomic changes, and repository management.",
+        verified: true,
+      },
+      {
+        category: "Containerization",
+        name: "Docker",
+        description: "Multi-container orchestration with Dockerfile and Docker Compose for API and PostgreSQL.",
+        verified: true,
+      },
+      {
+        category: "Testing & Automation",
+        name: "Pytest",
+        description: "Automated test suite with isolated in-memory SQLite fixtures verifying routes, repositories, and auth.",
+        verified: true,
+      },
+    ];
+
+    // --- Curated Showcase Products Data Source ---
+    const SHOWCASE_PRODUCTS = [
+      {
+        name: "Portfolio Engine",
+        description: "A content-driven portfolio management system and API designed to present professional engineering work, manage evolving showcase content, and decouple domain data from frontend presentation. Built to accommodate career growth without requiring periodic redesigns.",
+        product_url: "/docs",
+        visual_url: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1000&auto=format&fit=crop&q=80",
+      },
+      {
+        name: "Distributed Event Pipeline",
+        description: "An asynchronous message distribution and task coordination service engineered to reliably buffer, process, and deliver high-volume background workloads while maintaining operational isolation and fault tolerance.",
+        product_url: "https://pipeline.example.com",
+        visual_url: null,
+      },
+      {
+        name: "AuthGuard Zero-Trust Gateway",
+        description: "A centralized identity and session boundary service providing cryptographic verification, scoped authorization tokens, and perimeter access policies for multi-service environments.",
+        product_url: null,
+        visual_url: null,
+      },
+    ];
+
     // --- Main Application Component ---
     function App() {
-      const getInitialSlug = () => {
-        try {
-          const path = window.location.pathname;
-          const match = path.match(/^\/portfolio\/([^/]+)/);
-          if (match && match[1]) {
-            return decodeURIComponent(match[1]);
-          }
-        } catch (e) {}
-        return "khalid";
-      };
+      // 1. Navigation State
+      const [currentRoute, setCurrentRoute] = useState(() => resolveRoute(window.location.pathname));
+      const [menuOpen, setMenuOpen] = useState(false);
 
-      const [slug, setSlug] = useState(getInitialSlug);
+      // 2. Data State
       const [portfolio, setPortfolio] = useState(null);
       const [loading, setLoading] = useState(true);
       const [error, setError] = useState(null);
 
-      // Theme toggle (Dark / Light)
+      // 3. Theme Toggle (Dark / Light)
       const [isDark, setIsDark] = useState(() => {
         const saved = localStorage.getItem('theme');
         return saved ? saved === 'dark' : true;
@@ -367,24 +499,19 @@
       useEffect(() => {
         if (isDark) {
           document.documentElement.classList.add('dark');
+          if (document.body) document.body.classList.add('dark');
           localStorage.setItem('theme', 'dark');
         } else {
           document.documentElement.classList.remove('dark');
+          if (document.body) document.body.classList.remove('dark');
           localStorage.setItem('theme', 'light');
         }
       }, [isDark]);
 
-      // Filtering and Search State
-      const [activeCategory, setActiveCategory] = useState("all");
-      const [searchQuery, setSearchQuery] = useState("");
-      const [selectedProject, setSelectedProject] = useState(null);
+      // 4. Curated Showcase Products State
+      const [products, setProducts] = useState(SHOWCASE_PRODUCTS);
 
-      // Feedback states
-      const [copiedEmail, setCopiedEmail] = useState(false);
-      const [copiedCurl, setCopiedCurl] = useState(false);
-      const [sidebarOpen, setSidebarOpen] = useState(false);
-
-      // Contact Form State
+      // 5. Contact Form State
       const [contactForm, setContactForm] = useState({
         name: "",
         email: "",
@@ -393,44 +520,103 @@
       });
       const [contactSubmitting, setContactSubmitting] = useState(false);
       const [contactStatus, setContactStatus] = useState(null);
+      const [copiedEmail, setCopiedEmail] = useState(false);
 
-      useEffect(() => {
-        fetchPortfolio(slug);
-      }, [slug]);
-
-      const fetchPortfolio = async (targetSlug) => {
-        setLoading(true);
-        setError(null);
-        try {
-          const res = await fetch(`/api/public/portfolios/${targetSlug}`);
-          if (!res.ok) {
-            if (res.status === 404) {
-              throw new Error(`Portfolio with slug "${targetSlug}" was not found.`);
-            }
-            throw new Error(`Failed to load portfolio (HTTP ${res.status})`);
-          }
-          const data = await res.json();
-          setPortfolio(data);
-        } catch (err) {
-          setError(err.message);
-        } finally {
-          setLoading(false);
+      // 6. Router Navigation Function
+      const navigateTo = useCallback((path, e) => {
+        if (e) e.preventDefault();
+        setMenuOpen(false);
+        if (window.location.pathname !== path) {
+          window.history.pushState({}, '', path);
         }
-      };
+        setCurrentRoute(resolveRoute(path));
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, []);
 
+      // 7. Popstate Listener for Browser Back/Forward
+      useEffect(() => {
+        const handlePopState = () => {
+          setCurrentRoute(resolveRoute(window.location.pathname));
+          setMenuOpen(false);
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+        window.addEventListener('popstate', handlePopState);
+        return () => window.removeEventListener('popstate', handlePopState);
+      }, []);
+
+      // 8. Escape Key for Menu
+      useEffect(() => {
+        const handleKeyDown = (e) => {
+          if (e.key === 'Escape') {
+            if (menuOpen) setMenuOpen(false);
+          }
+        };
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+      }, [menuOpen]);
+
+      // 9. Document Title Synchronization
+      useEffect(() => {
+        const titles = {
+          'home': 'Yahaya Khalid — Product Builder & Backend Engineer',
+          'about': 'About & Principles — Yahaya Khalid',
+          'projects': 'Featured Projects — Yahaya Khalid',
+          'stack': 'Tools of My Craft — Yahaya Khalid',
+          'journey': 'Journey & Foundations — Yahaya Khalid',
+          'contact': 'Contact & Collaboration — Yahaya Khalid',
+          'not-found': '404 // Page Not Found — Yahaya Khalid',
+        };
+        document.title = titles[currentRoute] || 'Yahaya Khalid';
+      }, [currentRoute]);
+
+      // 10. Fetch Portfolio Data
+      useEffect(() => {
+        const fetchPortfolio = async () => {
+          setLoading(true);
+          setError(null);
+          try {
+            const res = await fetch('/api/public/portfolios/khalid');
+            if (!res.ok) {
+              if (res.status === 404) {
+                throw new Error('Portfolio record for Yahaya Khalid not found.');
+              }
+              throw new Error(`Failed to load portfolio (HTTP ${res.status})`);
+            }
+            const data = await res.json();
+            setPortfolio(data);
+          } catch (err) {
+            setError(err.message);
+          } finally {
+            setLoading(false);
+          }
+        };
+        fetchPortfolio();
+      }, []);
+
+      // 11. Fetch Curated Showcase Products
+      useEffect(() => {
+        const fetchShowcaseProducts = async () => {
+          try {
+            const res = await fetch('/api/projects/showcase');
+            if (res.ok) {
+              const data = await res.json();
+              if (Array.isArray(data) && data.length > 0) {
+                setProducts(data);
+              }
+            }
+          } catch (e) {
+            // Silently fall back to default SHOWCASE_PRODUCTS
+          }
+        };
+        fetchShowcaseProducts();
+      }, []);
+
+      // Contact Form Handlers
       const handleCopyEmail = (e) => {
         if (e) e.preventDefault();
         navigator.clipboard.writeText("khalidzak21@gmail.com");
         setCopiedEmail(true);
         setTimeout(() => setCopiedEmail(false), 2500);
-      };
-
-      const handleCopyCurl = (e) => {
-        if (e) e.preventDefault();
-        const curlCmd = `curl -s ${window.location.origin}/api/public/portfolios/${slug}`;
-        navigator.clipboard.writeText(curlCmd);
-        setCopiedCurl(true);
-        setTimeout(() => setCopiedCurl(false), 2500);
       };
 
       const handleContactSubmit = async (e) => {
@@ -456,7 +642,6 @@
           });
           setContactForm({ name: "", email: "", subject: "", message: "" });
         } catch (err) {
-          // Fallback to mailto
           window.location.href = `mailto:khalidzak21@gmail.com?subject=${encodeURIComponent(contactForm.subject || "Engineering Inquiry")}&body=${encodeURIComponent(`From: ${contactForm.name} (${contactForm.email})\n\n${contactForm.message}`)}`;
           setContactStatus({
             type: "info",
@@ -467,36 +652,6 @@
         }
       };
 
-      // Filtered projects
-      const filteredProjects = useMemo(() => {
-        if (!portfolio || !portfolio.projects) return [];
-
-        return portfolio.projects.filter((p) => {
-          if (activeCategory === "featured" && !p.is_featured) return false;
-
-          if (searchQuery.trim() !== "") {
-            const query = searchQuery.toLowerCase();
-            const titleMatch = p.title.toLowerCase().includes(query);
-            const descMatch = (p.description || "").toLowerCase().includes(query);
-            const techMatch = (p.technologies || []).some(t => t.name.toLowerCase().includes(query));
-            if (!titleMatch && !descMatch && !techMatch) return false;
-          }
-
-          return true;
-        });
-      }, [portfolio, activeCategory, searchQuery]);
-
-      // Filtered skills
-      const filteredSkills = useMemo(() => {
-        if (!portfolio || !portfolio.skills) return [];
-        if (searchQuery.trim() === "") return portfolio.skills;
-
-        const query = searchQuery.toLowerCase();
-        return portfolio.skills.filter(s => 
-          s.name.toLowerCase().includes(query) || 
-          (s.category && s.category.toLowerCase().includes(query))
-        );
-      }, [portfolio, searchQuery]);
 
       // Verified architecture ticker technologies
       const tickerTechs = [
@@ -504,843 +659,1173 @@
         "Pydantic", "REST APIs", "Pytest", "Docker", "Git & GitHub"
       ];
 
-      // Navigation handler with smooth scroll and drawer close
-      const handleNavClick = (id) => {
-        setSidebarOpen(false);
-        const el = document.getElementById(id);
-        if (el) {
-          el.scrollIntoView({ behavior: 'smooth' });
-        }
-      };
+      // Navigation Items List
+      const navLinks = [
+        { id: "about", path: "/about", num: "01", label: "ABOUT", desc: "Philosophy, background, and approach to software" },
+        { id: "projects", path: "/projects", num: "02", label: "PROJECTS", desc: "Structured backend systems & applications" },
+        { id: "stack", path: "/stack", num: "03", label: "STACK", desc: "Verified tools, languages, and architecture" },
+        { id: "journey", path: "/journey", num: "04", label: "JOURNEY", desc: "Groundwork, backend focus, and engineering foundations" },
+        { id: "contact", path: "/contact", num: "05", label: "CONTACT", desc: "Direct inquiries and collaboration" },
+      ];
 
-      // --- Persistent Sidebar Content Component ---
-      const SidebarContent = () => (
-        <div className="flex flex-col h-full justify-between p-6 sm:p-8 text-sm">
-          <div className="space-y-8">
-            {/* Sidebar Brand Header */}
-            <div>
-              <div className="flex items-center space-x-3 mb-2">
-                <div className="w-9 h-9 rounded-lg bg-gradient-to-tr from-brand-600 via-orange-500 to-amber-400 flex items-center justify-center font-bold text-xs font-mono text-black shadow-md">
-                  YK
-                </div>
-                <div>
-                  <h2 className="font-serif font-bold text-base dark:text-white text-slate-900 leading-tight">Yahaya Khalid</h2>
-                  <p className="text-[11px] font-mono dark:text-slate-400 text-slate-500">Product Builder & Backend Engineer</p>
-                </div>
-              </div>
-            </div>
+      // ----------------------------------------------------
+      // PAGE COMPONENTS
+      // ----------------------------------------------------
 
-            {/* Sidebar Search Bar */}
-            <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <SearchIcon />
+      // 1. HOME PAGE COMPONENT
+      const HomePage = () => (
+        <div className="space-y-16">
+          {/* Hero Introduction Banner */}
+          <section className="pt-6 pb-8 flex flex-col md:flex-row items-center justify-between gap-10">
+            <div className="max-w-xl text-center md:text-left">
+              <header className="mb-4">
+                <h1 className="text-3xl sm:text-5xl lg:text-6xl font-serif font-medium tracking-tight dark:text-white text-slate-900 leading-[1.12] mb-3 break-words">
+                  Hi, I’m <span className="text-brand-600 dark:text-brand-400">Yahaya&nbsp;Khalid</span>
+                </h1>
+                <p className="text-base sm:text-lg font-mono dark:text-brand-400 text-brand-600 font-medium">
+                  Product Builder &amp; Backend Engineer
+                </p>
+              </header>
+
+              {/* Exact Required Positioning & Headline */}
+              <div className="mb-4">
+                <p className="text-lg sm:text-xl font-serif italic dark:text-slate-200 text-slate-800 leading-snug mb-2">
+                  “I build purposeful digital products that turn complex problems into practical, scalable solutions.”
+                </p>
+                <p className="text-sm sm:text-base font-serif italic text-brand-600 dark:text-brand-400 flex items-center justify-center md:justify-start gap-2">
+                  <span className="w-6 h-px bg-brand-500/50 inline-block"></span>
+                  <span>“Less is more.”</span>
+                </p>
               </div>
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search projects & stack..."
-                className="w-full pl-9 pr-3 py-2 rounded-lg text-xs font-mono dark:bg-dark-card dark:text-white text-slate-800 dark:border-white/10 border-slate-300 border focus:outline-none focus:border-brand-500 dark:placeholder-slate-500 placeholder-slate-400 transition"
-              />
-              {searchQuery && (
-                <button
-                  onClick={() => setSearchQuery("")}
-                  className="absolute inset-y-0 right-0 pr-2.5 flex items-center text-slate-400 hover:text-slate-200 text-xs"
+
+              <p className="text-sm sm:text-base dark:text-slate-300 text-slate-600 font-sans leading-relaxed mb-8">
+                I turn ideas into working software, with a focus on backend engineering, thoughtful design, and solving problems that matter.
+              </p>
+
+              {/* Hero Call to Action Buttons */}
+              <div className="flex flex-wrap items-center gap-3.5 justify-center md:justify-start">
+                <button 
+                  onClick={(e) => navigateTo("/projects", e)}
+                  className="min-h-[44px] px-5 py-2.5 rounded-lg bg-brand-600 hover:bg-brand-500 text-white font-medium text-sm transition-all shadow-md shadow-brand-600/20 inline-flex items-center group"
                 >
-                  ×
+                  <span>Explore Projects</span>
+                  <ArrowUpRight />
                 </button>
-              )}
-            </div>
 
-            {/* Navigation Menu (Reference Structure) */}
-            <nav className="space-y-1 font-mono text-xs">
-              <div className="text-[10px] uppercase font-bold tracking-widest dark:text-slate-500 text-slate-400 mb-2">
-                // Navigation Menu
-              </div>
-              <button 
-                onClick={() => handleNavClick("about")} 
-                className="w-full text-left py-2 px-3 rounded-lg dark:hover:bg-white/5 hover:bg-slate-200/70 transition flex items-center justify-between dark:text-slate-300 text-slate-700 hover:text-brand-500"
-              >
-                <span>01 // ABOUT</span>
-                <span className="text-[10px] text-slate-500">→</span>
-              </button>
-              <button 
-                onClick={() => handleNavClick("projects")} 
-                className="w-full text-left py-2 px-3 rounded-lg dark:hover:bg-white/5 hover:bg-slate-200/70 transition flex items-center justify-between dark:text-slate-300 text-slate-700 hover:text-brand-500"
-              >
-                <span>02 // PROJECTS</span>
-                <span className="text-[10px] text-slate-500">→</span>
-              </button>
-              <button 
-                onClick={() => handleNavClick("stack")} 
-                className="w-full text-left py-2 px-3 rounded-lg dark:hover:bg-white/5 hover:bg-slate-200/70 transition flex items-center justify-between dark:text-slate-300 text-slate-700 hover:text-brand-500"
-              >
-                <span>03 // STACK</span>
-                <span className="text-[10px] text-slate-500">→</span>
-              </button>
-              <button 
-                onClick={() => handleNavClick("journey")} 
-                className="w-full text-left py-2 px-3 rounded-lg dark:hover:bg-white/5 hover:bg-slate-200/70 transition flex items-center justify-between dark:text-slate-300 text-slate-700 hover:text-brand-500"
-              >
-                <span>04 // JOURNEY</span>
-                <span className="text-[10px] text-slate-500">→</span>
-              </button>
-              <button 
-                onClick={() => handleNavClick("contact")} 
-                className="w-full text-left py-2 px-3 rounded-lg dark:hover:bg-white/5 hover:bg-slate-200/70 transition flex items-center justify-between dark:text-slate-300 text-slate-700 hover:text-brand-500"
-              >
-                <span>05 // CONTACT</span>
-                <span className="text-[10px] text-slate-500">→</span>
-              </button>
+                <button 
+                  onClick={(e) => navigateTo("/contact", e)}
+                  className="min-h-[44px] px-5 py-2.5 rounded-lg glass-card dark:text-slate-200 text-slate-800 font-medium text-sm transition-all hover:border-brand-500 inline-flex items-center"
+                >
+                  <span>Get in Touch</span>
+                </button>
 
-              {portfolio && portfolio.resume && portfolio.resume.file_url && (
-                <div className="pt-2">
+                {portfolio && portfolio.resume && portfolio.resume.file_url && (
                   <a 
                     href={portfolio.resume.file_url} 
                     target="_blank" 
-                    rel="noreferrer" 
-                    className="w-full py-2 px-3 rounded-lg dark:bg-white/5 bg-slate-200/80 hover:bg-brand-500 hover:text-white dark:hover:bg-brand-600 transition flex items-center justify-between text-brand-600 dark:text-brand-400 font-semibold"
+                    rel="noreferrer"
+                    className="min-h-[44px] px-4 py-2.5 rounded-lg dark:text-slate-300 text-slate-700 hover:text-brand-600 font-mono text-xs transition-all inline-flex items-center border dark:border-white/10 border-slate-300 dark:bg-white/[0.02] bg-white"
                   >
-                    <span className="flex items-center"><DownloadIcon /> Download Resume</span>
-                    <span className="text-[10px]">PDF</span>
+                    <DownloadIcon />
+                    <span>Curriculum Vitae</span>
                   </a>
-                </div>
-              )}
-            </nav>
-
-            {/* Availability & Contact Block */}
-            <div className="dark:bg-dark-card/60 bg-slate-100/80 p-4 rounded-xl border dark:border-white/5 border-slate-200 space-y-3 font-sans text-xs">
-              <div className="inline-flex items-center space-x-2 text-[11px] font-mono font-medium text-emerald-500">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                <span>Open for Opportunities</span>
+                )}
               </div>
-              <p className="dark:text-slate-300 text-slate-600 leading-relaxed text-[12px]">
-                Open for backend engineering roles, product collaboration, and building maintainable software.
-              </p>
-              
-              <div className="pt-2 border-t dark:border-white/5 border-slate-200 space-y-2 font-mono text-[11px]">
-                <div className="flex items-center dark:text-slate-300 text-slate-700">
-                  <MailIcon />
-                  <a href="mailto:khalidzak21@gmail.com" className="hover:underline truncate">khalidzak21@gmail.com</a>
+            </div>
+
+            {/* Profile Badge Card */}
+            <div className="relative shrink-0">
+              <div className="w-52 min-h-52 sm:w-56 sm:min-h-56 rounded-2xl glass-card corner-mark p-3.5 sm:p-4 flex flex-col items-center justify-center text-center shadow-xl relative overflow-hidden group">
+                <div className="absolute inset-0 bg-gradient-to-tr from-brand-600/20 via-orange-500/10 to-transparent opacity-70 group-hover:opacity-100 transition-opacity"></div>
+                <div className="relative z-10 w-28 h-28 sm:w-32 sm:h-32 rounded-xl overflow-hidden mb-2.5 border dark:border-white/10 border-slate-300/80 shadow-md group-hover:border-brand-500/50 transition-colors">
+                  <img 
+                    src="/static/img/profile.jpg" 
+                    alt="Professional profile photograph of Yahaya Khalid"
+                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300"
+                    loading="eager"
+                  />
                 </div>
-                <div className="flex items-center dark:text-slate-300 text-slate-700">
-                  <MapPinIcon />
-                  <span>Abuja, Nigeria (Remote)</span>
+                <div className="text-[10px] font-mono dark:text-slate-400 text-slate-500 relative z-10 uppercase tracking-widest font-semibold">
+                  Abuja, Nigeria
                 </div>
+                <div className="text-[9px] font-mono text-brand-600 dark:text-brand-400 mt-1 relative z-10 flex items-center justify-center gap-1 font-medium">
+                  <span className="w-1.5 h-1.5 rounded-full bg-brand-500 animate-pulse"></span>
+                  <span>Open for Collaboration</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Marquee Technology Ticker */}
+          <div className="hairline-t hairline-b py-3.5 overflow-hidden relative">
+            <div className="flex items-center space-x-6 text-xs font-mono tracking-wider animate-marquee whitespace-nowrap">
+              {tickerTechs.concat(tickerTechs).map((tech, idx) => (
+                <div key={idx} className="flex items-center space-x-3 dark:text-slate-400 text-slate-600 hover:text-brand-500 transition-colors">
+                  <span className="w-1.5 h-1.5 rounded-full bg-brand-500"></span>
+                  <span className="uppercase font-semibold">{tech}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Dedicated Pages Directory / Navigation Portal */}
+          <section className="space-y-6 pt-2">
+            <div className="flex items-center justify-between">
+              <div>
+                <span className="text-xs font-mono text-brand-600 dark:text-brand-400 uppercase tracking-wider font-semibold">
+                  // Portfolio Directory
+                </span>
+                <h2 className="text-2xl sm:text-3xl font-serif font-medium dark:text-white text-slate-900 mt-1">
+                  Explore by Area
+                </h2>
+              </div>
+              <span className="hidden sm:inline-block text-xs font-mono dark:text-slate-400 text-slate-500">
+                5 Dedicated Pages
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+              {navLinks.map((item) => (
+                <div 
+                  key={item.id}
+                  onClick={(e) => navigateTo(item.path, e)}
+                  className="glass-card rounded-2xl p-6 corner-mark group cursor-pointer flex flex-col justify-between hover:-translate-y-1 transition duration-200"
+                >
+                  <div>
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="text-xs font-mono text-brand-600 dark:text-brand-400 font-bold">
+                        {item.num} //
+                      </span>
+                      <span className="text-xs font-mono dark:text-slate-400 text-slate-500 group-hover:text-brand-500 transition">
+                        View Page →
+                      </span>
+                    </div>
+                    <h3 className="text-lg font-serif font-medium dark:text-white text-slate-900 group-hover:text-brand-500 transition">
+                      {item.label}
+                    </h3>
+                    <p className="dark:text-slate-300 text-slate-600 text-xs mt-2 leading-relaxed font-sans">
+                      {item.desc}
+                    </p>
+                  </div>
+                  <div className="pt-4 mt-4 hairline-t flex items-center justify-between text-[11px] font-mono dark:text-slate-400 text-slate-500">
+                    <span>{item.path}</span>
+                    <span className="text-brand-500 opacity-0 group-hover:opacity-100 transition">Open</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        </div>
+      );
+
+      // 2. PAGE 1: ABOUT (/about)
+      const AboutPage = () => (
+        <div className="space-y-12">
+          {/* Page Header */}
+          <header className="space-y-2">
+            <div className="flex items-center space-x-3">
+              <span className="text-xs font-mono text-brand-600 dark:text-brand-400 font-bold">01 //</span>
+              <span className="text-xs font-mono dark:text-slate-400 text-slate-500 uppercase tracking-widest">PROFILE &amp; PHILOSOPHY</span>
+            </div>
+            <h1 className="text-3xl sm:text-4xl font-serif font-medium dark:text-white text-slate-900 tracking-tight">
+              About &amp; Principles
+            </h1>
+            <p className="dark:text-slate-300 text-slate-600 text-sm sm:text-base max-w-2xl leading-relaxed">
+              Who I am, how I approach backend engineering, and the kind of software I build.
+            </p>
+          </header>
+
+          {/* Core Engineering Philosophy Callout */}
+          <div className="glass-card rounded-2xl p-6 sm:p-8 corner-mark border-l-4 border-l-brand-500">
+            <div className="text-xs font-mono text-brand-600 dark:text-brand-400 uppercase tracking-wider mb-2 font-semibold">
+              Core Engineering Philosophy
+            </div>
+            <p className="text-base sm:text-xl font-serif italic dark:text-white text-slate-900 leading-relaxed">
+              “Build what solves the problem. Keep the architecture understandable. Design data models carefully, separate responsibilities, and build products that can evolve as requirements change.”
+            </p>
+          </div>
+
+          {/* About Me & Principles Content */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {portfolio && portfolio.sections && portfolio.sections.map((sec) => (
+              <article key={sec.slug} className="glass-card rounded-2xl p-6 sm:p-8 corner-mark flex flex-col justify-between">
+                <div>
+                  <h3 className="text-xl font-serif font-medium dark:text-white text-slate-900 mb-3 flex items-center">
+                    <span className="w-2 h-2 rounded-sm bg-brand-500 mr-2.5"></span>
+                    {sec.title}
+                  </h3>
+                  <p className="dark:text-slate-300 text-slate-600 text-sm leading-relaxed whitespace-pre-line font-sans">
+                    {sec.content}
+                  </p>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          {/* Architectural Principles Pillars */}
+          <div className="space-y-4 pt-4 hairline-t">
+            <h3 className="text-xl font-serif font-medium dark:text-white text-slate-900">
+              Foundational Principles
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="glass-card rounded-xl p-5">
+                <div className="text-xs font-mono text-brand-500 font-semibold mb-2">01 // LAYERED ARCHITECTURE</div>
+                <div className="font-serif font-medium text-sm dark:text-white text-slate-900 mb-1">Separation of Concerns</div>
+                <p className="text-xs dark:text-slate-400 text-slate-600 leading-relaxed">
+                  Strictly dividing Routes, Services, Repositories, and Database Models to keep code testable and maintainable.
+                </p>
+              </div>
+
+              <div className="glass-card rounded-xl p-5">
+                <div className="text-xs font-mono text-brand-500 font-semibold mb-2">02 // PRAGMATIC DESIGN</div>
+                <div className="font-serif font-medium text-sm dark:text-white text-slate-900 mb-1">Purpose-Driven Code</div>
+                <p className="text-xs dark:text-slate-400 text-slate-600 leading-relaxed">
+                  Avoiding unnecessary complexity. Writing clear Python, explicit contracts, and avoiding clever tricks.
+                </p>
+              </div>
+
+              <div className="glass-card rounded-xl p-5">
+                <div className="text-xs font-mono text-brand-500 font-semibold mb-2">03 // RELATIONAL INTEGRITY</div>
+                <div className="font-serif font-medium text-sm dark:text-white text-slate-900 mb-1">Careful Data Modeling</div>
+                <p className="text-xs dark:text-slate-400 text-slate-600 leading-relaxed">
+                  Normalized schemas, foreign key constraints, explicit indexing, and versioned migrations with Alembic.
+                </p>
+              </div>
+
+              <div className="glass-card rounded-xl p-5">
+                <div className="text-xs font-mono text-brand-500 font-semibold mb-2">04 // RELIABLE VERIFICATION</div>
+                <div className="font-serif font-medium text-sm dark:text-white text-slate-900 mb-1">Automated Pytest Coverage</div>
+                <p className="text-xs dark:text-slate-400 text-slate-600 leading-relaxed">
+                  Ensuring endpoints, authentication, and database operations are verified against isolated test databases.
+                </p>
               </div>
             </div>
           </div>
 
-          {/* Sidebar Footer */}
-          <div className="pt-6 border-t dark:border-white/5 border-slate-200 text-[11px] font-mono dark:text-slate-500 text-slate-400">
-            <div>© 2026 Yahaya Khalid</div>
-            <div className="mt-1 flex items-center space-x-3 text-[10px]">
-              <a href="/docs" target="_blank" className="hover:text-brand-500 transition">Swagger API</a>
-              <span>·</span>
-              <a href={`/api/public/portfolios/${slug}`} target="_blank" className="hover:text-brand-500 transition">JSON Core</a>
+          {/* Page Bottom CTAs */}
+          <div className="pt-6 hairline-t flex flex-wrap items-center justify-between gap-4">
+            <button 
+              onClick={(e) => navigateTo("/projects", e)}
+              className="px-5 py-2.5 rounded-lg bg-brand-600 hover:bg-brand-500 text-white font-medium text-xs font-mono transition flex items-center"
+            >
+              <span>Explore Projects (02) →</span>
+            </button>
+            <button 
+              onClick={(e) => navigateTo("/contact", e)}
+              className="text-xs font-mono dark:text-slate-300 text-slate-700 hover:text-brand-500 transition"
+            >
+              Have a question? Contact me →
+            </button>
+          </div>
+        </div>
+      );
+
+      // 3. PAGE 2: PROJECTS (/projects)
+      const ProjectsPage = () => (
+        <div className="space-y-10">
+          {/* Page Header */}
+          <header className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-4 border-b dark:border-white/5 border-slate-200">
+            <div>
+              <div className="flex items-center space-x-3 mb-1.5">
+                <span className="text-xs font-mono text-brand-600 dark:text-brand-400 font-bold">02 //</span>
+                <span className="text-xs font-mono dark:text-slate-400 text-slate-500 uppercase tracking-widest">PRODUCT SHOWCASE</span>
+              </div>
+              <h1 className="text-3xl sm:text-4xl font-serif font-medium dark:text-white text-slate-900 tracking-tight">
+                Featured Products
+              </h1>
+              <p className="dark:text-slate-300 text-slate-600 text-sm max-w-2xl mt-1.5 leading-relaxed font-sans">
+                Purpose-built digital products and systems designed to solve practical problems and deliver lasting value.
+              </p>
+            </div>
+
+            {/* Curated Products Count Badge */}
+            <div className="self-start sm:self-auto">
+              <div className="px-3 py-1.5 rounded-lg text-xs font-mono font-semibold dark:bg-brand-500/10 bg-brand-50 text-brand-600 dark:text-brand-400 border border-brand-500/20">
+                <span>{products.length} {products.length === 1 ? 'Curated Product' : 'Curated Products'}</span>
+              </div>
+            </div>
+          </header>
+
+          {/* Curated Products Showcase Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6" id="products-grid-container">
+            {products.map((product, idx) => (
+              <article 
+                key={product.name || idx} 
+                className="glass-card product-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between corner-mark relative group transition hover:-translate-y-1"
+              >
+                <div>
+                  {product.visual_url && (
+                    <div className="rounded-xl overflow-hidden mb-5 border dark:border-white/10 border-slate-200 bg-slate-950 aspect-video relative">
+                      <img
+                        src={product.visual_url}
+                        alt={`${product.name} product preview`}
+                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                        loading="lazy"
+                      />
+                    </div>
+                  )}
+
+                  <div className="mb-3">
+                    <div className="inline-flex items-center space-x-1.5 text-[11px] font-mono text-brand-600 dark:text-brand-400 font-semibold mb-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-brand-500"></span>
+                      <span>Product Showcase</span>
+                    </div>
+                    <h2 className="text-xl sm:text-2xl font-serif font-medium dark:text-white text-slate-900 leading-snug">
+                      {product.name}
+                    </h2>
+                  </div>
+
+                  <p className="dark:text-slate-300 text-slate-600 text-xs sm:text-sm leading-relaxed font-sans mb-6">
+                    {product.description}
+                  </p>
+                </div>
+
+                <div className="pt-4 hairline-t">
+                  {product.product_url ? (
+                    <a
+                      href={product.product_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="min-h-[40px] px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-500 text-white font-mono text-xs font-semibold inline-flex items-center space-x-1.5 transition shadow-sm shadow-brand-600/20 group/btn"
+                      aria-label={`Explore ${product.name} (opens in a new tab)`}
+                    >
+                      <span>Explore Product</span>
+                      <svg className="w-3.5 h-3.5 transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                      </svg>
+                    </a>
+                  ) : (
+                    <div className="flex items-center space-x-2 text-xs font-mono dark:text-slate-500 text-slate-400 py-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-slate-400/60 dark:bg-slate-600"></span>
+                      <span className="text-[11px]">Product in Development</span>
+                    </div>
+                  )}
+                </div>
+              </article>
+            ))}
+          </div>
+
+          {/* Bottom Navigation CTAs */}
+          <div className="pt-8 hairline-t flex flex-wrap items-center justify-between gap-4">
+            <button
+              onClick={(e) => navigateTo("/stack", e)}
+              className="px-5 py-2.5 rounded-lg bg-brand-600 hover:bg-brand-500 text-white font-medium text-xs font-mono transition flex items-center shadow-md shadow-brand-600/20"
+            >
+              <span>Explore Technical Stack (03) →</span>
+            </button>
+            <button
+              onClick={(e) => navigateTo("/about", e)}
+              className="text-xs font-mono dark:text-slate-300 text-slate-700 hover:text-brand-500 transition"
+            >
+              Read Engineering Philosophy →
+            </button>
+          </div>
+        </div>
+      );
+
+      // 4. PAGE 3: STACK (/stack)
+      const StackPage = () => (
+        <div className="space-y-10">
+          {/* Page Header */}
+          <header className="space-y-2">
+            <div className="flex items-center space-x-3">
+              <span className="text-xs font-mono text-brand-600 dark:text-brand-400 font-bold">03 //</span>
+              <span className="text-xs font-mono dark:text-slate-400 text-slate-500 uppercase tracking-widest">TECHNICAL EXPERTISE</span>
+            </div>
+            <h1 className="text-3xl sm:text-4xl font-serif font-medium dark:text-white text-slate-900 tracking-tight">
+              Tools of My Craft
+            </h1>
+            <p className="dark:text-slate-300 text-slate-600 text-sm sm:text-base max-w-2xl leading-relaxed">
+              Technologies verified across backend services, data modeling, automated testing, and containerization.
+            </p>
+          </header>
+
+          {/* Organized Tech Stack Groups */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {VERIFIED_STACK.map((item) => (
+              <div 
+                key={item.name} 
+                className="glass-card rounded-2xl p-6 corner-mark flex flex-col justify-between hover:border-brand-500/40 transition"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-[11px] font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400 font-semibold">
+                      {item.category}
+                    </span>
+                    <div className="inline-flex items-center space-x-1.5 text-[10px] font-mono text-brand-600 dark:text-brand-400 font-medium">
+                      <span className="w-1.5 h-1.5 rounded-full bg-brand-500"></span>
+                      <span>Verified</span>
+                    </div>
+                  </div>
+                  <h3 className="text-xl font-serif font-medium dark:text-white text-slate-900 mb-2">
+                    {item.name}
+                  </h3>
+                  <p className="dark:text-slate-300 text-slate-600 text-xs leading-relaxed font-sans">
+                    {item.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Database Skills Integration */}
+          {portfolio && portfolio.skills && portfolio.skills.length > 0 && (
+            <div className="space-y-4 pt-6 hairline-t">
+              <div className="text-xs font-mono dark:text-slate-400 text-slate-500 uppercase tracking-wider font-semibold">
+                // Additional Domain Competencies
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {portfolio.skills.map((skill) => (
+                  <div 
+                    key={skill.slug} 
+                    className="px-3 py-1.5 rounded-lg glass-card text-xs font-mono flex items-center space-x-2"
+                  >
+                    <span className="w-1.5 h-1.5 rounded-full bg-brand-500"></span>
+                    <span className="dark:text-white text-slate-800">{skill.name}</span>
+                    {skill.category && (
+                      <span className="text-[10px] text-slate-400">({skill.category})</span>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Bottom CTAs */}
+          <div className="pt-6 hairline-t flex flex-wrap items-center justify-between gap-4">
+            <button 
+              onClick={(e) => navigateTo("/journey", e)}
+              className="px-5 py-2.5 rounded-lg bg-brand-600 hover:bg-brand-500 text-white font-medium text-xs font-mono transition flex items-center"
+            >
+              <span>View Technical Journey (04) →</span>
+            </button>
+            <button 
+              onClick={(e) => navigateTo("/projects", e)}
+              className="text-xs font-mono dark:text-slate-300 text-slate-700 hover:text-brand-500 transition"
+            >
+              See how these tools are used in Projects →
+            </button>
+          </div>
+        </div>
+      );
+
+      // 5. PAGE 4: JOURNEY (/journey)
+      const JourneyPage = () => (
+        <div className="space-y-10">
+          {/* Page Header */}
+          <header className="space-y-3">
+            <div className="flex items-center space-x-3">
+              <span className="text-xs font-mono text-brand-600 dark:text-brand-400 font-bold">04 //</span>
+              <span className="text-xs font-mono dark:text-slate-400 text-slate-500 uppercase tracking-widest">BACKGROUND &amp; DIRECTION</span>
+            </div>
+            <h1 className="text-3xl sm:text-4xl font-serif font-medium dark:text-white text-slate-900 tracking-tight">
+              Journey &amp; Foundations
+            </h1>
+            <p className="dark:text-slate-300 text-slate-600 text-sm sm:text-base max-w-2xl leading-relaxed">
+              My journey into technology wasn't a straight path. It began with Geography, grew through curiosity about the possibilities of technology, and eventually became a commitment to exploring a new direction for my future.
+            </p>
+          </header>
+
+          {/* Chronological Career Milestones Timeline */}
+          <div className="relative">
+            {/* Continuous Vertical Timeline Spine */}
+            <div className="absolute left-3.5 sm:left-4 top-4 bottom-4 w-px bg-gradient-to-b from-brand-500/40 via-brand-500/20 to-transparent"></div>
+
+            <div className="space-y-8 sm:space-y-10">
+              {/* Milestone 1: 2020–2021 — Where It Started */}
+              <div className="relative pl-9 sm:pl-11 group">
+                <div className="absolute left-3.5 sm:left-4 top-7 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-brand-500 ring-4 ring-brand-500/20 border-2 dark:border-dark-bg border-light-bg transition group-hover:scale-125"></div>
+
+                <article className="glass-card timeline-card rounded-2xl p-6 sm:p-8 corner-mark">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4 pb-3 border-b dark:border-white/5 border-slate-100">
+                    <div>
+                      <span className="text-xs font-mono text-brand-600 dark:text-brand-400 uppercase tracking-wider font-semibold">
+                        Milestone 01
+                      </span>
+                      <h2 className="text-xl sm:text-2xl font-serif font-medium dark:text-white text-slate-900 mt-0.5">
+                        Where It Started
+                      </h2>
+                    </div>
+                    <div className="px-3 py-1 rounded-full text-xs font-mono font-medium dark:bg-brand-500/10 bg-brand-50 text-brand-600 dark:text-brand-400 border border-brand-500/20 self-start sm:self-auto">
+                      2020–2021
+                    </div>
+                  </div>
+                  <div className="dark:text-slate-300 text-slate-600 text-sm sm:text-base leading-relaxed space-y-3.5 font-sans">
+                    <p>
+                      I began studying Geography at Nasarawa State University, Keffi (NSUK), around 2020/2021. My academic interests and research focused on environmental science and understanding the relationship between people, places, and their environment.
+                    </p>
+                    <p>
+                      Over time, I started looking for ways to make my field of study more engaging. Discovering Geographic Information Systems (GIS) introduced me to a different perspective. I saw how technology could transform the way geographical and environmental problems were studied, analyzed, and solved.
+                    </p>
+                    <p>
+                      That experience planted an important seed: technology could be more than a tool I used in my studies. It could become something I learned to build with.
+                    </p>
+                  </div>
+                </article>
+              </div>
+
+              {/* Milestone 2: 2023 — Discovering AI and Programming */}
+              <div className="relative pl-9 sm:pl-11 group">
+                <div className="absolute left-3.5 sm:left-4 top-7 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-brand-500 ring-4 ring-brand-500/20 border-2 dark:border-dark-bg border-light-bg transition group-hover:scale-125"></div>
+
+                <article className="glass-card timeline-card rounded-2xl p-6 sm:p-8 corner-mark">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4 pb-3 border-b dark:border-white/5 border-slate-100">
+                    <div>
+                      <span className="text-xs font-mono text-brand-600 dark:text-brand-400 uppercase tracking-wider font-semibold">
+                        Milestone 02
+                      </span>
+                      <h2 className="text-xl sm:text-2xl font-serif font-medium dark:text-white text-slate-900 mt-0.5">
+                        Discovering AI and Programming
+                      </h2>
+                    </div>
+                    <div className="px-3 py-1 rounded-full text-xs font-mono font-medium dark:bg-brand-500/10 bg-brand-50 text-brand-600 dark:text-brand-400 border border-brand-500/20 self-start sm:self-auto">
+                      2023
+                    </div>
+                  </div>
+                  <div className="dark:text-slate-300 text-slate-600 text-sm sm:text-base leading-relaxed space-y-3.5 font-sans">
+                    <p>
+                      In 2023, I became fascinated by the incredible potential of artificial intelligence. I started thinking about what I could accomplish if I went beyond using technology and learned how to create it myself.
+                    </p>
+                    <p>
+                      That curiosity pushed me to begin exploring programming languages and software development. I was taking my first steps into a new field, driven by the possibilities I could see ahead.
+                    </p>
+                    <p>
+                      However, access to sufficient learning resources and opportunities for consistent hands-on practice became a challenge. I had the interest and willingness to learn, but I needed a better environment to turn that interest into practical experience. I continued hoping for an opportunity that would help bridge that gap.
+                    </p>
+                  </div>
+                </article>
+              </div>
+
+              {/* Milestone 3: Late 2024 — A Turning Point */}
+              <div className="relative pl-9 sm:pl-11 group">
+                <div className="absolute left-3.5 sm:left-4 top-7 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-brand-500 ring-4 ring-brand-500/20 border-2 dark:border-dark-bg border-light-bg transition group-hover:scale-125"></div>
+
+                <article className="glass-card timeline-card rounded-2xl p-6 sm:p-8 corner-mark">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4 pb-3 border-b dark:border-white/5 border-slate-100">
+                    <div>
+                      <span className="text-xs font-mono text-brand-600 dark:text-brand-400 uppercase tracking-wider font-semibold">
+                        Milestone 03
+                      </span>
+                      <h2 className="text-xl sm:text-2xl font-serif font-medium dark:text-white text-slate-900 mt-0.5">
+                        A Turning Point
+                      </h2>
+                    </div>
+                    <div className="px-3 py-1 rounded-full text-xs font-mono font-medium dark:bg-brand-500/10 bg-brand-50 text-brand-600 dark:text-brand-400 border border-brand-500/20 self-start sm:self-auto">
+                      Late 2024
+                    </div>
+                  </div>
+                  <div className="dark:text-slate-300 text-slate-600 text-sm sm:text-base leading-relaxed space-y-3.5 font-sans">
+                    <p>
+                      Late 2024 became a significant turning point in my life. I reached a point where I had to reconsider my future and ask myself whether I wanted to continue along the same path or take more deliberate steps toward the life I envisioned.
+                    </p>
+                    <p>
+                      It was a period of reflection that made the importance of my decisions clearer. I knew I wanted to build something meaningful with my future, and technology remained one of the possibilities I was determined to explore.
+                    </p>
+                  </div>
+                </article>
+              </div>
+
+              {/* Milestone 4: 2025 — The Learn2Earn Opportunity */}
+              <div className="relative pl-9 sm:pl-11 group">
+                <div className="absolute left-3.5 sm:left-4 top-7 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-brand-500 ring-4 ring-brand-500/20 border-2 dark:border-dark-bg border-light-bg transition group-hover:scale-125"></div>
+
+                <article className="glass-card timeline-card rounded-2xl p-6 sm:p-8 corner-mark">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4 pb-3 border-b dark:border-white/5 border-slate-100">
+                    <div>
+                      <span className="text-xs font-mono text-brand-600 dark:text-brand-400 uppercase tracking-wider font-semibold">
+                        Milestone 04
+                      </span>
+                      <h2 className="text-xl sm:text-2xl font-serif font-medium dark:text-white text-slate-900 mt-0.5">
+                        The Learn2Earn Opportunity
+                      </h2>
+                    </div>
+                    <div className="px-3 py-1 rounded-full text-xs font-mono font-medium dark:bg-brand-500/10 bg-brand-50 text-brand-600 dark:text-brand-400 border border-brand-500/20 self-start sm:self-auto">
+                      2025
+                    </div>
+                  </div>
+                  <div className="dark:text-slate-300 text-slate-600 text-sm sm:text-base leading-relaxed space-y-3.5 font-sans">
+                    <p>
+                      Shortly after graduating in 2025, my family introduced me to Learn2Earn. Initially, the opportunity sounded almost too good to be true. Yet, trusting that my family wanted the best for me, I decided to give it a chance.
+                    </p>
+                    <p>
+                      That decision became an important step in my journey. It offered a pathway to pursue my interest in technology with greater intention and move closer to the practical learning experience I had been seeking.
+                    </p>
+                    <p>
+                      Looking back, what began as curiosity during my Geography studies gradually developed into a clearer direction. Each stage taught me something about exploration, patience, resilience, and the importance of finding opportunities that turn potential into progress.
+                    </p>
+                  </div>
+                </article>
+              </div>
+
+              {/* Milestone 5: Today — Continuing the Journey */}
+              <div className="relative pl-9 sm:pl-11 group">
+                <div className="absolute left-3.5 sm:left-4 top-7 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-brand-500 ring-4 ring-brand-500/20 border-2 dark:border-dark-bg border-light-bg transition group-hover:scale-125"></div>
+
+                <article className="glass-card timeline-card rounded-2xl p-6 sm:p-8 corner-mark">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4 pb-3 border-b dark:border-white/5 border-slate-100">
+                    <div>
+                      <span className="text-xs font-mono text-brand-600 dark:text-brand-400 uppercase tracking-wider font-semibold">
+                        Milestone 05
+                      </span>
+                      <h2 className="text-xl sm:text-2xl font-serif font-medium dark:text-white text-slate-900 mt-0.5">
+                        Continuing the Journey
+                      </h2>
+                    </div>
+                    <div className="px-3 py-1 rounded-full text-xs font-mono font-medium dark:bg-brand-500/10 bg-brand-50 text-brand-600 dark:text-brand-400 border border-brand-500/20 self-start sm:self-auto">
+                      Today
+                    </div>
+                  </div>
+                  <div className="dark:text-slate-300 text-slate-600 text-sm sm:text-base leading-relaxed space-y-3.5 font-sans">
+                    <p>
+                      My journey is still unfolding. From discovering GIS to exploring the possibilities of artificial intelligence and programming, each stage has shaped my perspective and strengthened my desire to pursue a future in technology.
+                    </p>
+                    <p>
+                      I carry with me the lessons of exploration, patience, resilience, and the importance of making the most of the opportunities that come my way.
+                    </p>
+                    <div className="mt-4 p-4 sm:p-5 rounded-xl dark:bg-brand-500/10 bg-brand-50/80 border border-brand-500/20 text-brand-700 dark:text-brand-300 font-sans font-medium">
+                      <p>
+                        My goal is to keep learning, embrace new challenges, and use technology to create meaningful opportunities for myself and others.
+                      </p>
+                    </div>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom CTAs */}
+          <div className="pt-6 hairline-t flex flex-wrap items-center justify-between gap-4">
+            <button 
+              onClick={(e) => navigateTo("/contact", e)}
+              className="px-5 py-2.5 rounded-lg bg-brand-600 hover:bg-brand-500 text-white font-medium text-xs font-mono transition flex items-center"
+            >
+              <span>Connect &amp; Collaborate (05) →</span>
+            </button>
+            <button 
+              onClick={(e) => navigateTo("/about", e)}
+              className="text-xs font-mono dark:text-slate-300 text-slate-700 hover:text-brand-500 transition"
+            >
+              Read Engineering Philosophy →
+            </button>
+          </div>
+        </div>
+      );
+
+      // 6. PAGE 5: CONTACT (/contact)
+      const ContactPage = () => (
+        <div className="space-y-10">
+          {/* Page Header */}
+          <header className="space-y-2">
+            <div className="flex items-center space-x-3">
+              <span className="text-xs font-mono text-brand-600 dark:text-brand-400 font-bold">05 //</span>
+              <span className="text-xs font-mono dark:text-slate-400 text-slate-500 uppercase tracking-widest">INITIATE COLLABORATION</span>
+            </div>
+            <h1 className="text-3xl sm:text-4xl font-serif font-medium dark:text-white text-slate-900 tracking-tight">
+              Contact &amp; Collaboration
+            </h1>
+            <p className="dark:text-slate-300 text-slate-600 text-sm sm:text-base max-w-2xl leading-relaxed">
+              I'm interested in building digital products, solving practical engineering problems, collaborating with other developers, and continuing to grow through real-world projects.
+            </p>
+          </header>
+
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
+            {/* Left: Contact Info Card */}
+            <div className="md:col-span-2 space-y-6">
+              <div className="glass-card rounded-2xl p-6 sm:p-7 corner-mark">
+                <div className="inline-flex items-center space-x-2 px-2.5 py-1 rounded text-xs font-mono dark:bg-brand-500/10 bg-brand-50 text-brand-600 dark:text-brand-400 border border-brand-500/20 mb-4">
+                  <span className="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></span>
+                  <span>Open for Opportunities</span>
+                </div>
+                <h3 className="text-xl font-serif font-medium dark:text-white text-slate-900 mb-2">Direct Inquiries</h3>
+                <p className="dark:text-slate-300 text-slate-600 text-xs sm:text-sm leading-relaxed mb-6 font-sans">
+                  Reach out directly for backend engineering roles, product collaboration, or architectural discussions.
+                </p>
+
+                <div className="space-y-4 font-mono text-xs">
+                  <div>
+                    <span className="text-slate-400 block text-[10px] uppercase font-semibold">EMAIL</span>
+                    <div className="flex items-center justify-between gap-2 mt-1">
+                      <a href="mailto:khalidzak21@gmail.com" className="text-brand-600 dark:text-brand-400 hover:underline break-all min-w-0">
+                        khalidzak21@gmail.com
+                      </a>
+                      <button 
+                        onClick={handleCopyEmail}
+                        className="px-2.5 py-1 min-h-[32px] shrink-0 rounded text-[10px] dark:bg-white/5 bg-slate-200 border dark:border-white/10 border-slate-300 text-slate-600 dark:text-slate-300 hover:text-brand-500"
+                      >
+                        {copiedEmail ? "Copied!" : "Copy"}
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="pt-2 hairline-t">
+                    <span className="text-slate-400 block text-[10px] uppercase font-semibold">GITHUB</span>
+                    <a 
+                      href="https://github.com/Khaliddray" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="dark:text-slate-300 text-slate-700 hover:text-brand-500 flex items-center gap-1 mt-1 min-w-0"
+                      aria-label="GitHub profile (opens in a new tab)"
+                    >
+                      <span className="break-all">github.com/Khaliddray</span>
+                      <ExternalLinkIcon />
+                    </a>
+                  </div>
+
+                  <div className="pt-2 hairline-t">
+                    <span className="text-slate-400 block text-[10px] uppercase font-semibold">LINKEDIN</span>
+                    <a 
+                      href="https://www.linkedin.com/in/yahaya-khalid-198593418" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="dark:text-slate-300 text-slate-700 hover:text-brand-500 flex items-center gap-1 mt-1 min-w-0"
+                      aria-label="LinkedIn profile (opens in a new tab)"
+                    >
+                      <span className="break-all">linkedin.com/in/yahaya-khalid-198593418</span>
+                      <ExternalLinkIcon />
+                    </a>
+                  </div>
+
+                  <div className="pt-2 hairline-t">
+                    <span className="text-slate-400 block text-[10px] uppercase font-semibold">X (TWITTER)</span>
+                    <a 
+                      href="https://www.x.com/Zzaq_0x" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="dark:text-slate-300 text-slate-700 hover:text-brand-500 flex items-center gap-1 mt-1 min-w-0"
+                      aria-label="X (formerly Twitter) profile (opens in a new tab)"
+                    >
+                      <span className="break-all">x.com/Zzaq_0x</span>
+                      <ExternalLinkIcon />
+                    </a>
+                  </div>
+
+                  <div className="pt-2 hairline-t">
+                    <span className="text-slate-400 block text-[10px] uppercase font-semibold">LOCATION</span>
+                    <span className="dark:text-slate-300 text-slate-700">Abuja, Nigeria (Open to Remote)</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Right: Interactive Contact Form */}
+            <div className="md:col-span-3">
+              <form onSubmit={handleContactSubmit} className="glass-card rounded-2xl p-6 sm:p-8 space-y-4">
+                {contactStatus && (
+                  <div className={`p-4 rounded-xl text-xs font-mono ${contactStatus.type === 'success' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-brand-500/10 text-brand-400 border border-brand-500/20'}`}>
+                    {contactStatus.message}
+                  </div>
+                )}
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-mono dark:text-slate-400 text-slate-600 mb-1.5 font-semibold">YOUR NAME</label>
+                    <input 
+                      type="text"
+                      required
+                      value={contactForm.name}
+                      onChange={(e) => setContactForm({ ...contactForm, name: e.target.value })}
+                      placeholder="e.g. Alex Smith"
+                      className="w-full min-h-[44px] px-3.5 py-2.5 rounded-lg dark:bg-dark-bg bg-slate-50 border dark:border-white/10 border-slate-300 text-sm dark:text-white text-slate-900 placeholder-slate-400 focus:outline-none focus:border-brand-500 font-sans"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-mono dark:text-slate-400 text-slate-600 mb-1.5 font-semibold">EMAIL ADDRESS</label>
+                    <input 
+                      type="email"
+                      required
+                      value={contactForm.email}
+                      onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })}
+                      placeholder="alex@company.com"
+                      className="w-full min-h-[44px] px-3.5 py-2.5 rounded-lg dark:bg-dark-bg bg-slate-50 border dark:border-white/10 border-slate-300 text-sm dark:text-white text-slate-900 placeholder-slate-400 focus:outline-none focus:border-brand-500 font-sans"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-mono dark:text-slate-400 text-slate-600 mb-1.5 font-semibold">SUBJECT / TOPIC</label>
+                  <input 
+                    type="text"
+                    required
+                    value={contactForm.subject}
+                    onChange={(e) => setContactForm({ ...contactForm, subject: e.target.value })}
+                    placeholder="Engineering Role / Project Discussion"
+                    className="w-full min-h-[44px] px-3.5 py-2.5 rounded-lg dark:bg-dark-bg bg-slate-50 border dark:border-white/10 border-slate-300 text-sm dark:text-white text-slate-900 placeholder-slate-400 focus:outline-none focus:border-brand-500 font-sans"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-mono dark:text-slate-400 text-slate-600 mb-1.5 font-semibold">MESSAGE</label>
+                  <textarea 
+                    rows="4"
+                    required
+                    value={contactForm.message}
+                    onChange={(e) => setContactForm({ ...contactForm, message: e.target.value })}
+                    placeholder="Details about your engineering project, role requirements, or collaboration..."
+                    className="w-full min-h-[120px] px-3.5 py-2.5 rounded-lg dark:bg-dark-bg bg-slate-50 border dark:border-white/10 border-slate-300 text-sm dark:text-white text-slate-900 placeholder-slate-400 focus:outline-none focus:border-brand-500 font-sans"
+                  ></textarea>
+                </div>
+
+                <button 
+                  type="submit"
+                  disabled={contactSubmitting}
+                  className="w-full sm:w-auto min-h-[44px] inline-flex items-center justify-center px-6 py-2.5 rounded-lg bg-brand-600 hover:bg-brand-500 disabled:opacity-50 text-white font-medium text-xs font-mono transition shadow-md shadow-brand-600/20"
+                >
+                  {contactSubmitting ? "DISPATCHING INQUIRY..." : "TRANSMIT MESSAGE →"}
+                </button>
+              </form>
             </div>
           </div>
         </div>
       );
 
-      return (
-        <div className="min-h-screen flex flex-col lg:flex-row relative">
-          {/* DESKTOP PERSISTENT SIDEBAR */}
-          <aside className="hidden lg:block lg:w-72 xl:w-80 shrink-0 sticky top-0 h-screen overflow-y-auto hairline-r dark:bg-dark-sidebar/95 bg-light-sidebar/95 backdrop-blur-md z-30">
-            <SidebarContent />
-          </aside>
+      // 7. PAGE: 404 NOT FOUND
+      const NotFoundPage = () => (
+        <div className="py-24 text-center max-w-lg mx-auto space-y-6">
+          <div className="w-16 h-16 mx-auto rounded-2xl glass-card flex items-center justify-center text-brand-500 font-mono text-2xl font-bold">
+            404
+          </div>
+          <div>
+            <span className="text-xs font-mono text-brand-600 dark:text-brand-400 uppercase tracking-widest font-semibold">
+              // Route Not Found
+            </span>
+            <h1 className="text-3xl font-serif font-medium dark:text-white text-slate-900 mt-2">
+              Page Not Found
+            </h1>
+            <p className="dark:text-slate-400 text-slate-600 text-sm mt-2">
+              The page you are looking for does not exist or may have been relocated.
+            </p>
+          </div>
+          <button
+            onClick={(e) => navigateTo("/", e)}
+            className="px-6 py-2.5 rounded-lg bg-brand-600 hover:bg-brand-500 text-white font-mono text-xs font-semibold transition"
+          >
+            ← Return to Homepage
+          </button>
+        </div>
+      );
 
-          {/* MOBILE RESPONSIVE DRAWER OVERLAY */}
-          {sidebarOpen && (
-            <div className="fixed inset-0 z-50 lg:hidden flex">
+      // ----------------------------------------------------
+      // RENDER CURRENT VIEW
+      // ----------------------------------------------------
+      const renderCurrentPage = () => {
+        if (loading) {
+          return (
+            <div className="py-32 text-center">
+              <div className="inline-block w-10 h-10 border-2 border-brand-500/20 border-t-brand-500 rounded-full animate-spin"></div>
+              <p className="mt-4 dark:text-slate-400 text-slate-500 font-mono text-xs tracking-wider">CONNECTING TO PORTFOLIO ENGINE API...</p>
+            </div>
+          );
+        }
+
+        if (error) {
+          return (
+            <div className="glass-card rounded-2xl p-8 max-w-2xl mx-auto my-16 text-center border-rose-500/30">
+              <div className="w-12 h-12 bg-rose-500/10 text-rose-500 rounded-xl flex items-center justify-center mx-auto mb-4 font-mono text-lg font-bold">
+                !
+              </div>
+              <h2 className="text-xl font-bold dark:text-white text-slate-900 mb-2">Portfolio Data Unavailable</h2>
+              <p className="dark:text-slate-400 text-slate-600 text-sm mb-6">{error}</p>
+              <button 
+                onClick={() => window.location.reload()} 
+                className="px-5 py-2.5 bg-brand-600 hover:bg-brand-500 text-white rounded-lg text-sm font-medium transition"
+              >
+                Retry Connection
+              </button>
+            </div>
+          );
+        }
+
+        switch (currentRoute) {
+          case 'home':
+            return <HomePage />;
+          case 'about':
+            return <AboutPage />;
+          case 'projects':
+            return <ProjectsPage />;
+          case 'stack':
+            return <StackPage />;
+          case 'journey':
+            return <JourneyPage />;
+          case 'contact':
+            return <ContactPage />;
+          default:
+            return <NotFoundPage />;
+        }
+      };
+
+      // ----------------------------------------------------
+      // MAIN SHARED LAYOUT
+      // ----------------------------------------------------
+      return (
+        <div className="min-h-screen flex flex-col justify-between relative">
+          {/* STICKY TOP HEADER */}
+          <header className="sticky top-0 z-40 backdrop-blur-md dark:bg-dark-bg/85 bg-light-bg/85 hairline-b">
+            <div className="max-w-6xl mx-auto px-4 sm:px-8 h-16 flex items-center justify-between">
+              {/* Brand Monogram & Name */}
+              <div className="flex items-center space-x-3">
+                <a 
+                  href="/" 
+                  onClick={(e) => navigateTo("/", e)}
+                  className="flex items-center space-x-3 group"
+                >
+                  <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-brand-600 via-orange-500 to-amber-400 flex items-center justify-center font-bold text-xs font-mono text-black shadow-md group-hover:scale-105 transition-transform">
+                    YK
+                  </div>
+                  <div className="flex items-baseline space-x-2">
+                    <span className="font-serif font-bold text-base dark:text-white text-slate-900 tracking-tight group-hover:text-brand-500 transition-colors">
+                      Yahaya Khalid
+                    </span>
+                    <span className="hidden md:inline-block text-xs font-mono dark:text-slate-500 text-slate-400">
+                      / Product Builder &amp; Backend Engineer
+                    </span>
+                  </div>
+                </a>
+              </div>
+
+              {/* Header Right Actions: Theme, GitHub, and Toggleable Menu Button */}
+              <div className="flex items-center space-x-2 sm:space-x-3">
+                {/* Theme Toggle */}
+                <button
+                  onClick={() => setIsDark(!isDark)}
+                  title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
+                  className="w-10 h-10 min-w-[40px] min-h-[40px] flex items-center justify-center rounded-lg dark:bg-white/5 bg-slate-200/80 dark:text-slate-300 text-slate-700 hover:text-brand-500 dark:border-white/10 border-slate-300 border transition"
+                  aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
+                >
+                  {isDark ? <SunIcon /> : <MoonIcon />}
+                </button>
+
+                {/* GitHub Link */}
+                <a
+                  href="https://github.com/Khaliddray"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 min-w-[40px] min-h-[40px] hidden sm:inline-flex items-center justify-center rounded-lg dark:bg-white/5 bg-slate-200/80 dark:text-slate-300 text-slate-700 hover:text-brand-500 border dark:border-white/10 border-slate-300 transition"
+                  title="View GitHub Profile"
+                  aria-label="GitHub Profile (opens in a new tab)"
+                >
+                  <GitHubIcon />
+                </a>
+
+                {/* LinkedIn Link */}
+                <a
+                  href="https://www.linkedin.com/in/yahaya-khalid-198593418"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 min-w-[40px] min-h-[40px] hidden sm:inline-flex items-center justify-center rounded-lg dark:bg-white/5 bg-slate-200/80 dark:text-slate-300 text-slate-700 hover:text-brand-500 border dark:border-white/10 border-slate-300 transition"
+                  title="View LinkedIn Profile"
+                  aria-label="LinkedIn Profile (opens in a new tab)"
+                >
+                  <LinkedInIcon />
+                </a>
+
+                {/* X (Twitter) Link */}
+                <a
+                  href="https://www.x.com/Zzaq_0x"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 min-w-[40px] min-h-[40px] hidden sm:inline-flex items-center justify-center rounded-lg dark:bg-white/5 bg-slate-200/80 dark:text-slate-300 text-slate-700 hover:text-brand-500 border dark:border-white/10 border-slate-300 transition"
+                  title="View X (formerly Twitter) Profile"
+                  aria-label="X (formerly Twitter) Profile (opens in a new tab)"
+                >
+                  <XIcon />
+                </a>
+
+                {/* Toggleable Menu Button */}
+                <button
+                  onClick={() => setMenuOpen(!menuOpen)}
+                  aria-expanded={menuOpen}
+                  aria-controls="navigation-panel"
+                  aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
+                  className="min-h-[40px] px-3.5 sm:px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-500 text-white font-mono text-xs font-semibold inline-flex items-center space-x-2 shadow-md shadow-brand-600/20 transition-all focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 dark:focus:ring-offset-dark-bg"
+                >
+                  <MenuIcon />
+                  <span className="tracking-wider uppercase">Menu</span>
+                </button>
+              </div>
+            </div>
+          </header>
+
+          {/* TOGGLEABLE NAVIGATION PANEL (DRAWER / OVERLAY) */}
+          {menuOpen && (
+            <div 
+              id="navigation-panel"
+              role="dialog"
+              aria-modal="true"
+              aria-label="Site Navigation"
+              className="fixed inset-0 z-50 flex justify-end"
+            >
+              {/* Backdrop */}
               <div 
-                className="fixed inset-0 bg-black/70 backdrop-blur-sm transition-opacity" 
-                onClick={() => setSidebarOpen(false)}
+                className="fixed inset-0 bg-black/75 backdrop-blur-sm transition-opacity"
+                onClick={() => setMenuOpen(false)}
               ></div>
-              <div className="relative w-80 max-w-[85vw] h-full dark:bg-dark-sidebar bg-light-sidebar shadow-2xl flex flex-col z-10 overflow-y-auto hairline-r">
-                <div className="p-4 flex items-center justify-between border-b dark:border-white/10 border-slate-200">
-                  <span className="font-mono text-xs dark:text-slate-400 text-slate-500">PORTFOLIO MENU</span>
+
+              {/* Slide-over Drawer Panel */}
+              <div className="relative w-full sm:w-96 max-w-[min(24rem,100vw)] h-full dark:bg-dark-sidebar bg-light-sidebar shadow-2xl flex flex-col z-10 overflow-y-auto hairline-r">
+                {/* Panel Header */}
+                <div className="p-6 flex items-center justify-between border-b dark:border-white/10 border-slate-200">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-brand-600 to-amber-400 flex items-center justify-center font-bold text-xs font-mono text-black">
+                      YK
+                    </div>
+                    <div>
+                      <div className="font-serif font-bold text-sm dark:text-white text-slate-900 leading-tight">Yahaya Khalid</div>
+                      <div className="text-[10px] font-mono text-brand-500">Navigation Menu</div>
+                    </div>
+                  </div>
                   <button 
-                    onClick={() => setSidebarOpen(false)} 
-                    className="p-1 rounded-md text-slate-400 hover:text-white"
+                    onClick={() => setMenuOpen(false)}
+                    aria-label="Close navigation panel"
+                    className="w-10 h-10 min-w-[40px] min-h-[40px] flex items-center justify-center rounded-lg dark:bg-white/5 bg-slate-200 text-slate-400 hover:text-white transition"
                   >
                     <CloseIcon />
                   </button>
                 </div>
-                <SidebarContent />
+
+                {/* Panel Navigation Links */}
+                <div className="p-6 flex-grow flex flex-col justify-between space-y-8">
+                  <nav className="space-y-2">
+                    <div className="text-[10px] uppercase font-bold tracking-widest dark:text-slate-500 text-slate-400 mb-3">
+                      // Select Destination
+                    </div>
+
+                    {/* Home Link */}
+                    <button
+                      onClick={(e) => navigateTo("/", e)}
+                      aria-current={currentRoute === 'home' ? 'page' : undefined}
+                      className={`w-full text-left py-3 px-3.5 rounded-xl transition flex items-center justify-between font-mono text-xs ${
+                        currentRoute === 'home' 
+                          ? 'dark:bg-brand-500/15 bg-brand-50 text-brand-600 dark:text-brand-400 font-bold border border-brand-500/30' 
+                          : 'dark:hover:bg-white/5 hover:bg-slate-200/70 dark:text-slate-300 text-slate-700 hover:text-brand-500'
+                      }`}
+                    >
+                      <span>00 // HOME</span>
+                      <span className="text-[11px]">{currentRoute === 'home' ? '●' : '→'}</span>
+                    </button>
+
+                    {/* Dedicated Page Links */}
+                    {navLinks.map((link) => {
+                      const isActive = currentRoute === link.id;
+                      return (
+                        <button
+                          key={link.id}
+                          onClick={(e) => navigateTo(link.path, e)}
+                          aria-current={isActive ? 'page' : undefined}
+                          className={`w-full text-left py-3 px-3.5 rounded-xl transition flex items-center justify-between font-mono text-xs ${
+                            isActive 
+                              ? 'dark:bg-brand-500/15 bg-brand-50 text-brand-600 dark:text-brand-400 font-bold border border-brand-500/30' 
+                              : 'dark:hover:bg-white/5 hover:bg-slate-200/70 dark:text-slate-300 text-slate-700 hover:text-brand-500'
+                          }`}
+                        >
+                          <div>
+                            <span className="font-bold mr-1.5">{link.num} //</span>
+                            <span>{link.label}</span>
+                          </div>
+                          <span className="text-[11px]">{isActive ? '●' : '→'}</span>
+                        </button>
+                      );
+                    })}
+
+                    {portfolio && portfolio.resume && portfolio.resume.file_url && (
+                      <div className="pt-4">
+                        <a 
+                          href={portfolio.resume.file_url} 
+                          target="_blank" 
+                          rel="noreferrer" 
+                          className="w-full py-2.5 px-3.5 rounded-lg dark:bg-white/5 bg-slate-200/80 hover:bg-brand-500 hover:text-white dark:hover:bg-brand-600 transition flex items-center justify-between text-brand-600 dark:text-brand-400 font-mono text-xs font-semibold"
+                        >
+                          <span className="flex items-center"><DownloadIcon /> Download Resume</span>
+                          <span className="text-[10px]">PDF</span>
+                        </a>
+                      </div>
+                    )}
+
+                    {/* Connect / Social Profiles */}
+                    <div className="pt-4 border-t dark:border-white/10 border-slate-200">
+                      <div className="text-[10px] uppercase font-bold tracking-widest dark:text-slate-500 text-slate-400 mb-2 font-mono">
+                        // Connect
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <a
+                          href="https://github.com/Khaliddray"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-10 h-10 min-w-[40px] min-h-[40px] flex items-center justify-center rounded-lg dark:bg-white/5 bg-slate-200/80 dark:text-slate-300 text-slate-700 hover:text-brand-500 border dark:border-white/10 border-slate-300 transition"
+                          title="View GitHub Profile"
+                          aria-label="GitHub Profile (opens in a new tab)"
+                        >
+                          <GitHubIcon />
+                        </a>
+                        <a
+                          href="https://www.linkedin.com/in/yahaya-khalid-198593418"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-10 h-10 min-w-[40px] min-h-[40px] flex items-center justify-center rounded-lg dark:bg-white/5 bg-slate-200/80 dark:text-slate-300 text-slate-700 hover:text-brand-500 border dark:border-white/10 border-slate-300 transition"
+                          title="View LinkedIn Profile"
+                          aria-label="LinkedIn Profile (opens in a new tab)"
+                        >
+                          <LinkedInIcon />
+                        </a>
+                        <a
+                          href="https://www.x.com/Zzaq_0x"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-10 h-10 min-w-[40px] min-h-[40px] flex items-center justify-center rounded-lg dark:bg-white/5 bg-slate-200/80 dark:text-slate-300 text-slate-700 hover:text-brand-500 border dark:border-white/10 border-slate-300 transition"
+                          title="View X (formerly Twitter) Profile"
+                          aria-label="X (formerly Twitter) Profile (opens in a new tab)"
+                        >
+                          <XIcon />
+                        </a>
+                      </div>
+                    </div>
+                  </nav>
+
+                  {/* Panel Footer Info */}
+                  <div className="dark:bg-dark-card/60 bg-slate-100/80 p-4 rounded-xl border dark:border-white/5 border-slate-200 space-y-2 text-xs">
+                    <div className="inline-flex items-center space-x-1.5 text-[11px] font-mono text-brand-600 dark:text-brand-400 font-medium">
+                      <span className="w-1.5 h-1.5 rounded-full bg-brand-500 animate-pulse"></span>
+                      <span>Open for Collaboration</span>
+                    </div>
+                    <div className="font-mono text-[11px] dark:text-slate-400 text-slate-500">
+                      <div>khalidzak21@gmail.com</div>
+                      <div>Abuja, Nigeria (Remote)</div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           )}
 
-          {/* MAIN CONTENT AREA */}
-          <div className="flex-1 min-w-0 flex flex-col justify-between">
-            {/* Top Navigation Header */}
-            <header className="sticky top-0 z-40 backdrop-blur-md dark:bg-dark-bg/85 bg-light-bg/85 hairline-b">
-              <div className="max-w-5xl mx-auto px-4 sm:px-8 h-16 flex items-center justify-between">
-                {/* Mobile Hamburger + Title */}
-                <div className="flex items-center space-x-3">
-                  <button 
-                    onClick={() => setSidebarOpen(true)}
-                    className="lg:hidden p-2 rounded-lg dark:text-slate-300 text-slate-700 dark:bg-white/5 bg-slate-200 border dark:border-white/10 border-slate-300"
-                    title="Open Navigation Menu"
-                  >
-                    <MenuIcon />
-                  </button>
-                  <a href="#hero" className="font-serif font-bold text-base dark:text-white text-slate-900 tracking-tight">
-                    Yahaya Khalid
-                  </a>
-                  <span className="hidden sm:inline-block text-xs font-mono dark:text-slate-500 text-slate-400">
-                    / Product Builder & Backend Engineer
-                  </span>
-                </div>
+          {/* MAIN PAGE CONTENT WRAPPER */}
+          <main className="max-w-5xl mx-auto px-4 sm:px-8 py-8 w-full flex-grow">
+            {renderCurrentPage()}
+          </main>
 
-                {/* Header Action Buttons (Theme Toggle, Social Links, API Docs) */}
-                <div className="flex items-center space-x-2 sm:space-x-3">
-                  {/* Theme Toggle */}
-                  <button
-                    onClick={() => setIsDark(!isDark)}
-                    title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
-                    className="p-2 rounded-lg dark:bg-white/5 bg-slate-200/80 dark:text-slate-300 text-slate-700 hover:text-brand-500 dark:border-white/10 border-slate-300 border transition"
-                  >
-                    {isDark ? <SunIcon /> : <MoonIcon />}
-                  </button>
-
-                  {/* cURL API Button */}
-                  <button
-                    onClick={handleCopyCurl}
-                    title="Copy API curl command"
-                    className="hidden sm:inline-flex items-center px-2.5 py-1.5 rounded-md text-xs font-mono dark:text-slate-300 text-slate-700 dark:bg-white/5 bg-slate-200/80 border dark:border-white/10 border-slate-300 hover:border-brand-500 transition"
-                  >
-                    {copiedCurl ? (
-                      <>
-                        <CheckIcon />
-                        <span className="text-emerald-500 font-medium">Copied cURL!</span>
-                      </>
-                    ) : (
-                      <>
-                        <CopyIcon />
-                        <span>API cURL</span>
-                      </>
-                    )}
-                  </button>
-
-                  {/* GitHub Link */}
-                  <a
-                    href="https://github.com/Khaliddray/0x_engine"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="p-2 rounded-lg dark:bg-white/5 bg-slate-200/80 dark:text-slate-300 text-slate-700 hover:text-brand-500 border dark:border-white/10 border-slate-300 transition"
-                    title="View GitHub Repository"
-                  >
-                    <GitHubIcon />
-                  </a>
-
-                  {/* Swagger Docs */}
-                  <a 
-                    href="/docs" 
-                    target="_blank" 
-                    className="px-3 py-1.5 rounded-md text-xs font-mono font-medium text-brand-600 dark:text-brand-300 dark:bg-brand-500/10 bg-brand-50 border border-brand-500/20 hover:bg-brand-500/20 transition flex items-center"
-                  >
-                    <CodeIcon />
-                    <span className="ml-1.5 hidden sm:inline">Swagger API</span>
-                    <span className="sm:hidden">API</span>
-                  </a>
-                </div>
+          {/* BOTTOM FOOTER */}
+          <footer className="hairline-t py-8 dark:bg-dark-bg/90 bg-light-bg/90 relative z-10 mt-12">
+            <div className="max-w-5xl mx-auto px-4 sm:px-8 flex flex-col sm:flex-row items-center justify-between text-xs dark:text-slate-400 text-slate-500 gap-4">
+              <div className="font-mono text-[11px] text-center sm:text-left">
+                © 2026 Yahaya Khalid · Built with a focus on practical software and continuous improvement
               </div>
-            </header>
-
-            {/* Inner Content Area */}
-            <main className="max-w-5xl mx-auto px-4 sm:px-8 py-8 w-full flex-grow">
-              {loading && (
-                <div className="py-32 text-center">
-                  <div className="inline-block w-10 h-10 border-2 border-brand-500/20 border-t-brand-500 rounded-full animate-spin"></div>
-                  <p className="mt-4 dark:text-slate-400 text-slate-500 font-mono text-xs tracking-wider">CONNECTING TO PORTFOLIO ENGINE API...</p>
-                </div>
-              )}
-
-              {error && (
-                <div className="glass-card rounded-2xl p-8 max-w-2xl mx-auto my-16 text-center border-rose-500/30">
-                  <div className="w-12 h-12 bg-rose-500/10 text-rose-500 rounded-xl flex items-center justify-center mx-auto mb-4 font-mono text-lg font-bold">
-                    !
-                  </div>
-                  <h2 className="text-xl font-bold dark:text-white text-slate-900 mb-2">Portfolio Data Unavailable</h2>
-                  <p className="dark:text-slate-400 text-slate-600 text-sm mb-6">{error}</p>
-                  <div className="p-4 dark:bg-dark-bg/90 bg-slate-100 rounded-lg text-left text-xs font-mono dark:text-slate-300 text-slate-800 mb-6 border dark:border-white/5 border-slate-300">
-                    <p className="text-slate-500 mb-2"># Quick Setup: Seed the database with demo data</p>
-                    <p className="text-brand-600 dark:text-brand-400 select-all font-semibold">python backend/scripts/seed_data.py</p>
-                  </div>
-                  <div className="flex items-center justify-center space-x-4">
-                    <button 
-                      onClick={() => fetchPortfolio(slug)} 
-                      className="px-4 py-2 bg-brand-600 hover:bg-brand-500 text-white rounded-lg text-sm font-medium transition"
-                    >
-                      Retry Connection
-                    </button>
-                    <a 
-                      href="/docs" 
-                      className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg text-sm font-medium transition"
-                    >
-                      Open API Docs (/docs)
-                    </a>
-                  </div>
-                </div>
-              )}
-
-              {!loading && !error && portfolio && (
-                <div className="space-y-16">
-                  {/* HERO BANNER (Reference 2-Column Composition) */}
-                  <section id="hero" className="pt-6 pb-12 flex flex-col md:flex-row items-center justify-between gap-10">
-                    <div className="max-w-xl text-center md:text-left">
-                      <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full text-xs font-mono dark:bg-brand-500/10 bg-brand-50 dark:text-brand-300 text-brand-600 border border-brand-500/20 mb-6">
-                        <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                        <span>FastAPI REST Core Active</span>
-                      </div>
-
-                      <header className="mb-4">
-                        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif font-medium tracking-tight dark:text-white text-slate-900 leading-[1.12] mb-3">
-                          Hi, I’m <span className="text-brand-600 dark:text-brand-400">Yahaya&nbsp;Khalid</span>
-                        </h1>
-                        <p className="text-base sm:text-lg font-mono dark:text-brand-400 text-brand-600 font-medium">
-                          Product Builder &amp; Backend Engineer
-                        </p>
-                      </header>
-
-                      {/* Required Exact Headline & Introduction */}
-                      <p className="text-lg sm:text-xl font-serif italic dark:text-slate-200 text-slate-800 leading-snug mb-4">
-                        “I build purposeful digital products that turn complex problems into practical, scalable solutions.”
-                      </p>
-
-                      <p className="text-sm sm:text-base dark:text-slate-300 text-slate-600 font-sans leading-relaxed mb-8">
-                        I'm a software developer and product builder focused on building useful software, designing maintainable backend systems, and turning ideas into working products. I value clean architecture, practical problem-solving, and software that can grow with its purpose.
-                      </p>
-
-                      <div className="flex flex-wrap items-center gap-3.5 justify-center md:justify-start">
-                        <button 
-                          onClick={() => handleNavClick("contact")}
-                          className="px-5 py-2.5 rounded-lg bg-brand-600 hover:bg-brand-500 text-white font-medium text-sm transition-all shadow-md shadow-brand-600/20 flex items-center group"
-                        >
-                          <span>Contact Me</span>
-                          <ArrowUpRight />
-                        </button>
-
-                        <button 
-                          onClick={() => handleNavClick("projects")}
-                          className="px-5 py-2.5 rounded-lg glass-card dark:text-slate-200 text-slate-800 font-medium text-sm transition-all"
-                        >
-                          <span>Explore Projects</span>
-                        </button>
-
-                        {portfolio.resume && portfolio.resume.file_url && (
-                          <a 
-                            href={portfolio.resume.file_url} 
-                            target="_blank" 
-                            rel="noreferrer"
-                            className="px-4 py-2.5 rounded-lg dark:text-slate-300 text-slate-700 hover:text-brand-600 font-mono text-xs transition-all flex items-center border dark:border-white/10 border-slate-300 dark:bg-white/[0.02] bg-white"
-                          >
-                            <DownloadIcon />
-                            <span>Curriculum Vitae</span>
-                          </a>
-                        )}
-                      </div>
-                    </div>
-
-                    {/* Architectural Monogram Card */}
-                    <div className="relative shrink-0">
-                      <div className="w-48 h-48 sm:w-56 sm:h-56 rounded-2xl glass-card corner-mark p-2 flex flex-col items-center justify-center text-center shadow-xl relative overflow-hidden group">
-                        <div className="absolute inset-0 bg-gradient-to-tr from-brand-600/20 via-orange-500/10 to-transparent opacity-70 group-hover:opacity-100 transition-opacity"></div>
-                        <div className="text-6xl font-black text-brand-600 dark:text-brand-400 select-none tracking-tighter relative z-10 font-mono">
-                          YK
-                        </div>
-                        <div className="text-[10px] font-mono dark:text-slate-400 text-slate-500 mt-2 relative z-10 uppercase tracking-widest font-semibold">
-                          Abuja, Nigeria
-                        </div>
-                        <div className="text-[9px] font-mono text-emerald-500 mt-1 relative z-10 flex items-center gap-1">
-                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                          <span>Open for Collaboration</span>
-                        </div>
-                      </div>
-                    </div>
-                  </section>
-
-                  {/* Tech Stack Marquee Ticker */}
-                  <div className="hairline-t hairline-b py-3.5 overflow-hidden relative">
-                    <div className="flex items-center space-x-6 text-xs font-mono tracking-wider animate-marquee whitespace-nowrap">
-                      {tickerTechs.concat(tickerTechs).map((tech, idx) => (
-                        <div key={idx} className="flex items-center space-x-3 dark:text-slate-400 text-slate-600 hover:text-brand-500 transition-colors">
-                          <span className="w-1.5 h-1.5 rounded-full bg-brand-500"></span>
-                          <span className="uppercase font-semibold">{tech}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* 01 // ABOUT & ENGINEERING PHILOSOPHY */}
-                  <section id="about" className="space-y-6">
-                    <div className="flex items-center space-x-3">
-                      <span className="text-xs font-mono text-brand-600 dark:text-brand-400 font-bold">01 //</span>
-                      <h2 className="text-2xl sm:text-3xl font-serif font-medium dark:text-white text-slate-900 tracking-tight">About &amp; Principles</h2>
-                    </div>
-
-                    {/* Philosophy Callout Card */}
-                    <div className="glass-card rounded-2xl p-6 sm:p-8 corner-mark border-l-4 border-l-brand-500">
-                      <div className="text-xs font-mono text-brand-600 dark:text-brand-400 uppercase tracking-wider mb-2 font-semibold">
-                        Core Engineering Philosophy
-                      </div>
-                      <p className="text-base sm:text-lg font-serif italic dark:text-white text-slate-900 leading-relaxed">
-                        “Build what solves the problem. Keep the architecture understandable. Design data models carefully, separate responsibilities, and build products that can evolve as requirements change.”
-                      </p>
-                    </div>
-
-                    {/* About Sections / Feature Articles (Reference Features Grid) */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      {portfolio.sections && portfolio.sections.map((sec) => (
-                        <article key={sec.slug} className="glass-card rounded-2xl p-6 corner-mark flex flex-col justify-between">
-                          <div>
-                            <h3 className="text-lg sm:text-xl font-serif font-medium dark:text-white text-slate-900 mb-3 flex items-center">
-                              <span className="w-2 h-2 rounded-sm bg-brand-500 mr-2.5"></span>
-                              {sec.title}
-                            </h3>
-                            <p className="dark:text-slate-300 text-slate-600 text-sm leading-relaxed whitespace-pre-line font-sans">
-                              {sec.content}
-                            </p>
-                          </div>
-                        </article>
-                      ))}
-                    </div>
-                  </section>
-
-                  {/* 02 // FEATURED PROJECTS */}
-                  <section id="projects" className="space-y-6 hairline-t pt-10">
-                    <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
-                      <div>
-                        <div className="flex items-center space-x-3 mb-1">
-                          <span className="text-xs font-mono text-brand-600 dark:text-brand-400 font-bold">02 //</span>
-                          <h2 className="text-2xl sm:text-3xl font-serif font-medium dark:text-white text-slate-900 tracking-tight">Projects</h2>
-                        </div>
-                        <p className="dark:text-slate-400 text-slate-600 text-sm">
-                          Engineered products, structured backend systems, and clean API implementations.
-                        </p>
-                      </div>
-
-                      {/* Filter tabs */}
-                      <div className="inline-flex rounded-lg dark:bg-dark-card bg-slate-200/80 p-1 border dark:border-white/10 border-slate-300 font-mono text-xs self-start md:self-auto">
-                        <button 
-                          onClick={() => setActiveCategory("all")}
-                          className={`px-3 py-1 rounded-md transition ${activeCategory === 'all' ? 'bg-brand-600 text-white shadow' : 'dark:text-slate-400 text-slate-600 hover:text-slate-900 dark:hover:text-white'}`}
-                        >
-                          All ({portfolio.projects.length})
-                        </button>
-                        <button 
-                          onClick={() => setActiveCategory("featured")}
-                          className={`px-3 py-1 rounded-md transition ${activeCategory === 'featured' ? 'bg-brand-600 text-white shadow' : 'dark:text-slate-400 text-slate-600 hover:text-slate-900 dark:hover:text-white'}`}
-                        >
-                          Featured
-                        </button>
-                      </div>
-                    </div>
-
-                    {/* Projects Grid */}
-                    {filteredProjects.length === 0 ? (
-                      <div className="glass-card rounded-2xl p-10 text-center my-4">
-                        <p className="dark:text-slate-400 text-slate-600 font-mono text-sm">No systems matching filter "{searchQuery}".</p>
-                        <button
-                          onClick={() => { setActiveCategory("all"); setSearchQuery(""); }}
-                          className="mt-3 px-3 py-1.5 rounded-md text-xs font-mono text-brand-600 dark:text-brand-300 bg-brand-500/10 border border-brand-500/20"
-                        >
-                          Reset filters
-                        </button>
-                      </div>
-                    ) : (
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        {filteredProjects.map((project) => (
-                          <article 
-                            key={project.slug} 
-                            onClick={() => setSelectedProject(project)}
-                            className="glass-card rounded-2xl overflow-hidden flex flex-col justify-between transition group hover:-translate-y-1 cursor-pointer"
-                          >
-                            {project.media && project.media.length > 0 && (
-                              <div className="h-44 w-full overflow-hidden bg-slate-950 border-b dark:border-white/5 border-slate-200 relative">
-                                <img 
-                                  src={project.media[0].url} 
-                                  alt={project.media[0].alt_text || project.title} 
-                                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90"
-                                />
-                                {project.is_featured && (
-                                  <span className="absolute top-3 right-3 px-2.5 py-0.5 rounded bg-brand-600 text-[10px] font-mono font-semibold text-white uppercase tracking-wider shadow">
-                                    Featured System
-                                  </span>
-                                )}
-                              </div>
-                            )}
-
-                            <div className="p-6 flex-grow flex flex-col justify-between">
-                              <div>
-                                <h3 className="text-xl font-serif font-medium dark:text-white text-slate-900 group-hover:text-brand-500 transition-colors flex items-center justify-between mb-2">
-                                  <span>{project.title}</span>
-                                  <ArrowUpRight />
-                                </h3>
-                                <p className="dark:text-slate-300 text-slate-600 text-sm leading-relaxed mb-4">
-                                  {project.description}
-                                </p>
-                              </div>
-
-                              <div>
-                                {/* Tech Pills */}
-                                {project.technologies && project.technologies.length > 0 && (
-                                  <div className="flex flex-wrap gap-1.5 mb-5">
-                                    {project.technologies.map((t) => (
-                                      <span key={t.slug} className="px-2 py-0.5 rounded text-[10px] font-mono dark:bg-dark-bg bg-slate-100 dark:text-brand-300 text-brand-700 border dark:border-brand-500/20 border-brand-500/30">
-                                        {t.name}
-                                      </span>
-                                    ))}
-                                  </div>
-                                )}
-
-                                {/* Action links */}
-                                <div className="flex items-center space-x-4 pt-4 hairline-t">
-                                  {project.github_url && (
-                                    <a 
-                                      href={project.github_url} 
-                                      target="_blank" 
-                                      rel="noreferrer" 
-                                      onClick={(e) => e.stopPropagation()}
-                                      className="text-xs font-mono dark:text-slate-300 text-slate-700 hover:text-brand-500 flex items-center transition"
-                                    >
-                                      <GitHubIcon />
-                                      <span>Source Code</span>
-                                    </a>
-                                  )}
-
-                                  {project.live_url ? (
-                                    <a 
-                                      href={project.live_url} 
-                                      target="_blank" 
-                                      rel="noreferrer" 
-                                      onClick={(e) => e.stopPropagation()}
-                                      className="text-xs font-mono text-brand-600 dark:text-brand-400 hover:underline flex items-center transition"
-                                    >
-                                      <span>Interactive Docs</span>
-                                      <ExternalLinkIcon />
-                                    </a>
-                                  ) : (
-                                    <span className="text-[11px] font-mono text-slate-400">
-                                      Backend Service
-                                    </span>
-                                  )}
-                                </div>
-                              </div>
-                            </div>
-                          </article>
-                        ))}
-                      </div>
-                    )}
-                  </section>
-
-                  {/* PROJECT ARCHITECTURE MODAL */}
-                  {selectedProject && (
-                    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-                      <div 
-                        className="glass-card rounded-2xl max-w-2xl w-full p-6 sm:p-8 hairline-border relative max-h-[90vh] overflow-y-auto"
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        <button 
-                          onClick={() => setSelectedProject(null)}
-                          className="absolute top-5 right-5 p-1.5 rounded-lg text-slate-400 hover:text-slate-100 dark:bg-white/5 bg-slate-200 transition"
-                        >
-                          <CloseIcon />
-                        </button>
-
-                        <div className="inline-flex items-center space-x-2 px-2.5 py-1 rounded text-[11px] font-mono dark:bg-brand-500/10 bg-brand-50 text-brand-600 dark:text-brand-300 border border-brand-500/20 mb-3">
-                          <span>SYSTEM SPECIFICATION</span>
-                          {selectedProject.is_featured && <span>• FEATURED</span>}
-                        </div>
-
-                        <h3 className="text-2xl sm:text-3xl font-serif font-medium dark:text-white text-slate-900 mb-2">{selectedProject.title}</h3>
-                        <p className="dark:text-slate-300 text-slate-600 text-sm leading-relaxed mb-6">{selectedProject.description}</p>
-
-                        {/* Modal Media */}
-                        {selectedProject.media && selectedProject.media.length > 0 && (
-                          <div className="rounded-xl overflow-hidden mb-6 hairline-border bg-slate-950">
-                            <img 
-                              src={selectedProject.media[0].url} 
-                              alt={selectedProject.media[0].alt_text || selectedProject.title}
-                              className="w-full h-56 object-cover"
-                            />
-                            {selectedProject.media[0].caption && (
-                              <div className="p-2.5 text-center text-xs font-mono dark:text-slate-400 text-slate-500 hairline-t dark:bg-dark-surface/60 bg-slate-100">
-                                {selectedProject.media[0].caption}
-                              </div>
-                            )}
-                          </div>
-                        )}
-
-                        {/* Technologies Breakdown */}
-                        <div className="mb-6">
-                          <div className="text-xs font-mono uppercase dark:text-slate-400 text-slate-500 mb-2">Architectural Dependencies:</div>
-                          <div className="flex flex-wrap gap-2">
-                            {selectedProject.technologies && selectedProject.technologies.map((t) => (
-                              <span key={t.slug} className="px-2.5 py-1 rounded text-xs font-mono dark:bg-dark-bg bg-slate-100 text-brand-600 dark:text-brand-300 border dark:border-brand-500/20 border-brand-500/30">
-                                {t.name}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-
-                        {/* Action Links */}
-                        <div className="flex items-center justify-between pt-4 hairline-t">
-                          <div className="flex items-center space-x-4">
-                            {selectedProject.github_url && (
-                              <a 
-                                href={selectedProject.github_url}
-                                target="_blank"
-                                rel="noreferrer"
-                                className="px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-500 text-white font-medium text-xs font-mono flex items-center transition"
-                              >
-                                <GitHubIcon />
-                                <span>View Source Code</span>
-                              </a>
-                            )}
-                            {selectedProject.live_url && (
-                              <a 
-                                href={selectedProject.live_url}
-                                target="_blank"
-                                rel="noreferrer"
-                                className="px-4 py-2 rounded-lg glass-card text-brand-600 dark:text-brand-300 font-mono text-xs flex items-center transition"
-                              >
-                                <span>Swagger API Docs</span>
-                                <ExternalLinkIcon />
-                              </a>
-                            )}
-                          </div>
-
-                          <button 
-                            onClick={() => setSelectedProject(null)}
-                            className="text-xs font-mono text-slate-400 hover:text-slate-200"
-                          >
-                            Close [ESC]
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* 03 // TOOLS OF MY CRAFT / STACK */}
-                  <section id="stack" className="space-y-6 hairline-t pt-10">
-                    <div className="flex items-center space-x-3 mb-1">
-                      <span className="text-xs font-mono text-brand-600 dark:text-brand-400 font-bold">03 //</span>
-                      <h2 className="text-2xl sm:text-3xl font-serif font-medium dark:text-white text-slate-900 tracking-tight">Tools of My Craft</h2>
-                    </div>
-                    <p className="dark:text-slate-400 text-slate-600 text-sm">
-                      Technologies verified across backend services, data modeling, automated testing, and containerization.
-                    </p>
-
-                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3.5">
-                      {filteredSkills.map((skill) => (
-                        <div key={skill.slug} className="glass-card rounded-xl p-4 flex flex-col justify-between hover:border-brand-500/50 transition">
-                          <div>
-                            <span className="text-[10px] font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400 font-semibold">
-                              {skill.category || 'Technology'}
-                            </span>
-                            <div className="text-sm font-semibold dark:text-white text-slate-900 mt-1 font-sans">
-                              {skill.name}
-                            </div>
-                          </div>
-                          <div className="mt-3 flex items-center space-x-1.5 text-[10px] font-mono dark:text-slate-400 text-slate-500">
-                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                            <span>Verified</span>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </section>
-
-                  {/* 04 // JOURNEY & FOUNDATIONS */}
-                  {portfolio.experience && portfolio.experience.length > 0 && (
-                    <section id="journey" className="space-y-6 hairline-t pt-10">
-                      <div className="flex items-center space-x-3 mb-1">
-                        <span className="text-xs font-mono text-brand-600 dark:text-brand-400 font-bold">04 //</span>
-                        <h2 className="text-2xl sm:text-3xl font-serif font-medium dark:text-white text-slate-900 tracking-tight">Journey &amp; Foundations</h2>
-                      </div>
-                      <p className="dark:text-slate-400 text-slate-600 text-sm">
-                        Hands-on groundwork in building purposeful digital products, designing maintainable backend systems, and turning ideas into working software.
-                      </p>
-
-                      <div className="space-y-6">
-                        {portfolio.experience.map((exp) => (
-                          <div key={exp.company + exp.role} className="glass-card rounded-2xl p-6 sm:p-8 corner-mark">
-                            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
-                              <div>
-                                <h3 className="text-xl font-serif font-medium dark:text-white text-slate-900">{exp.role}</h3>
-                                <div className="text-sm font-medium text-brand-600 dark:text-brand-400 font-mono mt-0.5">
-                                  {exp.company} • <span className="dark:text-slate-400 text-slate-500">{exp.location}</span>
-                                </div>
-                              </div>
-                              <div className="px-3 py-1 rounded-full text-xs font-mono dark:bg-white/5 bg-slate-200/80 dark:text-slate-300 text-slate-700 self-start sm:self-auto border dark:border-white/5 border-slate-300">
-                                Active Focus
-                              </div>
-                            </div>
-                            <p className="dark:text-slate-300 text-slate-600 text-sm leading-relaxed whitespace-pre-line mt-4 font-sans">
-                              {exp.description}
-                            </p>
-                          </div>
-                        ))}
-                      </div>
-                    </section>
-                  )}
-
-                  {/* 05 // CONTACT SECTION */}
-                  <section id="contact" className="space-y-6 hairline-t pt-10 pb-12">
-                    <div className="flex items-center space-x-3 mb-1">
-                      <span className="text-xs font-mono text-brand-600 dark:text-brand-400 font-bold">05 //</span>
-                      <h2 className="text-2xl sm:text-3xl font-serif font-medium dark:text-white text-slate-900 tracking-tight">Contact</h2>
-                    </div>
-
-                    <header className="max-w-2xl">
-                      <h3 className="text-2xl sm:text-4xl font-serif font-medium dark:text-white text-slate-900 mb-2 leading-tight">
-                        Let's build something useful.
-                      </h3>
-                      <p className="dark:text-slate-300 text-slate-600 text-sm leading-relaxed">
-                        I'm interested in building digital products, solving practical engineering problems, collaborating with other developers, and continuing to grow through real-world projects.
-                      </p>
-                    </header>
-
-                    <div className="grid grid-cols-1 md:grid-cols-5 gap-8 pt-2">
-                      {/* Left: Contact Info Card */}
-                      <div className="md:col-span-2 space-y-6">
-                        <div className="glass-card rounded-2xl p-6 corner-mark">
-                          <div className="inline-flex items-center space-x-2 px-2.5 py-1 rounded text-xs font-mono bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 mb-4">
-                            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                            <span>Open for Collaboration</span>
-                          </div>
-                          <h4 className="text-lg font-serif font-medium dark:text-white text-slate-900 mb-2">Direct Inquiries</h4>
-                          <p className="dark:text-slate-300 text-slate-600 text-sm leading-relaxed mb-6">
-                            Reach out directly for technical collaboration, backend engineering discussions, or software opportunities.
-                          </p>
-
-                          <div className="space-y-4 font-mono text-xs">
-                            <div>
-                              <span className="text-slate-400 block text-[10px] uppercase font-semibold">EMAIL</span>
-                              <div className="flex items-center justify-between mt-1">
-                                <a href="mailto:khalidzak21@gmail.com" className="text-brand-600 dark:text-brand-400 hover:underline">
-                                  khalidzak21@gmail.com
-                                </a>
-                                <button 
-                                  onClick={handleCopyEmail}
-                                  className="px-2 py-0.5 rounded text-[10px] dark:bg-white/5 bg-slate-200 border dark:border-white/10 border-slate-300 text-slate-600 dark:text-slate-300"
-                                >
-                                  {copiedEmail ? "Copied!" : "Copy"}
-                                </button>
-                              </div>
-                            </div>
-
-                            <div className="pt-2 hairline-t">
-                              <span className="text-slate-400 block text-[10px] uppercase font-semibold">GITHUB</span>
-                              <a 
-                                href="https://github.com/Khaliddray" 
-                                target="_blank" 
-                                rel="noreferrer"
-                                className="dark:text-slate-300 text-slate-700 hover:text-brand-500 flex items-center gap-1 mt-1"
-                              >
-                                <span>github.com/Khaliddray</span>
-                                <ExternalLinkIcon />
-                              </a>
-                            </div>
-
-                            <div className="pt-2 hairline-t">
-                              <span className="text-slate-400 block text-[10px] uppercase font-semibold">LOCATION</span>
-                              <span className="dark:text-slate-300 text-slate-700">Abuja, Nigeria (Open to Remote)</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Right: Interactive Contact Form */}
-                      <div className="md:col-span-3">
-                        <form onSubmit={handleContactSubmit} className="glass-card rounded-2xl p-6 sm:p-8 space-y-4">
-                          {contactStatus && (
-                            <div className={`p-4 rounded-xl text-xs font-mono ${contactStatus.type === 'success' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-brand-500/10 text-brand-400 border border-brand-500/20'}`}>
-                              {contactStatus.message}
-                            </div>
-                          )}
-
-                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div>
-                              <label className="block text-xs font-mono dark:text-slate-400 text-slate-600 mb-1.5">YOUR NAME</label>
-                              <input 
-                                type="text"
-                                required
-                                value={contactForm.name}
-                                onChange={(e) => setContactForm({ ...contactForm, name: e.target.value })}
-                                placeholder="e.g. Alex Smith"
-                                className="w-full px-3.5 py-2.5 rounded-lg dark:bg-dark-bg bg-slate-50 border dark:border-white/10 border-slate-300 text-sm dark:text-white text-slate-900 placeholder-slate-400 focus:outline-none focus:border-brand-500 font-sans"
-                              />
-                            </div>
-                            <div>
-                              <label className="block text-xs font-mono dark:text-slate-400 text-slate-600 mb-1.5">EMAIL ADDRESS</label>
-                              <input 
-                                type="email"
-                                required
-                                value={contactForm.email}
-                                onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })}
-                                placeholder="alex@company.com"
-                                className="w-full px-3.5 py-2.5 rounded-lg dark:bg-dark-bg bg-slate-50 border dark:border-white/10 border-slate-300 text-sm dark:text-white text-slate-900 placeholder-slate-400 focus:outline-none focus:border-brand-500 font-sans"
-                              />
-                            </div>
-                          </div>
-
-                          <div>
-                            <label className="block text-xs font-mono dark:text-slate-400 text-slate-600 mb-1.5">SUBJECT / TOPIC</label>
-                            <input 
-                              type="text"
-                              required
-                              value={contactForm.subject}
-                              onChange={(e) => setContactForm({ ...contactForm, subject: e.target.value })}
-                              placeholder="Engineering Role / Project Discussion"
-                              className="w-full px-3.5 py-2.5 rounded-lg dark:bg-dark-bg bg-slate-50 border dark:border-white/10 border-slate-300 text-sm dark:text-white text-slate-900 placeholder-slate-400 focus:outline-none focus:border-brand-500 font-sans"
-                            />
-                          </div>
-
-                          <div>
-                            <label className="block text-xs font-mono dark:text-slate-400 text-slate-600 mb-1.5">MESSAGE</label>
-                            <textarea 
-                              rows="4"
-                              required
-                              value={contactForm.message}
-                              onChange={(e) => setContactForm({ ...contactForm, message: e.target.value })}
-                              placeholder="Details about your engineering project, role requirements, or collaboration..."
-                              className="w-full px-3.5 py-2.5 rounded-lg dark:bg-dark-bg bg-slate-50 border dark:border-white/10 border-slate-300 text-sm dark:text-white text-slate-900 placeholder-slate-400 focus:outline-none focus:border-brand-500 font-sans"
-                            ></textarea>
-                          </div>
-
-                          <button 
-                            type="submit"
-                            disabled={contactSubmitting}
-                            className="w-full sm:w-auto px-6 py-2.5 rounded-lg bg-brand-600 hover:bg-brand-500 disabled:opacity-50 text-white font-medium text-xs font-mono transition shadow-md shadow-brand-600/20"
-                          >
-                            {contactSubmitting ? "DISPATCHING INQUIRY..." : "TRANSMIT MESSAGE →"}
-                          </button>
-                        </form>
-                      </div>
-                    </div>
-                  </section>
-                </div>
-              )}
-            </main>
-
-            {/* Bottom Footer */}
-            <footer className="hairline-t py-8 dark:bg-dark-bg/90 bg-light-bg/90 relative z-10">
-              <div className="max-w-5xl mx-auto px-4 sm:px-8 flex flex-col sm:flex-row items-center justify-between text-xs dark:text-slate-400 text-slate-500 gap-4">
-                <div className="font-mono text-[11px]">
-                  © 2026 Yahaya Khalid · Built with a focus on practical software and continuous improvement
-                </div>
-                <div className="flex items-center space-x-6 font-mono text-[11px]">
-                  <a href={`/api/public/portfolios/${slug}`} target="_blank" className="hover:text-brand-500 transition">JSON API Payload</a>
-                  <a href="/docs" target="_blank" className="hover:text-brand-500 transition">Swagger UI</a>
-                  <a href="/health" target="_blank" className="hover:text-brand-500 transition">Health Status</a>
-                </div>
+              <div className="flex flex-wrap items-center justify-center sm:justify-end gap-3 sm:gap-4 font-mono text-[11px]">
+                <button onClick={(e) => navigateTo("/", e)} className="hover:text-brand-500 transition">Home</button>
+                <span>·</span>
+                <button onClick={(e) => navigateTo("/about", e)} className="hover:text-brand-500 transition">About</button>
+                <span>·</span>
+                <button onClick={(e) => navigateTo("/projects", e)} className="hover:text-brand-500 transition">Projects</button>
+                <span>·</span>
+                <button onClick={(e) => navigateTo("/stack", e)} className="hover:text-brand-500 transition">Stack</button>
+                <span>·</span>
+                <button onClick={(e) => navigateTo("/journey", e)} className="hover:text-brand-500 transition">Journey</button>
+                <span>·</span>
+                <button onClick={(e) => navigateTo("/contact", e)} className="hover:text-brand-500 transition">Contact</button>
+                <span>·</span>
+                <a href="#" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="text-brand-500 hover:underline">
+                  Top ↑
+                </a>
               </div>
-            </footer>
-          </div>
+            </div>
+          </footer>
         </div>
       );
     }

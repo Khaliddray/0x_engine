@@ -1,0 +1,22 @@
+/* ==========================================================================
+   About Stylesheet: Philosophy Callout, Narrative Articles & Principles
+   ========================================================================== */
+
+.philosophy-callout {
+  border-left-width: 4px;
+  border-left-color: var(--brand-500);
+}
+
+.philosophy-quote {
+  font-family: var(--font-serif);
+  font-style: italic;
+  line-height: 1.6;
+}
+
+.principle-pillar-card {
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.principle-pillar-card:hover {
+  transform: translateY(-2px);
+}

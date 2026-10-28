@@ -1,0 +1,138 @@
+/* ==========================================================================
+   Navbar Stylesheet: Header, Menu Toggle, Drawer Panel & States
+   ========================================================================== */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.dark .site-header {
+  background-color: rgba(3, 14, 10, 0.88);
+  border-bottom: 1px solid rgba(249, 115, 22, 0.15);
+}
+
+html:not(.dark) .site-header {
+  background-color: rgba(253, 251, 247, 0.88);
+  border-bottom: 1px solid rgba(230, 223, 213, 0.85);
+}
+
+/* Menu Toggle Button */
+.menu-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  gap: 0.5rem;
+  padding: 0.5rem 0.875rem;
+  border-radius: 0.5rem;
+  background-color: var(--brand-600);
+  color: #ffffff;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(234, 88, 12, 0.2);
+}
+
+.menu-toggle-btn:hover {
+  background-color: var(--brand-500);
+  transform: translateY(-1px);
+}
+
+.menu-toggle-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--brand-500), 0 0 0 4px rgba(8, 8, 9, 0.8);
+}
+
+/* Slide-over Drawer Panel */
+.nav-drawer-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.nav-drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: opacity 0.3s ease;
+}
+
+.nav-drawer-content {
+  position: relative;
+  width: 100%;
+  max-width: min(24rem, 100vw); /* sm:w-96 */
+  height: 100%;
+  z-index: 10;
+  display: flex;
+  flex-col: column;
+  overflow-y: auto;
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dark .nav-drawer-content {
+  background-color: var(--dark-sidebar);
+  border-left: 1px solid rgba(249, 115, 22, 0.15);
+}
+
+html:not(.dark) .nav-drawer-content {
+  background-color: var(--light-sidebar);
+  border-left: 1px solid rgba(230, 223, 213, 0.85);
+}
+
+/* Navigation Links in Drawer */
+.drawer-nav-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.75rem 0.875rem;
+  border-radius: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  transition: all 0.2s ease;
+}
+
+.dark .drawer-nav-link {
+  color: #c2d4cb;
+}
+
+html:not(.dark) .drawer-nav-link {
+  color: #334155;
+}
+
+.dark .drawer-nav-link:hover {
+  background-color: rgba(151, 176, 166, 0.08);
+  color: var(--brand-500);
+}
+
+html:not(.dark) .drawer-nav-link:hover {
+  background-color: rgba(230, 223, 213, 0.5);
+  color: var(--brand-600);
+}
+
+/* Active Navigation State */
+.dark .drawer-nav-link.active {
+  background-color: rgba(249, 115, 22, 0.15);
+  color: #fb923c;
+  font-weight: 700;
+  border: 1px solid rgba(249, 115, 22, 0.3);
+}
+
+html:not(.dark) .drawer-nav-link.active {
+  background-color: #fff7ed;
+  color: #ea580c;
+  font-weight: 700;
+  border: 1px solid rgba(249, 115, 22, 0.3);
+}

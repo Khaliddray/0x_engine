@@ -109,3 +109,27 @@ def test_contact_inquiry_submission(client):
     assert "received" in data["message"].lower()
     assert "received_at" in data
 
+
+def test_frontend_multipage_routes(client):
+    for route in ["/about", "/projects", "/stack", "/journey", "/contact"]:
+        response = client.get(route, headers={"Accept": "text/html"})
+        assert response.status_code == 200
+        assert "<!DOCTYPE html>" in response.text
+        assert "Yahaya Khalid" in response.text
+
+
+def test_favicon_endpoint_and_html_links(client):
+    # 1. Test /favicon.ico route
+    ico_res = client.get("/favicon.ico")
+    assert ico_res.status_code == 200
+    assert ico_res.headers["content-type"] == "image/x-icon"
+
+    # 2. Test favicon links in HTML head
+    page_res = client.get("/", headers={"Accept": "text/html"})
+    assert page_res.status_code == 200
+    html = page_res.text
+    assert 'rel="icon"' in html
+    assert "favicon-32x32.png" in html
+    assert "apple-touch-icon.png" in html
+
+

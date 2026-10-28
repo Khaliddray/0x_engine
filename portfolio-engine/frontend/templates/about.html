@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% block title %}About &amp; Principles — Yahaya Khalid{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="{{ url_for('static', path='css/about.css') }}" />
+{% endblock %}
+
+{% block content %}
+<div class="space-y-12">
+  <!-- Page Header -->
+  <header class="space-y-2">
+    <div class="flex items-center space-x-3">
+      <span class="text-xs font-mono text-brand-600 dark:text-brand-400 font-bold">01 //</span>
+      <span class="text-xs font-mono dark:text-slate-400 text-slate-500 uppercase tracking-widest">PROFILE &amp; PHILOSOPHY</span>
+    </div>
+    <h1 class="text-3xl sm:text-4xl font-serif font-medium dark:text-white text-slate-900 tracking-tight">
+      About &amp; Principles
+    </h1>
+    <p class="dark:text-slate-300 text-slate-600 text-sm sm:text-base max-w-2xl leading-relaxed">
+      Who I am, how I approach backend engineering, and the kind of software I build.
+    </p>
+  </header>
+
+  <!-- Core Engineering Philosophy Callout -->
+  <div class="glass-card philosophy-callout rounded-2xl p-6 sm:p-8 corner-mark">
+    <div class="text-xs font-mono text-brand-600 dark:text-brand-400 uppercase tracking-wider mb-2 font-semibold">
+      Core Engineering Philosophy
+    </div>
+    <p class="philosophy-quote text-base sm:text-xl dark:text-white text-slate-900">
+      “Build what solves the problem. Keep the architecture understandable. Design data models carefully, separate responsibilities, and build products that can evolve as requirements change.”
+    </p>
+  </div>
+
+  <!-- Narrative Sections Grid -->
+  {% if portfolio and portfolio.sections and portfolio.sections|length > 0 %}
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    {% for sec in portfolio.sections %}
+    <article class="glass-card rounded-2xl p-6 sm:p-8 corner-mark flex flex-col justify-between">
+      <div>
+        <h3 class="text-xl font-serif font-medium dark:text-white text-slate-900 mb-3 flex items-center">
+          <span class="w-2 h-2 rounded-sm bg-brand-500 mr-2.5"></span>
+          {{ sec.title }}
+        </h3>
+        <p class="dark:text-slate-300 text-slate-600 text-sm leading-relaxed whitespace-pre-line font-sans">
+          {{ sec.content }}
+        </p>
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <!-- Architectural Principles Pillars -->
+  <div class="space-y-4 pt-4 hairline-t">
+    <h3 class="text-xl font-serif font-medium dark:text-white text-slate-900">
+      Foundational Principles
+    </h3>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="glass-card principle-pillar-card rounded-xl p-5">
+        <div class="text-xs font-mono text-brand-500 font-semibold mb-2">01 // LAYERED ARCHITECTURE</div>
+        <div class="font-serif font-medium text-sm dark:text-white text-slate-900 mb-1">Separation of Concerns</div>
+        <p class="text-xs dark:text-slate-400 text-slate-600 leading-relaxed">
+          Strictly dividing Routes, Services, Repositories, and Database Models to keep code testable and maintainable.
+        </p>
+      </div>
+
+      <div class="glass-card principle-pillar-card rounded-xl p-5">
+        <div class="text-xs font-mono text-brand-500 font-semibold mb-2">02 // PRAGMATIC DESIGN</div>
+        <div class="font-serif font-medium text-sm dark:text-white text-slate-900 mb-1">Purpose-Driven Code</div>
+        <p class="text-xs dark:text-slate-400 text-slate-600 leading-relaxed">
+          Avoiding unnecessary complexity. Writing clear Python, explicit contracts, and avoiding clever tricks.
+        </p>
+      </div>
+
+      <div class="glass-card principle-pillar-card rounded-xl p-5">
+        <div class="text-xs font-mono text-brand-500 font-semibold mb-2">03 // RELATIONAL INTEGRITY</div>
+        <div class="font-serif font-medium text-sm dark:text-white text-slate-900 mb-1">Careful Data Modeling</div>
+        <p class="text-xs dark:text-slate-400 text-slate-600 leading-relaxed">
+          Normalized schemas, foreign key constraints, explicit indexing, and versioned migrations with Alembic.
+        </p>
+      </div>
+
+      <div class="glass-card principle-pillar-card rounded-xl p-5">
+        <div class="text-xs font-mono text-brand-500 font-semibold mb-2">04 // RELIABLE VERIFICATION</div>
+        <div class="font-serif font-medium text-sm dark:text-white text-slate-900 mb-1">Automated Pytest Coverage</div>
+        <p class="text-xs dark:text-slate-400 text-slate-600 leading-relaxed">
+          Ensuring endpoints, authentication, and database operations are verified against isolated test databases.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page Bottom CTAs -->
+  <div class="pt-6 hairline-t flex flex-wrap items-center justify-between gap-4">
+    <a
+      href="/projects"
+      class="px-5 py-2.5 rounded-lg bg-brand-600 hover:bg-brand-500 text-white font-medium text-xs font-mono transition flex items-center"
+    >
+      <span>Explore Projects (02) →</span>
+    </a>
+    <a
+      href="/contact"
+      class="text-xs font-mono dark:text-slate-300 text-slate-700 hover:text-brand-500 transition"
+    >
+      Have a question? Contact me →
+    </a>
+  </div>
+</div>
+{% endblock %}

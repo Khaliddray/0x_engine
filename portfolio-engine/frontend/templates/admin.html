@@ -1,0 +1,1510 @@
+{% extends "base.html" %}
+
+{% block title %}Control Center &amp; Dashboard — Yahaya Khalid{% endblock %}
+
+{% block page_css %}
+<style>
+  .admin-glass-card {
+    background: rgba(10, 33, 24, 0.65);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  html:not(.dark) .admin-glass-card {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid #e2e8f0;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="space-y-8" id="admin-root">
+
+  <!-- ======================================================== -->
+  <!-- 1. LOGIN VIEW (Shown when unauthenticated) -->
+  <!-- ======================================================== -->
+  <div id="admin-login-view" class="py-10 max-w-md mx-auto">
+    <div class="admin-glass-card rounded-2xl p-7 sm:p-9 shadow-2xl relative corner-mark border dark:border-white/10 border-slate-200">
+      
+      <!-- Brand & Section Heading -->
+      <div class="text-center mb-8">
+        <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-brand-600 via-orange-500 to-amber-400 flex items-center justify-center font-bold text-sm font-mono text-black mx-auto mb-4 shadow-lg shadow-brand-600/30">
+          YK
+        </div>
+        <div class="inline-flex items-center space-x-1.5 text-[11px] font-mono text-brand-600 dark:text-brand-400 font-bold uppercase tracking-wider mb-1">
+          <span>0X // ADMINISTRATION</span>
+        </div>
+        <h1 class="text-2xl sm:text-3xl font-serif font-medium dark:text-white text-slate-900 tracking-tight">
+          Control Center
+        </h1>
+        <p class="dark:text-slate-400 text-slate-600 text-xs sm:text-sm mt-1.5 font-sans">
+          Sign in to manage portfolio content, showcase products, and system settings.
+        </p>
+      </div>
+
+      <!-- Alert Notification Banner -->
+      <div id="login-alert" class="hidden mb-5 p-3 rounded-lg text-xs font-mono border" role="alert">
+        <span id="login-alert-text"></span>
+      </div>
+
+      <!-- Login Form -->
+      <form id="admin-login-form" class="space-y-4" onsubmit="handleAdminLogin(event)">
+        <!-- Email / Username Input -->
+        <div>
+          <label for="admin-email" class="block text-xs font-mono dark:text-slate-300 text-slate-700 font-medium mb-1.5">
+            Admin Email or Username
+          </label>
+          <div class="relative">
+            <input
+              type="text"
+              id="admin-email"
+              name="username"
+              required
+              autocomplete="username"
+              placeholder="khalidzak21@gmail.com"
+              class="w-full px-3.5 py-2.5 rounded-lg text-xs font-mono dark:bg-dark-card dark:text-white text-slate-800 border dark:border-white/10 border-slate-300 focus:outline-none focus:border-brand-500 transition"
+            />
+          </div>
+        </div>
+
+        <!-- Password Input -->
+        <div>
+          <div class="flex items-center justify-between mb-1.5">
+            <label for="admin-password" class="block text-xs font-mono dark:text-slate-300 text-slate-700 font-medium">
+              Password
+            </label>
+          </div>
+          <div class="relative">
+            <input
+              type="password"
+              id="admin-password"
+              name="password"
+              required
+              autocomplete="current-password"
+              placeholder="••••••••••••"
+              class="w-full px-3.5 py-2.5 rounded-lg text-xs font-mono dark:bg-dark-card dark:text-white text-slate-800 border dark:border-white/10 border-slate-300 focus:outline-none focus:border-brand-500 transition pr-10"
+            />
+            <button
+              type="button"
+              onclick="togglePasswordVisibility()"
+              class="absolute inset-y-0 right-0 px-3 flex items-center text-slate-400 hover:text-slate-200 text-xs font-mono"
+              tabindex="-1"
+              id="toggle-password-btn"
+            >
+              Show
+            </button>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="pt-2">
+          <button
+            type="submit"
+            id="login-submit-btn"
+            class="w-full py-2.5 rounded-lg bg-brand-600 hover:bg-brand-500 text-white font-mono text-xs font-semibold tracking-wider uppercase transition shadow-md shadow-brand-600/20 flex items-center justify-center space-x-2"
+          >
+            <span id="login-btn-text">Authenticate →</span>
+            <svg id="login-spinner" class="hidden w-4 h-4 animate-spin text-white" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+          </button>
+        </div>
+      </form>
+
+      <!-- Security Boundary Footer Note -->
+      <div class="mt-6 pt-5 hairline-t text-center">
+        <p class="text-[11px] font-mono dark:text-slate-500 text-slate-400">
+          Protected Administrator Boundary · Argon2 Encrypted
+        </p>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ======================================================== -->
+  <!-- 2. DASHBOARD VIEW (Shown when authenticated) -->
+  <!-- ======================================================== -->
+  <div id="admin-dashboard-view" class="hidden space-y-8">
+    
+    <!-- Dashboard Top Bar / Identity Header -->
+    <header class="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-4 border-b dark:border-white/5 border-slate-200">
+      <div>
+        <div class="flex items-center space-x-3 mb-1.5">
+          <span class="text-xs font-mono text-brand-600 dark:text-brand-400 font-bold">0X //</span>
+          <span class="text-xs font-mono dark:text-slate-400 text-slate-500 uppercase tracking-widest">CONTROL CENTER</span>
+          <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 inline-flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            Superuser Session Active
+          </span>
+        </div>
+        <h1 class="text-3xl sm:text-4xl font-serif font-medium dark:text-white text-slate-900 tracking-tight">
+          Portfolio Overview
+        </h1>
+        <p class="dark:text-slate-300 text-slate-600 text-sm max-w-2xl mt-1.5 leading-relaxed font-sans">
+          Signed in as <span id="admin-user-display" class="font-mono font-medium dark:text-white text-slate-900">...</span>. Manage portfolio systems, records, and products.
+        </p>
+      </div>
+
+      <!-- Action Buttons: Public Site & Logout -->
+      <div class="flex flex-wrap items-center gap-3 self-start md:self-auto">
+        <a
+          href="/"
+          class="px-3.5 py-1.5 rounded-lg text-xs font-mono dark:bg-white/5 bg-slate-200/80 dark:text-slate-300 text-slate-700 hover:text-brand-500 border dark:border-white/5 border-slate-300 transition inline-flex items-center gap-1.5"
+        >
+          <span>View Public Site</span>
+          <span>↗</span>
+        </a>
+
+        <a
+          href="/docs"
+          target="_blank"
+          rel="noreferrer"
+          class="px-3.5 py-1.5 rounded-lg text-xs font-mono dark:bg-white/5 bg-slate-200/80 dark:text-slate-300 text-slate-700 hover:text-brand-500 border dark:border-white/5 border-slate-300 transition inline-flex items-center gap-1.5"
+        >
+          <span>API Docs (/docs)</span>
+          <span>↗</span>
+        </a>
+
+        <button
+          type="button"
+          onclick="handleAdminLogout()"
+          class="px-3.5 py-1.5 rounded-lg text-xs font-mono font-semibold bg-rose-500/10 hover:bg-rose-500/20 text-rose-500 dark:text-rose-400 border border-rose-500/20 transition"
+        >
+          Sign Out
+        </button>
+      </div>
+    </header>
+
+    <!-- Overview Metric Cards Grid -->
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3.5">
+      <!-- Total Projects -->
+      <div class="admin-glass-card rounded-xl p-4 border dark:border-white/10 border-slate-200 cursor-pointer hover:border-brand-500/40 transition" onclick="switchAdminTab('projects')">
+        <div class="text-[10px] font-mono dark:text-slate-400 text-slate-500 uppercase tracking-wider mb-1">Projects</div>
+        <div id="stat-projects" class="text-2xl font-serif font-bold dark:text-white text-slate-900">--</div>
+        <div class="text-[10px] font-mono text-brand-600 dark:text-brand-400 mt-1">Total in DB</div>
+      </div>
+
+      <!-- Featured Projects -->
+      <div class="admin-glass-card rounded-xl p-4 border dark:border-white/10 border-slate-200 cursor-pointer hover:border-brand-500/40 transition" onclick="switchAdminTab('projects')">
+        <div class="text-[10px] font-mono dark:text-slate-400 text-slate-500 uppercase tracking-wider mb-1">Featured</div>
+        <div id="stat-featured" class="text-2xl font-serif font-bold dark:text-brand-400 text-brand-600">--</div>
+        <div class="text-[10px] font-mono dark:text-slate-400 text-slate-500 mt-1">Highlighted</div>
+      </div>
+
+      <!-- Verified Skills -->
+      <div class="admin-glass-card rounded-xl p-4 border dark:border-white/10 border-slate-200 cursor-pointer hover:border-brand-500/40 transition" onclick="switchAdminTab('skills')">
+        <div class="text-[10px] font-mono dark:text-slate-400 text-slate-500 uppercase tracking-wider mb-1">Skills</div>
+        <div id="stat-skills" class="text-2xl font-serif font-bold dark:text-white text-slate-900">--</div>
+        <div class="text-[10px] font-mono dark:text-slate-400 text-slate-500 mt-1">Core stack</div>
+      </div>
+
+      <!-- Narrative Sections -->
+      <div class="admin-glass-card rounded-xl p-4 border dark:border-white/10 border-slate-200 cursor-pointer hover:border-brand-500/40 transition" onclick="switchAdminTab('sections')">
+        <div class="text-[10px] font-mono dark:text-slate-400 text-slate-500 uppercase tracking-wider mb-1">Sections</div>
+        <div id="stat-sections" class="text-2xl font-serif font-bold dark:text-white text-slate-900">--</div>
+        <div class="text-[10px] font-mono dark:text-slate-400 text-slate-500 mt-1">Narratives</div>
+      </div>
+
+      <!-- Work History -->
+      <div class="admin-glass-card rounded-xl p-4 border dark:border-white/10 border-slate-200">
+        <div class="text-[10px] font-mono dark:text-slate-400 text-slate-500 uppercase tracking-wider mb-1">Experience</div>
+        <div id="stat-experiences" class="text-2xl font-serif font-bold dark:text-white text-slate-900">--</div>
+        <div class="text-[10px] font-mono dark:text-slate-400 text-slate-500 mt-1">Positions</div>
+      </div>
+
+      <!-- Users -->
+      <div class="admin-glass-card rounded-xl p-4 border dark:border-white/10 border-slate-200">
+        <div class="text-[10px] font-mono dark:text-slate-400 text-slate-500 uppercase tracking-wider mb-1">Users</div>
+        <div id="stat-users" class="text-2xl font-serif font-bold dark:text-white text-slate-900">--</div>
+        <div class="text-[10px] font-mono dark:text-slate-400 text-slate-500 mt-1">Admins</div>
+      </div>
+    </div>
+
+    <!-- Feedback Banner inside Dashboard -->
+    <div id="dashboard-alert" class="hidden p-3 rounded-lg text-xs font-mono border" role="alert">
+      <span id="dashboard-alert-text"></span>
+    </div>
+
+    <!-- Tab Navigation Bar -->
+    <div class="flex items-center space-x-2 border-b dark:border-white/10 border-slate-200 pb-3">
+      <button
+        type="button"
+        id="tab-btn-projects"
+        onclick="switchAdminTab('projects')"
+        class="px-4 py-2 rounded-lg font-mono text-xs font-semibold bg-brand-600 text-white transition shadow-sm shadow-brand-600/20"
+      >
+        Projects
+      </button>
+      <button
+        type="button"
+        id="tab-btn-skills"
+        onclick="switchAdminTab('skills')"
+        class="px-4 py-2 rounded-lg font-mono text-xs font-semibold dark:bg-white/5 bg-slate-200 text-slate-400 hover:text-white transition"
+      >
+        Skills &amp; Technologies
+      </button>
+      <button
+        type="button"
+        id="tab-btn-sections"
+        onclick="switchAdminTab('sections')"
+        class="px-4 py-2 rounded-lg font-mono text-xs font-semibold dark:bg-white/5 bg-slate-200 text-slate-400 hover:text-white transition"
+      >
+        Portfolio Sections
+      </button>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- TAB 1: PROJECTS & PRODUCTS MANAGEMENT SECTION -->
+    <!-- ======================================================== -->
+    <div id="tab-panel-projects" class="space-y-6">
+      <div class="admin-glass-card rounded-2xl p-6 sm:p-7 border dark:border-white/10 border-slate-200 space-y-6">
+        <!-- Section Header & "New Project" Trigger -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 hairline-b">
+          <div>
+            <h2 class="text-xl font-serif font-medium dark:text-white text-slate-900">
+              Database Projects Management
+            </h2>
+            <p class="text-xs font-mono dark:text-slate-400 text-slate-600 mt-0.5">
+              Create, update, or remove projects stored in your PostgreSQL database.
+            </p>
+          </div>
+
+          <button
+            type="button"
+            onclick="openProjectModal()"
+            class="px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-500 text-white font-mono text-xs font-semibold inline-flex items-center space-x-1.5 transition shadow-sm shadow-brand-600/20"
+          >
+            <span>＋ Add Project</span>
+          </button>
+        </div>
+
+        <!-- Projects Table / List -->
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs font-mono">
+            <thead>
+              <tr class="border-b dark:border-white/10 border-slate-200 text-slate-400">
+                <th class="pb-3 font-semibold uppercase tracking-wider text-[11px]">Title &amp; Slug</th>
+                <th class="pb-3 font-semibold uppercase tracking-wider text-[11px]">Description</th>
+                <th class="pb-3 font-semibold uppercase tracking-wider text-[11px]">Status</th>
+                <th class="pb-3 font-semibold uppercase tracking-wider text-[11px]">Live URL</th>
+                <th class="pb-3 font-semibold uppercase tracking-wider text-[11px] text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="projects-table-body" class="divide-y dark:divide-white/5 divide-slate-200">
+              <tr>
+                <td colspan="5" class="py-8 text-center text-slate-400">
+                  Loading projects...
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- TAB 2: SKILLS MANAGEMENT SECTION -->
+    <!-- ======================================================== -->
+    <div id="tab-panel-skills" class="hidden space-y-6">
+      <div class="admin-glass-card rounded-2xl p-6 sm:p-7 border dark:border-white/10 border-slate-200 space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 hairline-b">
+          <div>
+            <h2 class="text-xl font-serif font-medium dark:text-white text-slate-900">
+              Skills &amp; Technical Stack Management
+            </h2>
+            <p class="text-xs font-mono dark:text-slate-400 text-slate-600 mt-0.5">
+              Manage programming languages, frameworks, databases, and architectural competencies.
+            </p>
+          </div>
+
+          <button
+            type="button"
+            onclick="openSkillModal()"
+            class="px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-500 text-white font-mono text-xs font-semibold inline-flex items-center space-x-1.5 transition shadow-sm shadow-brand-600/20"
+          >
+            <span>＋ Add Skill</span>
+          </button>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs font-mono">
+            <thead>
+              <tr class="border-b dark:border-white/10 border-slate-200 text-slate-400">
+                <th class="pb-3 font-semibold uppercase tracking-wider text-[11px]">Name</th>
+                <th class="pb-3 font-semibold uppercase tracking-wider text-[11px]">Category</th>
+                <th class="pb-3 font-semibold uppercase tracking-wider text-[11px]">Proficiency</th>
+                <th class="pb-3 font-semibold uppercase tracking-wider text-[11px]">Position</th>
+                <th class="pb-3 font-semibold uppercase tracking-wider text-[11px] text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="skills-table-body" class="divide-y dark:divide-white/5 divide-slate-200">
+              <tr>
+                <td colspan="5" class="py-8 text-center text-slate-400">
+                  Loading skills...
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- TAB 3: SECTIONS MANAGEMENT SECTION -->
+    <!-- ======================================================== -->
+    <div id="tab-panel-sections" class="hidden space-y-6">
+      <div class="admin-glass-card rounded-2xl p-6 sm:p-7 border dark:border-white/10 border-slate-200 space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 hairline-b">
+          <div>
+            <h2 class="text-xl font-serif font-medium dark:text-white text-slate-900">
+              Narrative Sections Management
+            </h2>
+            <p class="text-xs font-mono dark:text-slate-400 text-slate-600 mt-0.5">
+              Customize modular storytelling sections, bio blocks, and engineering notes.
+            </p>
+          </div>
+
+          <button
+            type="button"
+            onclick="openSectionModal()"
+            class="px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-500 text-white font-mono text-xs font-semibold inline-flex items-center space-x-1.5 transition shadow-sm shadow-brand-600/20"
+          >
+            <span>＋ Add Section</span>
+          </button>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs font-mono">
+            <thead>
+              <tr class="border-b dark:border-white/10 border-slate-200 text-slate-400">
+                <th class="pb-3 font-semibold uppercase tracking-wider text-[11px]">Title &amp; Slug</th>
+                <th class="pb-3 font-semibold uppercase tracking-wider text-[11px]">Type</th>
+                <th class="pb-3 font-semibold uppercase tracking-wider text-[11px]">Content Preview</th>
+                <th class="pb-3 font-semibold uppercase tracking-wider text-[11px]">Position</th>
+                <th class="pb-3 font-semibold uppercase tracking-wider text-[11px] text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="sections-table-body" class="divide-y dark:divide-white/5 divide-slate-200">
+              <tr>
+                <td colspan="5" class="py-8 text-center text-slate-400">
+                  Loading sections...
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- CONTENT ARCHITECTURE GUIDE -->
+    <!-- ======================================================== -->
+    <div class="admin-glass-card rounded-2xl p-6 sm:p-7 border dark:border-white/10 border-slate-200 space-y-4">
+      <div class="flex items-center space-x-2 text-xs font-mono font-bold text-brand-600 dark:text-brand-400">
+        <span>INFO //</span>
+        <span>CONTENT ARCHITECTURE EXPLAINED</span>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs dark:text-slate-300 text-slate-600 leading-relaxed font-sans">
+        <div class="space-y-2">
+          <h3 class="font-serif font-medium text-sm dark:text-white text-slate-900">
+            1. Curated Product Showcase
+          </h3>
+          <p>
+            The public product showcase on <code class="px-1.5 py-0.5 rounded dark:bg-white/5 bg-slate-200 font-mono text-[11px]">/projects</code> is powered by <code class="px-1.5 py-0.5 rounded dark:bg-white/5 bg-slate-200 font-mono text-[11px]">backend/app/core/products.py</code> and <code class="px-1.5 py-0.5 rounded dark:bg-white/5 bg-slate-200 font-mono text-[11px]">GET /api/projects/showcase</code>. It emphasizes problem-solving and value propositions while omitting proprietary code details.
+          </p>
+        </div>
+        <div class="space-y-2">
+          <h3 class="font-serif font-medium text-sm dark:text-white text-slate-900">
+            2. Relational Database Records
+          </h3>
+          <p>
+            The tables above manage relational records stored in PostgreSQL (<code class="px-1.5 py-0.5 rounded dark:bg-white/5 bg-slate-200 font-mono text-[11px]">projects</code>, <code class="px-1.5 py-0.5 rounded dark:bg-white/5 bg-slate-200 font-mono text-[11px]">skills</code>, <code class="px-1.5 py-0.5 rounded dark:bg-white/5 bg-slate-200 font-mono text-[11px]">portfolio_sections</code>). These are accessible via the authenticated REST API endpoints and synchronize with public aggregator endpoints.
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- ======================================================== -->
+  <!-- 3. ADD / EDIT PROJECT MODAL DIALOG -->
+  <!-- ======================================================== -->
+  <div id="project-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm" role="dialog" aria-modal="true">
+    <div class="admin-glass-card rounded-2xl max-w-lg w-full p-6 sm:p-7 border dark:border-white/10 border-slate-200 shadow-2xl relative">
+      <div class="flex items-center justify-between pb-3 hairline-b mb-4">
+        <h3 id="modal-title" class="text-lg font-serif font-medium dark:text-white text-slate-900">
+          Add New Database Project
+        </h3>
+        <button type="button" onclick="closeProjectModal()" class="text-slate-400 hover:text-white text-lg font-mono">
+          ✕
+        </button>
+      </div>
+
+      <form id="project-form" onsubmit="handleSaveProject(event)" class="space-y-3.5">
+        <input type="hidden" id="form-project-id" value="" />
+
+        <div>
+          <label class="block text-xs font-mono dark:text-slate-300 text-slate-700 font-medium mb-1">
+            Project Title *
+          </label>
+          <input
+            type="text"
+            id="form-title"
+            required
+            oninput="handleTitleInput(this.value)"
+            placeholder="e.g. Portfolio Engine"
+            class="w-full px-3 py-2 rounded-lg text-xs font-mono dark:bg-dark-card dark:text-white text-slate-800 border dark:border-white/10 border-slate-300 focus:outline-none focus:border-brand-500 transition"
+          />
+        </div>
+
+        <div>
+          <label class="block text-xs font-mono dark:text-slate-300 text-slate-700 font-medium mb-1">
+            Project Slug *
+          </label>
+          <input
+            type="text"
+            id="form-slug"
+            required
+            placeholder="portfolio-engine"
+            class="w-full px-3 py-2 rounded-lg text-xs font-mono dark:bg-dark-card dark:text-white text-slate-800 border dark:border-white/10 border-slate-300 focus:outline-none focus:border-brand-500 transition"
+          />
+        </div>
+
+        <div>
+          <label class="block text-xs font-mono dark:text-slate-300 text-slate-700 font-medium mb-1">
+            Description / Value Proposition
+          </label>
+          <textarea
+            id="form-description"
+            rows="3"
+            placeholder="Concise explanation of the product, problem it solves, and value delivered."
+            class="w-full px-3 py-2 rounded-lg text-xs font-mono dark:bg-dark-card dark:text-white text-slate-800 border dark:border-white/10 border-slate-300 focus:outline-none focus:border-brand-500 transition resize-none"
+          ></textarea>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-mono dark:text-slate-300 text-slate-700 font-medium mb-1">
+              Live Product URL (Optional)
+            </label>
+            <input
+              type="url"
+              id="form-live-url"
+              placeholder="https://example.com"
+              class="w-full px-3 py-2 rounded-lg text-xs font-mono dark:bg-dark-card dark:text-white text-slate-800 border dark:border-white/10 border-slate-300 focus:outline-none focus:border-brand-500 transition"
+            />
+          </div>
+          <div>
+            <label class="block text-xs font-mono dark:text-slate-300 text-slate-700 font-medium mb-1">
+              GitHub URL (Optional)
+            </label>
+            <input
+              type="url"
+              id="form-github-url"
+              placeholder="https://github.com/..."
+              class="w-full px-3 py-2 rounded-lg text-xs font-mono dark:bg-dark-card dark:text-white text-slate-800 border dark:border-white/10 border-slate-300 focus:outline-none focus:border-brand-500 transition"
+            />
+          </div>
+        </div>
+
+        <div class="flex items-center space-x-2 pt-1">
+          <input
+            type="checkbox"
+            id="form-is-featured"
+            class="rounded border-slate-300 text-brand-600 focus:ring-brand-500 h-4 w-4"
+          />
+          <label for="form-is-featured" class="text-xs font-mono dark:text-slate-300 text-slate-700 select-none">
+            Mark as Featured Project
+          </label>
+        </div>
+
+        <div class="pt-3 flex items-center justify-end space-x-2">
+          <button
+            type="button"
+            onclick="closeProjectModal()"
+            class="px-3.5 py-1.5 rounded-lg text-xs font-mono dark:bg-white/5 bg-slate-200 text-slate-400 hover:text-white transition"
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            id="modal-submit-btn"
+            class="px-4 py-1.5 rounded-lg bg-brand-600 hover:bg-brand-500 text-white font-mono text-xs font-semibold transition shadow-sm shadow-brand-600/20"
+          >
+            Save Project
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- ======================================================== -->
+  <!-- 4. ADD / EDIT SKILL MODAL DIALOG -->
+  <!-- ======================================================== -->
+  <div id="skill-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm" role="dialog" aria-modal="true">
+    <div class="admin-glass-card rounded-2xl max-w-lg w-full p-6 sm:p-7 border dark:border-white/10 border-slate-200 shadow-2xl relative">
+      <div class="flex items-center justify-between pb-3 hairline-b mb-4">
+        <h3 id="skill-modal-title" class="text-lg font-serif font-medium dark:text-white text-slate-900">
+          Add New Skill
+        </h3>
+        <button type="button" onclick="closeSkillModal()" class="text-slate-400 hover:text-white text-lg font-mono">
+          ✕
+        </button>
+      </div>
+
+      <form id="skill-form" onsubmit="handleSaveSkill(event)" class="space-y-3.5">
+        <input type="hidden" id="form-skill-id" value="" />
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-mono dark:text-slate-300 text-slate-700 font-medium mb-1">
+              Skill Name *
+            </label>
+            <input
+              type="text"
+              id="form-skill-name"
+              required
+              oninput="handleSkillNameInput(this.value)"
+              placeholder="e.g. Python"
+              class="w-full px-3 py-2 rounded-lg text-xs font-mono dark:bg-dark-card dark:text-white text-slate-800 border dark:border-white/10 border-slate-300 focus:outline-none focus:border-brand-500 transition"
+            />
+          </div>
+          <div>
+            <label class="block text-xs font-mono dark:text-slate-300 text-slate-700 font-medium mb-1">
+              Slug *
+            </label>
+            <input
+              type="text"
+              id="form-skill-slug"
+              required
+              placeholder="python"
+              class="w-full px-3 py-2 rounded-lg text-xs font-mono dark:bg-dark-card dark:text-white text-slate-800 border dark:border-white/10 border-slate-300 focus:outline-none focus:border-brand-500 transition"
+            />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div>
+            <label class="block text-xs font-mono dark:text-slate-300 text-slate-700 font-medium mb-1">
+              Category
+            </label>
+            <input
+              type="text"
+              id="form-skill-category"
+              placeholder="Languages"
+              class="w-full px-3 py-2 rounded-lg text-xs font-mono dark:bg-dark-card dark:text-white text-slate-800 border dark:border-white/10 border-slate-300 focus:outline-none focus:border-brand-500 transition"
+            />
+          </div>
+          <div>
+            <label class="block text-xs font-mono dark:text-slate-300 text-slate-700 font-medium mb-1">
+              Proficiency
+            </label>
+            <input
+              type="text"
+              id="form-skill-proficiency"
+              placeholder="Proficient"
+              class="w-full px-3 py-2 rounded-lg text-xs font-mono dark:bg-dark-card dark:text-white text-slate-800 border dark:border-white/10 border-slate-300 focus:outline-none focus:border-brand-500 transition"
+            />
+          </div>
+          <div>
+            <label class="block text-xs font-mono dark:text-slate-300 text-slate-700 font-medium mb-1">
+              Position
+            </label>
+            <input
+              type="number"
+              id="form-skill-position"
+              value="1"
+              min="0"
+              class="w-full px-3 py-2 rounded-lg text-xs font-mono dark:bg-dark-card dark:text-white text-slate-800 border dark:border-white/10 border-slate-300 focus:outline-none focus:border-brand-500 transition"
+            />
+          </div>
+        </div>
+
+        <div class="pt-3 flex items-center justify-end space-x-2">
+          <button
+            type="button"
+            onclick="closeSkillModal()"
+            class="px-3.5 py-1.5 rounded-lg text-xs font-mono dark:bg-white/5 bg-slate-200 text-slate-400 hover:text-white transition"
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            id="skill-modal-submit-btn"
+            class="px-4 py-1.5 rounded-lg bg-brand-600 hover:bg-brand-500 text-white font-mono text-xs font-semibold transition shadow-sm shadow-brand-600/20"
+          >
+            Save Skill
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- ======================================================== -->
+  <!-- 5. ADD / EDIT SECTION MODAL DIALOG -->
+  <!-- ======================================================== -->
+  <div id="section-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm" role="dialog" aria-modal="true">
+    <div class="admin-glass-card rounded-2xl max-w-lg w-full p-6 sm:p-7 border dark:border-white/10 border-slate-200 shadow-2xl relative">
+      <div class="flex items-center justify-between pb-3 hairline-b mb-4">
+        <h3 id="section-modal-title" class="text-lg font-serif font-medium dark:text-white text-slate-900">
+          Add New Portfolio Section
+        </h3>
+        <button type="button" onclick="closeSectionModal()" class="text-slate-400 hover:text-white text-lg font-mono">
+          ✕
+        </button>
+      </div>
+
+      <form id="section-form" onsubmit="handleSaveSection(event)" class="space-y-3.5">
+        <input type="hidden" id="form-section-id" value="" />
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-mono dark:text-slate-300 text-slate-700 font-medium mb-1">
+              Section Title *
+            </label>
+            <input
+              type="text"
+              id="form-section-title"
+              required
+              oninput="handleSectionTitleInput(this.value)"
+              placeholder="e.g. Engineering Philosophy"
+              class="w-full px-3 py-2 rounded-lg text-xs font-mono dark:bg-dark-card dark:text-white text-slate-800 border dark:border-white/10 border-slate-300 focus:outline-none focus:border-brand-500 transition"
+            />
+          </div>
+          <div>
+            <label class="block text-xs font-mono dark:text-slate-300 text-slate-700 font-medium mb-1">
+              Slug *
+            </label>
+            <input
+              type="text"
+              id="form-section-slug"
+              required
+              placeholder="engineering-philosophy"
+              class="w-full px-3 py-2 rounded-lg text-xs font-mono dark:bg-dark-card dark:text-white text-slate-800 border dark:border-white/10 border-slate-300 focus:outline-none focus:border-brand-500 transition"
+            />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-mono dark:text-slate-300 text-slate-700 font-medium mb-1">
+              Section Type *
+            </label>
+            <input
+              type="text"
+              id="form-section-type"
+              required
+              placeholder="narrative / bio / journey"
+              class="w-full px-3 py-2 rounded-lg text-xs font-mono dark:bg-dark-card dark:text-white text-slate-800 border dark:border-white/10 border-slate-300 focus:outline-none focus:border-brand-500 transition"
+            />
+          </div>
+          <div>
+            <label class="block text-xs font-mono dark:text-slate-300 text-slate-700 font-medium mb-1">
+              Position
+            </label>
+            <input
+              type="number"
+              id="form-section-position"
+              value="1"
+              min="0"
+              class="w-full px-3 py-2 rounded-lg text-xs font-mono dark:bg-dark-card dark:text-white text-slate-800 border dark:border-white/10 border-slate-300 focus:outline-none focus:border-brand-500 transition"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-mono dark:text-slate-300 text-slate-700 font-medium mb-1">
+            Section Content (Markdown or plain text)
+          </label>
+          <textarea
+            id="form-section-content"
+            rows="4"
+            placeholder="Detailed narrative or description content..."
+            class="w-full px-3 py-2 rounded-lg text-xs font-mono dark:bg-dark-card dark:text-white text-slate-800 border dark:border-white/10 border-slate-300 focus:outline-none focus:border-brand-500 transition resize-none"
+          ></textarea>
+        </div>
+
+        <div class="pt-3 flex items-center justify-end space-x-2">
+          <button
+            type="button"
+            onclick="closeSectionModal()"
+            class="px-3.5 py-1.5 rounded-lg text-xs font-mono dark:bg-white/5 bg-slate-200 text-slate-400 hover:text-white transition"
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            id="section-modal-submit-btn"
+            class="px-4 py-1.5 rounded-lg bg-brand-600 hover:bg-brand-500 text-white font-mono text-xs font-semibold transition shadow-sm shadow-brand-600/20"
+          >
+            Save Section
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</div>
+
+<!-- ======================================================== -->
+<!-- 6. CLIENT JAVASCRIPT CONTROLLER -->
+<!-- ======================================================== -->
+<script>
+  let cachedPortfolioId = 1;
+  let activeTab = 'projects';
+
+  // Initialize view on load
+  document.addEventListener('DOMContentLoaded', () => {
+    checkAdminAuth();
+  });
+
+  // Tab switching handler
+  function switchAdminTab(tabName) {
+    activeTab = tabName;
+    const tabs = ['projects', 'skills', 'sections'];
+    
+    tabs.forEach(t => {
+      const panel = document.getElementById(`tab-panel-${t}`);
+      const btn = document.getElementById(`tab-btn-${t}`);
+      if (panel) {
+        if (t === tabName) {
+          panel.classList.remove('hidden');
+        } else {
+          panel.classList.add('hidden');
+        }
+      }
+      if (btn) {
+        if (t === tabName) {
+          btn.className = 'px-4 py-2 rounded-lg font-mono text-xs font-semibold bg-brand-600 text-white transition shadow-sm shadow-brand-600/20';
+        } else {
+          btn.className = 'px-4 py-2 rounded-lg font-mono text-xs font-semibold dark:bg-white/5 bg-slate-200 text-slate-400 hover:text-white transition';
+        }
+      }
+    });
+
+    if (tabName === 'skills') loadSkillsList();
+    if (tabName === 'sections') loadSectionsList();
+    if (tabName === 'projects') loadProjectsList();
+  }
+
+  // Toggle Password Field
+  function togglePasswordVisibility() {
+    const pwd = document.getElementById('admin-password');
+    const btn = document.getElementById('toggle-password-btn');
+    if (pwd.type === 'password') {
+      pwd.type = 'text';
+      btn.textContent = 'Hide';
+    } else {
+      pwd.type = 'password';
+      btn.textContent = 'Show';
+    }
+  }
+
+  // Display alert in login view
+  function showLoginAlert(message, type = 'error') {
+    const banner = document.getElementById('login-alert');
+    const text = document.getElementById('login-alert-text');
+    banner.className = `mb-5 p-3 rounded-lg text-xs font-mono border ${
+      type === 'error'
+        ? 'bg-rose-500/10 text-rose-500 dark:text-rose-400 border-rose-500/20'
+        : 'bg-emerald-500/10 text-emerald-500 dark:text-emerald-400 border-emerald-500/20'
+    }`;
+    text.textContent = message;
+    banner.classList.remove('hidden');
+  }
+
+  // Display alert inside dashboard
+  function showDashboardAlert(message, type = 'success') {
+    const banner = document.getElementById('dashboard-alert');
+    const text = document.getElementById('dashboard-alert-text');
+    banner.className = `p-3 rounded-lg text-xs font-mono border ${
+      type === 'error'
+        ? 'bg-rose-500/10 text-rose-500 dark:text-rose-400 border-rose-500/20'
+        : 'bg-emerald-500/10 text-emerald-500 dark:text-emerald-400 border-emerald-500/20'
+    }`;
+    text.textContent = message;
+    banner.classList.remove('hidden');
+    setTimeout(() => {
+      banner.classList.add('hidden');
+    }, 4000);
+  }
+
+  // Check existing token on page load
+  async function checkAdminAuth() {
+    const token = localStorage.getItem('admin_token');
+    if (!token) {
+      showLoginView();
+      return;
+    }
+
+    try {
+      const res = await fetch('/api/auth/me', {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (!res.ok) {
+        throw new Error('Session expired');
+      }
+      const user = await res.json();
+      showDashboardView(user);
+    } catch (e) {
+      localStorage.removeItem('admin_token');
+      showLoginView();
+    }
+  }
+
+  function showLoginView() {
+    document.getElementById('admin-login-view').classList.remove('hidden');
+    document.getElementById('admin-dashboard-view').classList.add('hidden');
+  }
+
+  async function showDashboardView(user) {
+    document.getElementById('admin-login-view').classList.add('hidden');
+    document.getElementById('admin-dashboard-view').classList.remove('hidden');
+    document.getElementById('admin-user-display').textContent = user.email || user.full_name || 'Administrator';
+
+    // Auto-resolve actual portfolio ID from /api/portfolios
+    try {
+      const pRes = await fetch('/api/portfolios');
+      if (pRes.ok) {
+        const portfolios = await pRes.json();
+        if (portfolios.length > 0) {
+          cachedPortfolioId = portfolios[0].id;
+        }
+      }
+    } catch (_) {}
+
+    loadDashboardMetrics();
+    loadProjectsList();
+    loadSkillsList();
+    loadSectionsList();
+  }
+
+  // Login handler
+  async function handleAdminLogin(e) {
+    e.preventDefault();
+    const btn = document.getElementById('login-submit-btn');
+    const spinner = document.getElementById('login-spinner');
+    const text = document.getElementById('login-btn-text');
+    const email = document.getElementById('admin-email').value.trim();
+    const password = document.getElementById('admin-password').value;
+
+    btn.disabled = true;
+    text.textContent = 'Verifying...';
+    spinner.classList.remove('hidden');
+
+    try {
+      const body = new URLSearchParams();
+      body.append('username', email);
+      body.append('password', password);
+
+      const res = await fetch('/api/auth/token', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: body.toString()
+      });
+
+      if (!res.ok) {
+        const errorData = await res.json().catch(() => ({}));
+        throw new Error(errorData.detail || 'Authentication failed. Please check your credentials.');
+      }
+
+      const data = await res.json();
+      localStorage.setItem('admin_token', data.access_token);
+
+      const meRes = await fetch('/api/auth/me', {
+        headers: { 'Authorization': `Bearer ${data.access_token}` }
+      });
+      const user = await meRes.json();
+      showDashboardView(user);
+    } catch (err) {
+      showLoginAlert(err.message, 'error');
+    } finally {
+      btn.disabled = false;
+      text.textContent = 'Authenticate →';
+      spinner.classList.add('hidden');
+    }
+  }
+
+  // Logout handler
+  function handleAdminLogout() {
+    localStorage.removeItem('admin_token');
+    showLoginAlert('You have signed out successfully.', 'info');
+    showLoginView();
+  }
+
+  // Load Dashboard Overview Metrics
+  async function loadDashboardMetrics() {
+    const token = localStorage.getItem('admin_token');
+    try {
+      const res = await fetch('/api/admin/overview', {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (res.ok) {
+        const d = await res.json();
+        document.getElementById('stat-projects').textContent = d.total_projects ?? 0;
+        document.getElementById('stat-featured').textContent = d.total_featured_projects ?? 0;
+        document.getElementById('stat-skills').textContent = d.total_skills ?? 0;
+        document.getElementById('stat-sections').textContent = d.total_sections ?? 0;
+        document.getElementById('stat-experiences').textContent = d.total_experiences ?? 0;
+        document.getElementById('stat-users').textContent = d.total_users ?? 0;
+      }
+    } catch (e) {
+      console.error('Failed to load overview:', e);
+    }
+  }
+
+  // ==========================================
+  // PROJECTS CRUD
+  // ==========================================
+  async function loadProjectsList() {
+    const tbody = document.getElementById('projects-table-body');
+    if (!tbody) return;
+    try {
+      const res = await fetch('/api/projects');
+      if (!res.ok) throw new Error('Could not fetch projects');
+      const projects = await res.json();
+
+      if (projects.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="5" class="py-8 text-center text-slate-400">
+              No database projects found. Click "Add Project" above to create one.
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = projects.map(p => `
+        <tr class="hover:bg-white/[0.02] transition">
+          <td class="py-3 pr-4">
+            <div class="font-serif font-medium dark:text-white text-slate-900 text-sm">${escapeHtml(p.title)}</div>
+            <div class="text-[11px] text-slate-400 font-mono">${escapeHtml(p.slug)}</div>
+          </td>
+          <td class="py-3 pr-4 max-w-xs truncate text-slate-400" title="${escapeHtml(p.description || '')}">
+            ${escapeHtml(p.description || '—')}
+          </td>
+          <td class="py-3 pr-4 whitespace-nowrap">
+            ${p.is_featured 
+              ? '<span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-brand-500/15 text-brand-400 border border-brand-500/30">★ Featured</span>'
+              : '<span class="px-2 py-0.5 rounded text-[10px] text-slate-400 border dark:border-white/5 border-slate-300">Standard</span>'
+            }
+          </td>
+          <td class="py-3 pr-4 whitespace-nowrap text-[11px]">
+            ${p.live_url 
+              ? `<a href="${escapeHtml(p.live_url)}" target="_blank" rel="noreferrer" class="text-brand-500 hover:underline">Link ↗</a>` 
+              : '<span class="text-slate-500">—</span>'
+            }
+          </td>
+          <td class="py-3 text-right whitespace-nowrap space-x-2">
+            <button
+              type="button"
+              onclick="openEditProject(${JSON.stringify(p).replace(/"/g, '&quot;')})"
+              class="px-2.5 py-1 rounded text-[11px] font-mono dark:bg-white/5 bg-slate-200 text-slate-300 hover:text-brand-400 transition"
+            >
+              Edit
+            </button>
+            <button
+              type="button"
+              onclick="handleDeleteProject(${p.id}, '${escapeHtml(p.title)}')"
+              class="px-2.5 py-1 rounded text-[11px] font-mono bg-rose-500/10 text-rose-400 hover:bg-rose-500/20 transition"
+            >
+              Delete
+            </button>
+          </td>
+        </tr>
+      `).join('');
+    } catch (e) {
+      tbody.innerHTML = `
+        <tr>
+          <td colspan="5" class="py-8 text-center text-rose-400">
+            Failed to retrieve projects: ${escapeHtml(e.message)}
+          </td>
+        </tr>
+      `;
+    }
+  }
+
+  function handleTitleInput(title) {
+    const slugInput = document.getElementById('form-slug');
+    if (!document.getElementById('form-project-id').value) {
+      slugInput.value = title
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '');
+    }
+  }
+
+  function openProjectModal() {
+    document.getElementById('modal-title').textContent = 'Add New Database Project';
+    document.getElementById('form-project-id').value = '';
+    document.getElementById('form-title').value = '';
+    document.getElementById('form-slug').value = '';
+    document.getElementById('form-description').value = '';
+    document.getElementById('form-live-url').value = '';
+    document.getElementById('form-github-url').value = '';
+    document.getElementById('form-is-featured').checked = false;
+    document.getElementById('project-modal').classList.remove('hidden');
+  }
+
+  function openEditProject(project) {
+    document.getElementById('modal-title').textContent = `Edit: ${project.title}`;
+    document.getElementById('form-project-id').value = project.id;
+    document.getElementById('form-title').value = project.title;
+    document.getElementById('form-slug').value = project.slug;
+    document.getElementById('form-description').value = project.description || '';
+    document.getElementById('form-live-url').value = project.live_url || '';
+    document.getElementById('form-github-url').value = project.github_url || '';
+    document.getElementById('form-is-featured').checked = Boolean(project.is_featured);
+    document.getElementById('project-modal').classList.remove('hidden');
+  }
+
+  function closeProjectModal() {
+    document.getElementById('project-modal').classList.add('hidden');
+  }
+
+  async function handleSaveProject(e) {
+    e.preventDefault();
+    const token = localStorage.getItem('admin_token');
+    const id = document.getElementById('form-project-id').value;
+    const isEdit = Boolean(id);
+
+    const payload = {
+      portfolio_id: cachedPortfolioId,
+      title: document.getElementById('form-title').value.trim(),
+      slug: document.getElementById('form-slug').value.trim(),
+      description: document.getElementById('form-description').value.trim() || null,
+      live_url: document.getElementById('form-live-url').value.trim() || null,
+      github_url: document.getElementById('form-github-url').value.trim() || null,
+      is_featured: document.getElementById('form-is-featured').checked,
+    };
+
+    const submitBtn = document.getElementById('modal-submit-btn');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Saving...';
+
+    try {
+      const url = isEdit ? `/api/projects/${id}` : '/api/projects';
+      const method = isEdit ? 'PATCH' : 'POST';
+
+      const res = await fetch(url, {
+        method: method,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(payload)
+      });
+
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.detail || 'Failed to save project');
+      }
+
+      closeProjectModal();
+      showDashboardAlert(isEdit ? 'Project updated successfully.' : 'Project created successfully.');
+      loadDashboardMetrics();
+      loadProjectsList();
+    } catch (err) {
+      alert(`Error: ${err.message}`);
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Save Project';
+    }
+  }
+
+  async function handleDeleteProject(id, title) {
+    if (!confirm(`Are you sure you want to delete the project "${title}"?`)) {
+      return;
+    }
+
+    const token = localStorage.getItem('admin_token');
+    try {
+      const res = await fetch(`/api/projects/${id}`, {
+        method: 'DELETE',
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.detail || 'Failed to delete project');
+      }
+
+      showDashboardAlert(`Project "${title}" deleted successfully.`);
+      loadDashboardMetrics();
+      loadProjectsList();
+    } catch (err) {
+      alert(`Delete failed: ${err.message}`);
+    }
+  }
+
+  // ==========================================
+  // SKILLS CRUD
+  // ==========================================
+  async function loadSkillsList() {
+    const tbody = document.getElementById('skills-table-body');
+    if (!tbody) return;
+    try {
+      const res = await fetch('/api/skills');
+      if (!res.ok) throw new Error('Could not fetch skills');
+      const skills = await res.json();
+
+      if (skills.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="5" class="py-8 text-center text-slate-400">
+              No skills found. Click "Add Skill" above to register technologies.
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = skills.map(s => `
+        <tr class="hover:bg-white/[0.02] transition">
+          <td class="py-3 pr-4 font-mono font-medium dark:text-white text-slate-900">
+            ${escapeHtml(s.name)}
+          </td>
+          <td class="py-3 pr-4 text-slate-400">
+            <span class="px-2 py-0.5 rounded text-[10px] dark:bg-white/5 bg-slate-200">${escapeHtml(s.category || 'General')}</span>
+          </td>
+          <td class="py-3 pr-4 text-slate-400">
+            ${escapeHtml(s.proficiency || '—')}
+          </td>
+          <td class="py-3 pr-4 text-slate-400 font-mono">
+            ${s.position}
+          </td>
+          <td class="py-3 text-right whitespace-nowrap space-x-2">
+            <button
+              type="button"
+              onclick="openEditSkill(${JSON.stringify(s).replace(/"/g, '&quot;')})"
+              class="px-2.5 py-1 rounded text-[11px] font-mono dark:bg-white/5 bg-slate-200 text-slate-300 hover:text-brand-400 transition"
+            >
+              Edit
+            </button>
+            <button
+              type="button"
+              onclick="handleDeleteSkill(${s.id}, '${escapeHtml(s.name)}')"
+              class="px-2.5 py-1 rounded text-[11px] font-mono bg-rose-500/10 text-rose-400 hover:bg-rose-500/20 transition"
+            >
+              Delete
+            </button>
+          </td>
+        </tr>
+      `).join('');
+    } catch (e) {
+      tbody.innerHTML = `
+        <tr>
+          <td colspan="5" class="py-8 text-center text-rose-400">
+            Failed to retrieve skills: ${escapeHtml(e.message)}
+          </td>
+        </tr>
+      `;
+    }
+  }
+
+  function handleSkillNameInput(name) {
+    const slugInput = document.getElementById('form-skill-slug');
+    if (!document.getElementById('form-skill-id').value) {
+      slugInput.value = name
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '');
+    }
+  }
+
+  function openSkillModal() {
+    document.getElementById('skill-modal-title').textContent = 'Add New Skill';
+    document.getElementById('form-skill-id').value = '';
+    document.getElementById('form-skill-name').value = '';
+    document.getElementById('form-skill-slug').value = '';
+    document.getElementById('form-skill-category').value = '';
+    document.getElementById('form-skill-proficiency').value = '';
+    document.getElementById('form-skill-position').value = '1';
+    document.getElementById('skill-modal').classList.remove('hidden');
+  }
+
+  function openEditSkill(skill) {
+    document.getElementById('skill-modal-title').textContent = `Edit Skill: ${skill.name}`;
+    document.getElementById('form-skill-id').value = skill.id;
+    document.getElementById('form-skill-name').value = skill.name;
+    document.getElementById('form-skill-slug').value = skill.slug;
+    document.getElementById('form-skill-category').value = skill.category || '';
+    document.getElementById('form-skill-proficiency').value = skill.proficiency || '';
+    document.getElementById('form-skill-position').value = skill.position ?? 1;
+    document.getElementById('skill-modal').classList.remove('hidden');
+  }
+
+  function closeSkillModal() {
+    document.getElementById('skill-modal').classList.add('hidden');
+  }
+
+  async function handleSaveSkill(e) {
+    e.preventDefault();
+    const token = localStorage.getItem('admin_token');
+    const id = document.getElementById('form-skill-id').value;
+    const isEdit = Boolean(id);
+
+    const payload = {
+      portfolio_id: cachedPortfolioId,
+      name: document.getElementById('form-skill-name').value.trim(),
+      slug: document.getElementById('form-skill-slug').value.trim(),
+      category: document.getElementById('form-skill-category').value.trim() || null,
+      proficiency: document.getElementById('form-skill-proficiency').value.trim() || null,
+      position: parseInt(document.getElementById('form-skill-position').value, 10) || 1,
+      is_visible: true,
+    };
+
+    const submitBtn = document.getElementById('skill-modal-submit-btn');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Saving...';
+
+    try {
+      const url = isEdit ? `/api/skills/${id}` : '/api/skills';
+      const method = isEdit ? 'PATCH' : 'POST';
+
+      const res = await fetch(url, {
+        method: method,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(payload)
+      });
+
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.detail || 'Failed to save skill');
+      }
+
+      closeSkillModal();
+      showDashboardAlert(isEdit ? 'Skill updated successfully.' : 'Skill added successfully.');
+      loadDashboardMetrics();
+      loadSkillsList();
+    } catch (err) {
+      alert(`Error: ${err.message}`);
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Save Skill';
+    }
+  }
+
+  async function handleDeleteSkill(id, name) {
+    if (!confirm(`Are you sure you want to delete the skill "${name}"?`)) {
+      return;
+    }
+
+    const token = localStorage.getItem('admin_token');
+    try {
+      const res = await fetch(`/api/skills/${id}`, {
+        method: 'DELETE',
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.detail || 'Failed to delete skill');
+      }
+
+      showDashboardAlert(`Skill "${name}" deleted successfully.`);
+      loadDashboardMetrics();
+      loadSkillsList();
+    } catch (err) {
+      alert(`Delete failed: ${err.message}`);
+    }
+  }
+
+  // ==========================================
+  // SECTIONS CRUD
+  // ==========================================
+  async function loadSectionsList() {
+    const tbody = document.getElementById('sections-table-body');
+    if (!tbody) return;
+    try {
+      const res = await fetch('/api/sections');
+      if (!res.ok) throw new Error('Could not fetch sections');
+      const sections = await res.json();
+
+      if (sections.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="5" class="py-8 text-center text-slate-400">
+              No narrative sections found. Click "Add Section" above to create one.
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = sections.map(s => `
+        <tr class="hover:bg-white/[0.02] transition">
+          <td class="py-3 pr-4">
+            <div class="font-serif font-medium dark:text-white text-slate-900">${escapeHtml(s.title)}</div>
+            <div class="text-[11px] text-slate-400 font-mono">${escapeHtml(s.slug)}</div>
+          </td>
+          <td class="py-3 pr-4">
+            <span class="px-2 py-0.5 rounded text-[10px] dark:bg-white/5 bg-slate-200 font-mono">${escapeHtml(s.type)}</span>
+          </td>
+          <td class="py-3 pr-4 max-w-xs truncate text-slate-400" title="${escapeHtml(s.content || '')}">
+            ${escapeHtml(s.content || '—')}
+          </td>
+          <td class="py-3 pr-4 text-slate-400 font-mono">
+            ${s.position}
+          </td>
+          <td class="py-3 text-right whitespace-nowrap space-x-2">
+            <button
+              type="button"
+              onclick="openEditSection(${JSON.stringify(s).replace(/"/g, '&quot;')})"
+              class="px-2.5 py-1 rounded text-[11px] font-mono dark:bg-white/5 bg-slate-200 text-slate-300 hover:text-brand-400 transition"
+            >
+              Edit
+            </button>
+            <button
+              type="button"
+              onclick="handleDeleteSection(${s.id}, '${escapeHtml(s.title)}')"
+              class="px-2.5 py-1 rounded text-[11px] font-mono bg-rose-500/10 text-rose-400 hover:bg-rose-500/20 transition"
+            >
+              Delete
+            </button>
+          </td>
+        </tr>
+      `).join('');
+    } catch (e) {
+      tbody.innerHTML = `
+        <tr>
+          <td colspan="5" class="py-8 text-center text-rose-400">
+            Failed to retrieve sections: ${escapeHtml(e.message)}
+          </td>
+        </tr>
+      `;
+    }
+  }
+
+  function handleSectionTitleInput(title) {
+    const slugInput = document.getElementById('form-section-slug');
+    if (!document.getElementById('form-section-id').value) {
+      slugInput.value = title
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '');
+    }
+  }
+
+  function openSectionModal() {
+    document.getElementById('section-modal-title').textContent = 'Add New Portfolio Section';
+    document.getElementById('form-section-id').value = '';
+    document.getElementById('form-section-title').value = '';
+    document.getElementById('form-section-slug').value = '';
+    document.getElementById('form-section-type').value = 'narrative';
+    document.getElementById('form-section-content').value = '';
+    document.getElementById('form-section-position').value = '1';
+    document.getElementById('section-modal').classList.remove('hidden');
+  }
+
+  function openEditSection(section) {
+    document.getElementById('section-modal-title').textContent = `Edit Section: ${section.title}`;
+    document.getElementById('form-section-id').value = section.id;
+    document.getElementById('form-section-title').value = section.title;
+    document.getElementById('form-section-slug').value = section.slug;
+    document.getElementById('form-section-type').value = section.type;
+    document.getElementById('form-section-content').value = section.content || '';
+    document.getElementById('form-section-position').value = section.position ?? 1;
+    document.getElementById('section-modal').classList.remove('hidden');
+  }
+
+  function closeSectionModal() {
+    document.getElementById('section-modal').classList.add('hidden');
+  }
+
+  async function handleSaveSection(e) {
+    e.preventDefault();
+    const token = localStorage.getItem('admin_token');
+    const id = document.getElementById('form-section-id').value;
+    const isEdit = Boolean(id);
+
+    const payload = {
+      portfolio_id: cachedPortfolioId,
+      title: document.getElementById('form-section-title').value.trim(),
+      slug: document.getElementById('form-section-slug').value.trim(),
+      type: document.getElementById('form-section-type').value.trim(),
+      content: document.getElementById('form-section-content').value.trim() || null,
+      position: parseInt(document.getElementById('form-section-position').value, 10) || 1,
+      is_visible: true,
+    };
+
+    const submitBtn = document.getElementById('section-modal-submit-btn');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Saving...';
+
+    try {
+      const url = isEdit ? `/api/sections/${id}` : '/api/sections';
+      const method = isEdit ? 'PATCH' : 'POST';
+
+      const res = await fetch(url, {
+        method: method,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(payload)
+      });
+
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.detail || 'Failed to save section');
+      }
+
+      closeSectionModal();
+      showDashboardAlert(isEdit ? 'Section updated successfully.' : 'Section created successfully.');
+      loadDashboardMetrics();
+      loadSectionsList();
+    } catch (err) {
+      alert(`Error: ${err.message}`);
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Save Section';
+    }
+  }
+
+  async function handleDeleteSection(id, title) {
+    if (!confirm(`Are you sure you want to delete the section "${title}"?`)) {
+      return;
+    }
+
+    const token = localStorage.getItem('admin_token');
+    try {
+      const res = await fetch(`/api/sections/${id}`, {
+        method: 'DELETE',
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.detail || 'Failed to delete section');
+      }
+
+      showDashboardAlert(`Section "${title}" deleted successfully.`);
+      loadDashboardMetrics();
+      loadSectionsList();
+    } catch (err) {
+      alert(`Delete failed: ${err.message}`);
+    }
+  }
+
+  function escapeHtml(text) {
+    if (!text) return '';
+    return String(text)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
+</script>
+{% endblock %}

@@ -1,0 +1,197 @@
+<!-- Toggleable Slide-over Navigation Panel -->
+<div
+  id="navigation-panel"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Site Navigation Menu"
+  class="nav-drawer-overlay hidden"
+>
+  <!-- Backdrop -->
+  <div class="nav-drawer-backdrop" onclick="closeNavigationMenu()"></div>
+
+  <!-- Drawer Content -->
+  <div class="nav-drawer-content">
+    <!-- Panel Header -->
+    <div class="p-6 flex items-center justify-between border-b dark:border-white/10 border-slate-200">
+      <div class="flex items-center space-x-3">
+        <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-brand-600 to-amber-400 flex items-center justify-center font-bold text-xs font-mono text-black">
+          YK
+        </div>
+        <div>
+          <div class="font-serif font-bold text-sm dark:text-white text-slate-900 leading-tight">Yahaya Khalid</div>
+          <div class="text-[10px] font-mono text-brand-500">Navigation Menu</div>
+        </div>
+      </div>
+      <button
+        type="button"
+        onclick="closeNavigationMenu()"
+        aria-label="Close navigation menu"
+        class="w-10 h-10 flex items-center justify-center rounded-lg dark:bg-white/5 bg-slate-200 text-slate-400 hover:text-white transition shrink-0"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Panel Links -->
+    <div class="p-6 flex-grow flex flex-col justify-between space-y-8">
+      <nav class="space-y-2">
+        <div class="text-[10px] uppercase font-bold tracking-widest dark:text-slate-500 text-slate-400 mb-3">
+          // Select Destination
+        </div>
+
+        <!-- 00 // Home -->
+        <a
+          href="/"
+          class="drawer-nav-link {% if current_route == 'home' %}active{% endif %}"
+          {% if current_route == 'home' %}aria-current="page"{% endif %}
+        >
+          <span>00 // HOME</span>
+          <span class="text-[11px]">{% if current_route == 'home' %}●{% else %}→{% endif %}</span>
+        </a>
+
+        <!-- 01 // About -->
+        <a
+          href="/about"
+          class="drawer-nav-link {% if current_route == 'about' %}active{% endif %}"
+          {% if current_route == 'about' %}aria-current="page"{% endif %}
+        >
+          <div>
+            <span class="font-bold mr-1.5">01 //</span>
+            <span>ABOUT</span>
+          </div>
+          <span class="text-[11px]">{% if current_route == 'about' %}●{% else %}→{% endif %}</span>
+        </a>
+
+        <!-- 02 // Projects -->
+        <a
+          href="/projects"
+          class="drawer-nav-link {% if current_route == 'projects' %}active{% endif %}"
+          {% if current_route == 'projects' %}aria-current="page"{% endif %}
+        >
+          <div>
+            <span class="font-bold mr-1.5">02 //</span>
+            <span>PROJECTS</span>
+          </div>
+          <span class="text-[11px]">{% if current_route == 'projects' %}●{% else %}→{% endif %}</span>
+        </a>
+
+        <!-- 03 // Stack -->
+        <a
+          href="/stack"
+          class="drawer-nav-link {% if current_route == 'stack' %}active{% endif %}"
+          {% if current_route == 'stack' %}aria-current="page"{% endif %}
+        >
+          <div>
+            <span class="font-bold mr-1.5">03 //</span>
+            <span>STACK</span>
+          </div>
+          <span class="text-[11px]">{% if current_route == 'stack' %}●{% else %}→{% endif %}</span>
+        </a>
+
+        <!-- 04 // Journey -->
+        <a
+          href="/journey"
+          class="drawer-nav-link {% if current_route == 'journey' %}active{% endif %}"
+          {% if current_route == 'journey' %}aria-current="page"{% endif %}
+        >
+          <div>
+            <span class="font-bold mr-1.5">04 //</span>
+            <span>JOURNEY</span>
+          </div>
+          <span class="text-[11px]">{% if current_route == 'journey' %}●{% else %}→{% endif %}</span>
+        </a>
+
+        <!-- 05 // Contact -->
+        <a
+          href="/contact"
+          class="drawer-nav-link {% if current_route == 'contact' %}active{% endif %}"
+          {% if current_route == 'contact' %}aria-current="page"{% endif %}
+        >
+          <div>
+            <span class="font-bold mr-1.5">05 //</span>
+            <span>CONTACT</span>
+          </div>
+          <span class="text-[11px]">{% if current_route == 'contact' %}●{% else %}→{% endif %}</span>
+        </a>
+
+        {% if portfolio and portfolio.resume and portfolio.resume.file_url %}
+        <div class="pt-4">
+          <a
+            href="{{ portfolio.resume.file_url }}"
+            target="_blank"
+            rel="noreferrer"
+            class="w-full py-2.5 px-3.5 rounded-lg dark:bg-white/5 bg-slate-200/80 hover:bg-brand-500 hover:text-white dark:hover:bg-brand-600 transition flex items-center justify-between text-brand-600 dark:text-brand-400 font-mono text-xs font-semibold"
+          >
+            <span class="flex items-center">
+              <svg class="w-4 h-4 inline-block mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+              </svg>
+              Download Resume
+            </span>
+            <span class="text-[10px]">PDF</span>
+          </a>
+        </div>
+        {% endif %}
+
+        <!-- Connect / Social Profiles -->
+        <div class="pt-4 border-t dark:border-white/10 border-slate-200">
+          <div class="text-[10px] uppercase font-bold tracking-widest dark:text-slate-500 text-slate-400 mb-2 font-mono">
+            // Connect
+          </div>
+          <div class="flex items-center space-x-2.5">
+            <a
+              href="https://github.com/Khaliddray"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="w-10 h-10 flex items-center justify-center rounded-lg dark:bg-white/5 bg-slate-200/80 dark:text-slate-300 text-slate-700 hover:text-brand-500 border dark:border-white/10 border-slate-300 transition shrink-0"
+              title="View GitHub Profile"
+              aria-label="GitHub Profile (opens in a new tab)"
+            >
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"></path>
+              </svg>
+            </a>
+            <a
+              href="https://www.linkedin.com/in/yahaya-khalid-198593418"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="w-10 h-10 flex items-center justify-center rounded-lg dark:bg-white/5 bg-slate-200/80 dark:text-slate-300 text-slate-700 hover:text-brand-500 border dark:border-white/10 border-slate-300 transition shrink-0"
+              title="View LinkedIn Profile"
+              aria-label="LinkedIn Profile (opens in a new tab)"
+            >
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/>
+              </svg>
+            </a>
+            <a
+              href="https://www.x.com/Zzaq_0x"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="w-10 h-10 flex items-center justify-center rounded-lg dark:bg-white/5 bg-slate-200/80 dark:text-slate-300 text-slate-700 hover:text-brand-500 border dark:border-white/10 border-slate-300 transition shrink-0"
+              title="View X (formerly Twitter) Profile"
+              aria-label="X (formerly Twitter) Profile (opens in a new tab)"
+            >
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Panel Footer Info -->
+      <div class="dark:bg-dark-card/60 bg-slate-100/80 p-4 rounded-xl border dark:border-white/5 border-slate-200 space-y-2 text-xs">
+        <div class="inline-flex items-center space-x-1.5 text-[11px] font-mono text-brand-600 dark:text-brand-400 font-medium">
+          <span class="w-1.5 h-1.5 rounded-full bg-brand-500 animate-pulse"></span>
+          <span>Open for Collaboration</span>
+        </div>
+        <div class="font-mono text-[11px] dark:text-slate-400 text-slate-500">
+          <div>khalidzak21@gmail.com</div>
+          <div>Abuja, Nigeria (Remote)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

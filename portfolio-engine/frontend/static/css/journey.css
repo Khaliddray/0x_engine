@@ -1,0 +1,11 @@
+/* ==========================================================================
+   Journey Stylesheet: Milestone Timeline & Editorial Foundations
+   ========================================================================== */
+
+.timeline-card {
+  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.timeline-card:hover {
+  transform: translateY(-2px);
+}

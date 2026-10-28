@@ -1,0 +1,33 @@
+services:
+  - type: web
+    name: portfolio-engine
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: .
+    plan: free
+    region: oregon
+    healthCheckPath: /health
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: portfolio-db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ACCESS_TOKEN_EXPIRE_MINUTES
+        value: "1440"
+      - key: CORS_ORIGINS
+        value: "*"
+      - key: ADMIN_EMAIL
+        value: khalidzak21@gmail.com
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: ADMIN_NAME
+        value: Yahaya Khalid
+
+databases:
+  - name: portfolio-db
+    databaseName: portfolio_db
+    user: portfolio_user
+    plan: free
+    region: oregon

@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}Featured Products — Yahaya Khalid{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="{{ url_for('static', path='css/projects.css') }}" />
+{% endblock %}
+
+{% block content %}
+<div class="space-y-10">
+  <!-- Page Header -->
+  <header class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-4 border-b dark:border-white/5 border-slate-200">
+    <div>
+      <div class="flex items-center space-x-3 mb-1.5">
+        <span class="text-xs font-mono text-brand-600 dark:text-brand-400 font-bold">02 //</span>
+        <span class="text-xs font-mono dark:text-slate-400 text-slate-500 uppercase tracking-widest">PRODUCT SHOWCASE</span>
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-serif font-medium dark:text-white text-slate-900 tracking-tight">
+        Featured Products
+      </h1>
+      <p class="dark:text-slate-300 text-slate-600 text-sm max-w-2xl mt-1.5 leading-relaxed font-sans">
+        Purpose-built digital products and systems designed to solve practical problems and deliver lasting value.
+      </p>
+    </div>
+
+    <!-- Curated Products Count Badge -->
+    <div class="self-start sm:self-auto">
+      <div class="px-3 py-1.5 rounded-lg text-xs font-mono font-semibold dark:bg-brand-500/10 bg-brand-50 text-brand-600 dark:text-brand-400 border border-brand-500/20">
+        <span>{{ products|length }} {{ 'Curated Product' if products|length == 1 else 'Curated Products' }}</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Curated Products Showcase Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="products-grid-container">
+    {% for product in products %}
+      {% include "partials/project_card.html" %}
+    {% endfor %}
+  </div>
+
+  <!-- Bottom Navigation CTAs -->
+  <div class="pt-8 hairline-t flex flex-wrap items-center justify-between gap-4">
+    <a
+      href="/stack"
+      class="px-5 py-2.5 rounded-lg bg-brand-600 hover:bg-brand-500 text-white font-medium text-xs font-mono transition flex items-center shadow-md shadow-brand-600/20"
+    >
+      <span>Explore Technical Stack (03) →</span>
+    </a>
+    <a
+      href="/about"
+      class="text-xs font-mono dark:text-slate-300 text-slate-700 hover:text-brand-500 transition"
+    >
+      Read Engineering Philosophy →
+    </a>
+  </div>
+</div>
+{% endblock %}

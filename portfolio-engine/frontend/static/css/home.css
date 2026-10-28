@@ -1,0 +1,68 @@
+/* ==========================================================================
+   Home Stylesheet: Hero Banner, Monogram Card, Ticker & Directory
+   ========================================================================== */
+
+/* Hero Banner Layout */
+.hero-section {
+  padding-top: 1.5rem;
+  padding-bottom: 2rem;
+}
+
+/* Profile Badge Card */
+.monogram-card {
+  width: 13rem;
+  min-height: 13rem;
+  position: relative;
+  overflow: hidden;
+  border-radius: 1rem;
+}
+
+@media (min-width: 640px) {
+  .monogram-card {
+    width: 14rem;
+    min-height: 14rem;
+  }
+}
+
+.monogram-gradient-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top right, rgba(234, 88, 12, 0.2), rgba(249, 115, 22, 0.08), transparent);
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.monogram-card:hover .monogram-gradient-overlay {
+  opacity: 1;
+}
+
+/* Marquee Technology Ticker */
+.ticker-wrapper {
+  overflow: hidden;
+  position: relative;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: 200%;
+  animation: marquee 28s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Portfolio Directory Overview Cards */
+.directory-card {
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.directory-card:hover {
+  transform: translateY(-3px);
+}

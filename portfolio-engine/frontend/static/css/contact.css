@@ -1,0 +1,56 @@
+/* ==========================================================================
+   Contact Stylesheet: Contact Layout, Inquiry Form & Feedback Alerts
+   ========================================================================== */
+
+.contact-form-input {
+  width: 100%;
+  min-height: 44px;
+  padding: 0.625rem 0.875rem;
+  border-radius: 0.5rem;
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  box-sizing: border-box;
+}
+
+textarea.contact-form-input {
+  min-height: 120px;
+}
+
+.dark .contact-form-input {
+  background-color: var(--dark-bg);
+  border: 1px solid var(--dark-border);
+  color: var(--dark-text);
+}
+
+html:not(.dark) .contact-form-input {
+  background-color: var(--light-bg);
+  border: 1px solid var(--light-border);
+  color: var(--light-text);
+}
+
+.contact-form-input:focus {
+  outline: none;
+  border-color: var(--brand-500);
+  box-shadow: 0 0 0 1px var(--brand-500);
+}
+
+.alert-box {
+  padding: 1rem;
+  border-radius: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.alert-success {
+  background-color: rgba(16, 185, 129, 0.1);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.alert-info {
+  background-color: rgba(249, 115, 22, 0.1);
+  color: #fb923c;
+  border: 1px solid rgba(249, 115, 22, 0.2);
+}

@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block title %}Contact &amp; Collaboration — Yahaya Khalid{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="{{ url_for('static', path='css/contact.css') }}" />
+{% endblock %}
+
+{% block content %}
+<div class="space-y-10">
+  <!-- Page Header -->
+  <header class="space-y-2">
+    <div class="flex items-center space-x-3">
+      <span class="text-xs font-mono text-brand-600 dark:text-brand-400 font-bold">05 //</span>
+      <span class="text-xs font-mono dark:text-slate-400 text-slate-500 uppercase tracking-widest">INITIATE COLLABORATION</span>
+    </div>
+    <h1 class="text-3xl sm:text-4xl font-serif font-medium dark:text-white text-slate-900 tracking-tight">
+      Contact &amp; Collaboration
+    </h1>
+    <p class="dark:text-slate-300 text-slate-600 text-sm sm:text-base max-w-2xl leading-relaxed">
+      I'm interested in building digital products, solving practical engineering problems, collaborating with other developers, and continuing to grow through real-world projects.
+    </p>
+  </header>
+
+  <div class="grid grid-cols-1 md:grid-cols-5 gap-8">
+    <!-- Left: Reusable Contact Info Card Partial -->
+    <div class="md:col-span-2 space-y-6">
+      {% include "partials/contact_card.html" %}
+    </div>
+
+    <!-- Right: Interactive Contact Form -->
+    <div class="md:col-span-3">
+      <form onsubmit="handleContactSubmit(event)" class="glass-card rounded-2xl p-6 sm:p-8 space-y-4">
+        <!-- Dynamic Alert Container -->
+        <div id="contact-alert-container" class="alert-box hidden"></div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label for="contact-name" class="block text-xs font-mono dark:text-slate-400 text-slate-600 mb-1.5 font-semibold">
+              YOUR NAME
+            </label>
+            <input
+              id="contact-name"
+              name="name"
+              type="text"
+              required
+              placeholder="e.g. Alex Smith"
+              class="contact-form-input"
+            />
+          </div>
+          <div>
+            <label for="contact-email" class="block text-xs font-mono dark:text-slate-400 text-slate-600 mb-1.5 font-semibold">
+              EMAIL ADDRESS
+            </label>
+            <input
+              id="contact-email"
+              name="email"
+              type="email"
+              required
+              placeholder="alex@company.com"
+              class="contact-form-input"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label for="contact-subject" class="block text-xs font-mono dark:text-slate-400 text-slate-600 mb-1.5 font-semibold">
+            SUBJECT / TOPIC
+          </label>
+          <input
+            id="contact-subject"
+            name="subject"
+            type="text"
+            required
+            placeholder="Engineering Role / Project Discussion"
+            class="contact-form-input"
+          />
+        </div>
+
+        <div>
+          <label for="contact-message" class="block text-xs font-mono dark:text-slate-400 text-slate-600 mb-1.5 font-semibold">
+            MESSAGE
+          </label>
+          <textarea
+            id="contact-message"
+            name="message"
+            rows="4"
+            required
+            placeholder="Details about your engineering project, role requirements, or collaboration..."
+            class="contact-form-input"
+          ></textarea>
+        </div>
+
+        <button
+          type="submit"
+          class="w-full sm:w-auto min-h-[44px] inline-flex items-center justify-center px-6 py-2.5 rounded-lg bg-brand-600 hover:bg-brand-500 disabled:opacity-50 text-white font-medium text-xs font-mono transition shadow-md shadow-brand-600/20"
+        >
+          TRANSMIT MESSAGE →
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block page_js %}
+<script src="{{ url_for('static', path='js/contact.js') }}"></script>
+{% endblock %}

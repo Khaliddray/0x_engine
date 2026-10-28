@@ -5,6 +5,14 @@ genuine technical stack, product building journey, and an administrator account 
 """
 
 from datetime import date
+from pathlib import Path
+import sys
+
+# Ensure backend root is on sys.path
+backend_dir = Path(__file__).resolve().parent.parent
+if str(backend_dir) not in sys.path:
+    sys.path.insert(0, str(backend_dir))
+
 from sqlalchemy.orm import Session
 
 from app.core.security import hash_password
@@ -25,27 +33,39 @@ from app.models import (
 )
 
 
-def seed_database() -> None:
+import os
+import sys
+
+def seed_database(if_empty: bool = False) -> None:
     # Ensure all tables exist
     Base.metadata.create_all(bind=engine)
 
     db: Session = SessionLocal()
     try:
+        existing_portfolio = db.query(Portfolio).first()
+        if if_empty and existing_portfolio:
+            print("• Database already initialized with portfolio data. Skipping automatic seed.")
+            return
+
+        admin_email = os.getenv("ADMIN_EMAIL", "khalidzak21@gmail.com")
+        admin_password = os.getenv("ADMIN_PASSWORD", "1234567Khalid")
+        admin_name = os.getenv("ADMIN_NAME", "Yahaya Khalid")
+
         # 1. Seed or retrieve superuser
-        user = db.query(User).filter_by(email="developer@example.com").first()
+        user = db.query(User).filter_by(is_superuser=True).first()
         if not user:
             user = User(
-                email="developer@example.com",
-                hashed_password=hash_password("DevPassword123!"),
-                full_name="Yahaya Khalid",
+                email=admin_email,
+                hashed_password=hash_password(admin_password),
+                full_name=admin_name,
                 is_active=True,
                 is_superuser=True,
             )
             db.add(user)
             db.flush()
-            print("✓ Created admin user: developer@example.com (Password: DevPassword123!)")
+            print(f"✓ Created admin user: {admin_email}")
         else:
-            print("• Admin user already exists")
+            print(f"• Admin user already exists: {user.email}")
 
         # 2. Seed or update Portfolio
         portfolio = db.query(Portfolio).filter_by(slug="khalid").first()
@@ -54,9 +74,8 @@ def seed_database() -> None:
                 name="Yahaya Khalid",
                 slug="khalid",
                 description=(
-                    "I'm a software developer and product builder focused on building useful software, "
-                    "designing maintainable backend systems, and turning ideas into working products. "
-                    "I value clean architecture, practical problem-solving, and software that can grow with its purpose."
+                    "I turn ideas into working software, with a focus on backend engineering, "
+                    "thoughtful design, and solving problems that matter."
                 ),
             )
             db.add(portfolio)
@@ -64,9 +83,8 @@ def seed_database() -> None:
             print("✓ Created portfolio: Yahaya Khalid (slug: khalid)")
         else:
             portfolio.description = (
-                "I'm a software developer and product builder focused on building useful software, "
-                "designing maintainable backend systems, and turning ideas into working products. "
-                "I value clean architecture, practical problem-solving, and software that can grow with its purpose."
+                "I turn ideas into working software, with a focus on backend engineering, "
+                "thoughtful design, and solving problems that matter."
             )
             db.flush()
             print("✓ Updated portfolio: Yahaya Khalid (slug: khalid)")
@@ -211,7 +229,9 @@ def seed_database() -> None:
         # 7. Seed Verified Social & Contact Links
         links = [
             SocialLink(portfolio_id=portfolio_id, platform="GitHub", url="https://github.com/Khaliddray", label="github.com/Khaliddray", position=1, is_visible=True),
-            SocialLink(portfolio_id=portfolio_id, platform="Email", url="mailto:khalidzak21@gmail.com", label="khalidzak21@gmail.com", position=2, is_visible=True),
+            SocialLink(portfolio_id=portfolio_id, platform="LinkedIn", url="https://www.linkedin.com/in/yahaya-khalid-198593418", label="linkedin.com/in/yahaya-khalid-198593418", position=2, is_visible=True),
+            SocialLink(portfolio_id=portfolio_id, platform="X", url="https://www.x.com/Zzaq_0x", label="x.com/Zzaq_0x", position=3, is_visible=True),
+            SocialLink(portfolio_id=portfolio_id, platform="Email", url="mailto:khalidzak21@gmail.com", label="khalidzak21@gmail.com", position=4, is_visible=True),
         ]
         db.add_all(links)
         db.flush()
@@ -228,4 +248,5 @@ def seed_database() -> None:
 
 
 if __name__ == "__main__":
-    seed_database()
+    if_empty_flag = "--if-empty" in sys.argv
+    seed_database(if_empty=if_empty_flag)

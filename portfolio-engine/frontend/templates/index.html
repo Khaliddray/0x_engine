@@ -1,0 +1,232 @@
+{% extends "base.html" %}
+
+{% block title %}Yahaya Khalid — Product Builder &amp; Backend Engineer{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="{{ url_for('static', path='css/home.css') }}" />
+{% endblock %}
+
+{% block content %}
+<div class="space-y-16">
+  <!-- Hero Introduction Banner -->
+  <section class="hero-section flex flex-col md:flex-row items-center justify-between gap-10">
+    <div class="max-w-xl text-center md:text-left">
+      <header class="mb-4">
+        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-serif font-medium tracking-tight dark:text-white text-slate-900 leading-[1.12] mb-3 break-words">
+          Hi, I’m <span class="text-brand-600 dark:text-brand-400">Yahaya&nbsp;Khalid</span>
+        </h1>
+        <p class="text-base sm:text-lg font-mono dark:text-brand-400 text-brand-600 font-medium">
+          Product Builder &amp; Backend Engineer
+        </p>
+      </header>
+
+      <!-- Exact Required Positioning & Headline -->
+      <div class="mb-4">
+        <p class="text-lg sm:text-xl font-serif italic dark:text-slate-200 text-slate-800 leading-snug mb-2">
+          “I build purposeful digital products that turn complex problems into practical, scalable solutions.”
+        </p>
+        <p class="text-sm sm:text-base font-serif italic text-brand-600 dark:text-brand-400 flex items-center justify-center md:justify-start gap-2">
+          <span class="w-6 h-px bg-brand-500/50 inline-block"></span>
+          <span>“Less is more.”</span>
+        </p>
+      </div>
+
+      <p class="text-sm sm:text-base dark:text-slate-300 text-slate-600 font-sans leading-relaxed mb-8">
+        I turn ideas into working software, with a focus on backend engineering, thoughtful design, and solving problems that matter.
+      </p>
+
+      <!-- Hero Call to Action Buttons -->
+      <div class="flex flex-wrap items-center gap-3.5 justify-center md:justify-start">
+        <a
+          href="/projects"
+          class="min-h-[44px] px-5 py-2.5 rounded-lg bg-brand-600 hover:bg-brand-500 text-white font-medium text-sm transition-all shadow-md shadow-brand-600/20 inline-flex items-center group"
+        >
+          <span>Explore Projects</span>
+          <svg class="w-4 h-4 ml-1 transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 17L17 7M17 7H7M17 7V17"></path>
+          </svg>
+        </a>
+
+        <a
+          href="/contact"
+          class="min-h-[44px] px-5 py-2.5 rounded-lg glass-card dark:text-slate-200 text-slate-800 font-medium text-sm transition-all hover:border-brand-500 inline-flex items-center"
+        >
+          <span>Get in Touch</span>
+        </a>
+
+        {% if portfolio and portfolio.resume and portfolio.resume.file_url %}
+        <a
+          href="{{ portfolio.resume.file_url }}"
+          target="_blank"
+          rel="noreferrer"
+          class="min-h-[44px] px-4 py-2.5 rounded-lg dark:text-slate-300 text-slate-700 hover:text-brand-600 font-mono text-xs transition-all inline-flex items-center border dark:border-white/10 border-slate-300 dark:bg-white/[0.02] bg-white"
+        >
+          <svg class="w-4 h-4 inline-block mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+          </svg>
+          <span>Curriculum Vitae</span>
+        </a>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Profile Badge Card -->
+    <div class="relative shrink-0">
+      <div class="monogram-card glass-card corner-mark p-3.5 sm:p-4 flex flex-col items-center justify-center text-center shadow-xl group">
+        <div class="monogram-gradient-overlay"></div>
+        <div class="relative z-10 w-28 h-28 sm:w-32 sm:h-32 rounded-xl overflow-hidden mb-2.5 border dark:border-white/10 border-slate-300/80 shadow-md group-hover:border-brand-500/50 transition-colors">
+          <img
+            src="/static/img/profile.jpg"
+            alt="Professional profile photograph of Yahaya Khalid"
+            class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300"
+            loading="eager"
+          />
+        </div>
+        <div class="text-[10px] font-mono dark:text-slate-400 text-slate-500 relative z-10 uppercase tracking-widest font-semibold">
+          Abuja, Nigeria
+        </div>
+        <div class="text-[9px] font-mono text-brand-600 dark:text-brand-400 mt-1 relative z-10 flex items-center justify-center gap-1 font-medium">
+          <span class="w-1.5 h-1.5 rounded-full bg-brand-500 animate-pulse"></span>
+          <span>Open for Collaboration</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Marquee Technology Ticker -->
+  <div class="ticker-wrapper hairline-t hairline-b py-3.5">
+    <div class="flex items-center space-x-6 text-xs font-mono tracking-wider animate-marquee whitespace-nowrap">
+      {% for tech in ticker_techs + ticker_techs %}
+      <div class="flex items-center space-x-3 dark:text-slate-400 text-slate-600 hover:text-brand-500 transition-colors">
+        <span class="w-1.5 h-1.5 rounded-full bg-brand-500"></span>
+        <span class="uppercase font-semibold">{{ tech }}</span>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Dedicated Pages Directory / Navigation Portal -->
+  <section class="space-y-6 pt-2">
+    <div class="flex items-center justify-between">
+      <div>
+        <span class="text-xs font-mono text-brand-600 dark:text-brand-400 uppercase tracking-wider font-semibold">
+          // Portfolio Directory
+        </span>
+        <h2 class="text-2xl sm:text-3xl font-serif font-medium dark:text-white text-slate-900 mt-1">
+          Explore by Area
+        </h2>
+      </div>
+      <span class="hidden sm:inline-block text-xs font-mono dark:text-slate-400 text-slate-500">
+        5 Dedicated Pages
+      </span>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <!-- 01 // About -->
+      <a
+        href="/about"
+        class="glass-card directory-card rounded-2xl p-6 corner-mark group flex flex-col justify-between"
+      >
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-mono text-brand-600 dark:text-brand-400 font-bold">01 //</span>
+            <span class="text-xs font-mono dark:text-slate-400 text-slate-500 group-hover:text-brand-500 transition">View Page →</span>
+          </div>
+          <h3 class="text-lg font-serif font-medium dark:text-white text-slate-900 group-hover:text-brand-500 transition">ABOUT</h3>
+          <p class="dark:text-slate-300 text-slate-600 text-xs mt-2 leading-relaxed font-sans">
+            Philosophy, background, and approach to software engineering.
+          </p>
+        </div>
+        <div class="pt-4 mt-4 hairline-t flex items-center justify-between text-[11px] font-mono dark:text-slate-400 text-slate-500">
+          <span>/about</span>
+          <span class="text-brand-500 opacity-0 group-hover:opacity-100 transition">Open</span>
+        </div>
+      </a>
+
+      <!-- 02 // Projects -->
+      <a
+        href="/projects"
+        class="glass-card directory-card rounded-2xl p-6 corner-mark group flex flex-col justify-between"
+      >
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-mono text-brand-600 dark:text-brand-400 font-bold">02 //</span>
+            <span class="text-xs font-mono dark:text-slate-400 text-slate-500 group-hover:text-brand-500 transition">View Page →</span>
+          </div>
+          <h3 class="text-lg font-serif font-medium dark:text-white text-slate-900 group-hover:text-brand-500 transition">PROJECTS</h3>
+          <p class="dark:text-slate-300 text-slate-600 text-xs mt-2 leading-relaxed font-sans">
+            Structured backend systems, applications, and source code.
+          </p>
+        </div>
+        <div class="pt-4 mt-4 hairline-t flex items-center justify-between text-[11px] font-mono dark:text-slate-400 text-slate-500">
+          <span>/projects</span>
+          <span class="text-brand-500 opacity-0 group-hover:opacity-100 transition">Open</span>
+        </div>
+      </a>
+
+      <!-- 03 // Stack -->
+      <a
+        href="/stack"
+        class="glass-card directory-card rounded-2xl p-6 corner-mark group flex flex-col justify-between"
+      >
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-mono text-brand-600 dark:text-brand-400 font-bold">03 //</span>
+            <span class="text-xs font-mono dark:text-slate-400 text-slate-500 group-hover:text-brand-500 transition">View Page →</span>
+          </div>
+          <h3 class="text-lg font-serif font-medium dark:text-white text-slate-900 group-hover:text-brand-500 transition">STACK</h3>
+          <p class="dark:text-slate-300 text-slate-600 text-xs mt-2 leading-relaxed font-sans">
+            Verified tools, languages, frameworks, and database architecture.
+          </p>
+        </div>
+        <div class="pt-4 mt-4 hairline-t flex items-center justify-between text-[11px] font-mono dark:text-slate-400 text-slate-500">
+          <span>/stack</span>
+          <span class="text-brand-500 opacity-0 group-hover:opacity-100 transition">Open</span>
+        </div>
+      </a>
+
+      <!-- 04 // Journey -->
+      <a
+        href="/journey"
+        class="glass-card directory-card rounded-2xl p-6 corner-mark group flex flex-col justify-between"
+      >
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-mono text-brand-600 dark:text-brand-400 font-bold">04 //</span>
+            <span class="text-xs font-mono dark:text-slate-400 text-slate-500 group-hover:text-brand-500 transition">View Page →</span>
+          </div>
+          <h3 class="text-lg font-serif font-medium dark:text-white text-slate-900 group-hover:text-brand-500 transition">JOURNEY</h3>
+          <p class="dark:text-slate-300 text-slate-600 text-xs mt-2 leading-relaxed font-sans">
+            Hands-on groundwork, engineering focus, and system verification.
+          </p>
+        </div>
+        <div class="pt-4 mt-4 hairline-t flex items-center justify-between text-[11px] font-mono dark:text-slate-400 text-slate-500">
+          <span>/journey</span>
+          <span class="text-brand-500 opacity-0 group-hover:opacity-100 transition">Open</span>
+        </div>
+      </a>
+
+      <!-- 05 // Contact -->
+      <a
+        href="/contact"
+        class="glass-card directory-card rounded-2xl p-6 corner-mark group flex flex-col justify-between"
+      >
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-mono text-brand-600 dark:text-brand-400 font-bold">05 //</span>
+            <span class="text-xs font-mono dark:text-slate-400 text-slate-500 group-hover:text-brand-500 transition">View Page →</span>
+          </div>
+          <h3 class="text-lg font-serif font-medium dark:text-white text-slate-900 group-hover:text-brand-500 transition">CONTACT</h3>
+          <p class="dark:text-slate-300 text-slate-600 text-xs mt-2 leading-relaxed font-sans">
+            Direct email, inquiries, and collaboration opportunities.
+          </p>
+        </div>
+        <div class="pt-4 mt-4 hairline-t flex items-center justify-between text-[11px] font-mono dark:text-slate-400 text-slate-500">
+          <span>/contact</span>
+          <span class="text-brand-500 opacity-0 group-hover:opacity-100 transition">Open</span>
+        </div>
+      </a>
+    </div>
+  </section>
+</div>
+{% endblock %}

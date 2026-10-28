@@ -1,0 +1,21 @@
+/* ==========================================================================
+   Projects Stylesheet: Curated Product Showcase Cards & Visual Previews
+   ========================================================================== */
+
+/* Product Showcase Card Transitions & Elevation */
+.product-card,
+.project-card {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.2s ease,
+              box-shadow 0.25s ease;
+}
+
+.product-card:hover,
+.project-card:hover {
+  transform: translateY(-4px);
+}
+
+/* Aspect-ratio helper fallback for older browsers */
+.aspect-video {
+  aspect-ratio: 16 / 9;
+}

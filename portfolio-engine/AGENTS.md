@@ -387,16 +387,20 @@ The backend has progressed through its planned foundation and domain milestones.
 - [x] Project Media CRUD
 - [x] Public Portfolio aggregation endpoint (`/api/public/portfolios/{slug}`)
 - [x] User Authentication (Argon2 + JWT tokens)
-- [x] Automated Pytest test suite with isolated SQLite in-memory fixtures (32 test cases)
+- [x] Automated Pytest test suite with isolated SQLite in-memory fixtures (40 test cases)
 - [x] Docker configuration and multi-container orchestration (`Dockerfile` + `docker-compose.yml`)
 - [x] Public contact inquiry endpoint (`POST /api/contact`)
-- [x] React frontend presentation with architectural surface treatment (high-contrast orange & black palette, ambient radial glows, masked grid, tactile grain, hairline borders, marquee ticker, project detail modal, search/filtering, and contact workflow)
+- [x] Presentation architecture with dual-theme orange & dark green aesthetic, tactile grain, and responsive multi-page layouts
 - [x] OAuth2 form-compatible token endpoint (`POST /api/auth/token`) and Starlette CORS middleware
+- [x] Multi-Page Jinja2 template rendering (`/`, `/about`, `/projects`, `/stack`, `/journey`, `/contact`, `/admin`, `/404`)
+- [x] Administrative Content Management Dashboard (`/admin`) for interactive management of Projects, Skills, and Sections
+- [x] Production deployment readiness: container entrypoint script (`backend/scripts/entrypoint.sh`), automatic schema migrations, conditional database seeding (`--if-empty`), native health check, Render blueprint (`render.yaml`), and Procfile
 
 ### Upcoming Architecture & Implementation Priorities
-1. **Administrative Content Management Dashboard**
-   - Administrative UI dashboard for managing portfolio sections, projects, media, and credentials
+1. **Cloud Storage Pipeline**
    - S3 / cloud storage multipart media and resume document upload pipeline
+2. **Dynamic Work Experience & Credential Management in Admin Dashboard**
+   - Dedicated dashboard panels for Experiences, Education, and Certifications
 
 New features should fit naturally into the existing architecture.
 Do not build all future features prematurely.

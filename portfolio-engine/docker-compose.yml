@@ -30,12 +30,16 @@ services:
       SECRET_KEY: ${SECRET_KEY:-portfolio-engine-default-secret-key-change-in-production}
       JWT_ALGORITHM: ${JWT_ALGORITHM:-HS256}
       ACCESS_TOKEN_EXPIRE_MINUTES: ${ACCESS_TOKEN_EXPIRE_MINUTES:-1440}
+      PORT: 8000
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-khalidzak21@gmail.com}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-1234567Khalid}
+      ADMIN_NAME: ${ADMIN_NAME:-Yahaya Khalid}
     ports:
       - "8000:8000"
     volumes:
       - ./backend:/app/backend
       - ./frontend:/app/frontend
-    command: sh -c "cd /app/backend && alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"
+    command: sh -c "cd /app/backend && alembic upgrade head && python3 scripts/seed_data.py --if-empty && uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"
     restart: unless-stopped
 
 volumes:

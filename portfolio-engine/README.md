@@ -138,7 +138,9 @@ uvicorn app.main:app --reload
 ```
 Interactive API documentation will be available at:
 - Swagger UI: `http://localhost:8000/docs`
-### 6. Running with Docker Compose (Recommended)
+- Admin Control Center: `http://localhost:8000/admin`
+
+### 6. Running with Docker Compose (Recommended for Local Dev)
 You can start the PostgreSQL database and FastAPI backend with a single command:
 
 ```bash
@@ -149,14 +151,38 @@ This will:
 - Spin up PostgreSQL 16 on port 5432 with health check verification.
 - Build the FastAPI container.
 - Automatically execute `alembic upgrade head` to run all migrations.
+- Automatically execute `python3 scripts/seed_data.py --if-empty` to populate initial portfolio data if empty.
 - Serve the API and frontend on `http://localhost:8000`.
+
+---
+
+## Production Deployment
+
+### 1. Render Blueprint (1-Click Deployment)
+A complete `render.yaml` blueprint is included in the root directory:
+1. Push your repository to GitHub.
+2. In the Render Dashboard, click **New +** → **Blueprint**.
+3. Select your repository.
+4. Render will automatically provision a managed PostgreSQL database, link `DATABASE_URL`, build the Docker container using `backend/Dockerfile`, run migrations via `backend/scripts/entrypoint.sh`, and launch the web service with HTTPS.
+
+### 2. Standard Container Platforms (Railway, Fly.io, Cloud Run, VPS)
+The container uses `backend/scripts/entrypoint.sh` as its entrypoint, which:
+1. Automatically runs `alembic upgrade head` to bring the database schema to the latest version.
+2. Conditionally runs `python3 scripts/seed_data.py --if-empty` to initialize portfolio records and superuser credentials if the database is newly initialized.
+3. Automatically binds to the cloud provider's injected `$PORT` environment variable (falling back to port 8000).
+
+A `Procfile` is also provided in the repository root for process manager workflows:
+```text
+web: cd backend && alembic upgrade head && python3 scripts/seed_data.py --if-empty && uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}
+```
 
 ---
 
 ## Running Automated Tests
 
-The test suite runs against an isolated SQLite in-memory database and tests authentication, admin metrics, public aggregation, and repository operations:
+The test suite runs against an isolated SQLite in-memory database and tests authentication, admin metrics, public aggregation, multi-page frontend routing, and repository operations:
 
 ```bash
 pytest -c backend/pytest.ini backend/tests
 ```
+

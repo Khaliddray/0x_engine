@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 
 from app.api.deps import get_current_user
 from app.db.session import get_db
+from app.core.products import PRODUCTS
 from app.schemas.project import (
     ProjectCreate,
     ProjectResponse,
@@ -19,6 +20,15 @@ router = APIRouter(
     prefix="/api/projects",
     tags=["Projects"],
 )
+
+
+@router.get(
+    "/showcase",
+    response_model=list[dict],
+)
+def get_showcase():
+    """Retrieve curated product showcase entries without proprietary details."""
+    return PRODUCTS
 
 
 @router.post(

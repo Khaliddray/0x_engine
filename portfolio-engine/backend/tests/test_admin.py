@@ -95,3 +95,17 @@ def test_mutation_endpoints_require_authentication(client):
         elif method == "DELETE":
             res = client.delete(path)
         assert res.status_code == 401, f"{method} {path} should require authentication, got {res.status_code}"
+
+
+def test_admin_page_renders_html(client):
+    response = client.get("/admin", headers={"Accept": "text/html"})
+    assert response.status_code == 200
+    html = response.text
+    assert "Control Center" in html
+    assert "0X // ADMINISTRATION" in html
+    assert "Authenticate" in html
+    assert "Database Projects Management" in html
+    assert "Skills &amp; Technical Stack Management" in html or "Skills & Technical Stack Management" in html
+    assert "Narrative Sections Management" in html
+
+

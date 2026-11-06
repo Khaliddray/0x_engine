@@ -1,4 +1,7 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+import uuid
+from pathlib import Path
+
+from fastapi import APIRouter, Depends, File, HTTPException, UploadFile, status
 from sqlalchemy.orm import Session
 
 from app.api.deps import get_current_user
@@ -13,11 +16,70 @@ from app.services.project_media import (
     ProjectNotFoundError,
 )
 
+ALLOWED_IMAGE_EXTENSIONS = {".png", ".jpg", ".jpeg", ".webp", ".gif", ".svg"}
+ALLOWED_MIME_TYPES = {
+    "image/png",
+    "image/jpeg",
+    "image/webp",
+    "image/gif",
+    "image/svg+xml",
+}
+MAX_FILE_SIZE = 10 * 1024 * 1024  # 10 MB
+
+STATIC_DIR = Path(__file__).resolve().parents[4] / "frontend" / "static"
+UPLOAD_DIR = STATIC_DIR / "uploads" / "projects"
 
 router = APIRouter(
     prefix="/api/project-media",
     tags=["Project Media"],
 )
+
+
+@router.post(
+    "/upload",
+    dependencies=[Depends(get_current_user)],
+)
+async def upload_project_image(
+    file: UploadFile = File(...),
+):
+    """Upload an image file directly for a project visual preview."""
+    file_ext = Path(file.filename or "").suffix.lower()
+    if file_ext not in ALLOWED_IMAGE_EXTENSIONS:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=(
+                f"Unsupported file format '{file_ext}'. "
+                f"Allowed formats: {', '.join(sorted(ALLOWED_IMAGE_EXTENSIONS))}"
+            ),
+        )
+
+    if file.content_type and file.content_type not in ALLOWED_MIME_TYPES:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=f"Unsupported image MIME type '{file.content_type}'.",
+        )
+
+    UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+    unique_name = f"{uuid.uuid4().hex}{file_ext}"
+    target_path = UPLOAD_DIR / unique_name
+
+    size = 0
+    with target_path.open("wb") as buffer:
+        while chunk := await file.read(1024 * 1024):
+            size += len(chunk)
+            if size > MAX_FILE_SIZE:
+                target_path.unlink(missing_ok=True)
+                raise HTTPException(
+                    status_code=status.HTTP_400_BAD_REQUEST,
+                    detail="File exceeds maximum allowed size of 10MB.",
+                )
+            buffer.write(chunk)
+
+    return {
+        "url": f"/static/uploads/projects/{unique_name}",
+        "filename": unique_name,
+        "size": size,
+    }
 
 
 @router.post(

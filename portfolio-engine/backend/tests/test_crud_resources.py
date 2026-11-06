@@ -372,3 +372,38 @@ def test_project_technologies_and_media_crud(client, auth_headers):
     assert client.get(f"/api/project-media/project/{prj_id}").status_code == 200
     assert client.patch(f"/api/project-media/{media_id}", json={"alt_text": "Updated Diagram"}, headers=auth_headers).status_code == 200
     assert client.delete(f"/api/project-media/{media_id}", headers=auth_headers).status_code == 204
+
+
+def test_project_media_image_upload(client, auth_headers):
+    import io
+
+    # 1. Successful upload of a valid image file
+    fake_png = io.BytesIO(b"\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00\x01\x00\x00\x00\x01\x08\x06\x00\x00\x00\x1f\x15c4")
+    upload_res = client.post(
+        "/api/project-media/upload",
+        files={"file": ("preview.png", fake_png, "image/png")},
+        headers=auth_headers,
+    )
+    assert upload_res.status_code == 200
+    data = upload_res.json()
+    assert "url" in data
+    assert data["url"].startswith("/static/uploads/projects/")
+    assert data["filename"].endswith(".png")
+
+    # 2. Rejection of unsupported file extension
+    fake_text = io.BytesIO(b"malicious script or text")
+    invalid_res = client.post(
+        "/api/project-media/upload",
+        files={"file": ("document.exe", fake_text, "application/octet-stream")},
+        headers=auth_headers,
+    )
+    assert invalid_res.status_code == 400
+    assert "Unsupported file format" in invalid_res.json()["detail"]
+
+    # 3. Authentication requirement
+    unauth_res = client.post(
+        "/api/project-media/upload",
+        files={"file": ("preview.png", io.BytesIO(b"data"), "image/png")},
+    )
+    assert unauth_res.status_code == 401
+

@@ -36,6 +36,10 @@ frontend/dist/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+frontend/static/uploads/**
+!frontend/static/uploads/
+!frontend/static/uploads/**/
+!frontend/static/uploads/**/.gitkeep
 
 # OS files
 .DS_Store

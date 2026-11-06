@@ -21,7 +21,7 @@ class ProjectMedia(Base):
     )
 
     url: Mapped[str] = mapped_column(
-        String(500),
+        Text,
         nullable=False,
     )
 

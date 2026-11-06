@@ -374,10 +374,10 @@ def test_project_technologies_and_media_crud(client, auth_headers):
     assert client.delete(f"/api/project-media/{media_id}", headers=auth_headers).status_code == 204
 
 
-def test_project_media_image_upload(client, auth_headers):
+def test_project_media_image_upload(client, auth_headers, monkeypatch):
     import io
 
-    # 1. Successful upload of a valid image file
+    # 1. Successful upload of a valid image file (default writable environment)
     fake_png = io.BytesIO(b"\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00\x01\x00\x00\x00\x01\x08\x06\x00\x00\x00\x1f\x15c4")
     upload_res = client.post(
         "/api/project-media/upload",
@@ -387,10 +387,23 @@ def test_project_media_image_upload(client, auth_headers):
     assert upload_res.status_code == 200
     data = upload_res.json()
     assert "url" in data
-    assert data["url"].startswith("/static/uploads/projects/")
+    assert data["url"].startswith("/static/uploads/projects/") or data["url"].startswith("data:image/")
     assert data["filename"].endswith(".png")
 
-    # 2. Rejection of unsupported file extension
+    # 2. Serverless / read-only filesystem environment (e.g. Vercel) fallback to Data URI
+    monkeypatch.setenv("VERCEL", "1")
+    fake_png_serverless = io.BytesIO(b"\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00\x01\x00\x00\x00\x01\x08\x06\x00\x00\x00\x1f\x15c4")
+    serverless_res = client.post(
+        "/api/project-media/upload",
+        files={"file": ("preview.png", fake_png_serverless, "image/png")},
+        headers=auth_headers,
+    )
+    assert serverless_res.status_code == 200
+    serverless_data = serverless_res.json()
+    assert serverless_data["url"].startswith("data:image/png;base64,")
+    monkeypatch.delenv("VERCEL", raising=False)
+
+    # 3. Rejection of unsupported file extension
     fake_text = io.BytesIO(b"malicious script or text")
     invalid_res = client.post(
         "/api/project-media/upload",
@@ -400,7 +413,7 @@ def test_project_media_image_upload(client, auth_headers):
     assert invalid_res.status_code == 400
     assert "Unsupported file format" in invalid_res.json()["detail"]
 
-    # 3. Authentication requirement
+    # 4. Authentication requirement
     unauth_res = client.post(
         "/api/project-media/upload",
         files={"file": ("preview.png", io.BytesIO(b"data"), "image/png")},

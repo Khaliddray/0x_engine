@@ -1,3 +1,5 @@
+import base64
+import os
 import uuid
 from pathlib import Path
 
@@ -23,6 +25,14 @@ ALLOWED_MIME_TYPES = {
     "image/webp",
     "image/gif",
     "image/svg+xml",
+}
+EXT_TO_MIME = {
+    ".png": "image/png",
+    ".jpg": "image/jpeg",
+    ".jpeg": "image/jpeg",
+    ".webp": "image/webp",
+    ".gif": "image/gif",
+    ".svg": "image/svg+xml",
 }
 MAX_FILE_SIZE = 10 * 1024 * 1024  # 10 MB
 
@@ -59,24 +69,48 @@ async def upload_project_image(
             detail=f"Unsupported image MIME type '{file.content_type}'.",
         )
 
-    UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
-    unique_name = f"{uuid.uuid4().hex}{file_ext}"
-    target_path = UPLOAD_DIR / unique_name
+    content = await file.read()
+    size = len(content)
 
-    size = 0
-    with target_path.open("wb") as buffer:
-        while chunk := await file.read(1024 * 1024):
-            size += len(chunk)
-            if size > MAX_FILE_SIZE:
-                target_path.unlink(missing_ok=True)
-                raise HTTPException(
-                    status_code=status.HTTP_400_BAD_REQUEST,
-                    detail="File exceeds maximum allowed size of 10MB.",
-                )
-            buffer.write(chunk)
+    if size == 0:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Uploaded file is empty.",
+        )
+
+    if size > MAX_FILE_SIZE:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="File exceeds maximum allowed size of 10MB.",
+        )
+
+    unique_name = f"{uuid.uuid4().hex}{file_ext}"
+    mime_type = (
+        file.content_type
+        if (file.content_type and file.content_type in ALLOWED_MIME_TYPES)
+        else EXT_TO_MIME.get(file_ext, "image/jpeg")
+    )
+
+    saved_url = None
+    # In Vercel or other serverless/read-only environments, local disk does not persist and /var/task is read-only
+    is_serverless = bool(os.environ.get("VERCEL") or os.environ.get("AWS_LAMBDA_FUNCTION_NAME"))
+
+    if not is_serverless:
+        try:
+            UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+            target_path = UPLOAD_DIR / unique_name
+            target_path.write_bytes(content)
+            saved_url = f"/static/uploads/projects/{unique_name}"
+        except (OSError, PermissionError):
+            saved_url = None
+
+    if not saved_url:
+        # Fallback to persistent Base64 Data URI (works seamlessly in all cloud & serverless hosts)
+        encoded_bytes = base64.b64encode(content).decode("utf-8")
+        saved_url = f"data:{mime_type};base64,{encoded_bytes}"
 
     return {
-        "url": f"/static/uploads/projects/{unique_name}",
+        "url": saved_url,
         "filename": unique_name,
         "size": size,
     }

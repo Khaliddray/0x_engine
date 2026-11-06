@@ -133,3 +133,40 @@ def test_favicon_endpoint_and_html_links(client):
     assert "apple-touch-icon.png" in html
 
 
+def test_projects_page_displays_database_projects(client, auth_headers):
+    # 1. Create portfolio
+    port_res = client.post(
+        "/api/portfolios",
+        json={"name": "Yahaya Khalid", "slug": "khalid", "description": "Backend Engineer"},
+        headers=auth_headers,
+    )
+    portfolio_id = port_res.json()["id"]
+
+    # 2. Upload/create project via API
+    prj_res = client.post(
+        "/api/projects",
+        json={
+            "portfolio_id": portfolio_id,
+            "title": "PowerWise",
+            "slug": "powerwise",
+            "description": "Smart energy calculator web application.",
+            "live_url": "https://powerwise-pearl.vercel.app",
+            "github_url": "https://github.com/Khaliddray/PowerWise",
+            "is_featured": True,
+        },
+        headers=auth_headers,
+    )
+    assert prj_res.status_code == 201
+
+    # 3. Request /projects page and verify database project displays in browser
+    page_res = client.get("/projects", headers={"Accept": "text/html"})
+    assert page_res.status_code == 200
+    html = page_res.text
+    assert "PowerWise" in html
+    assert "Smart energy calculator" in html
+    assert "https://powerwise-pearl.vercel.app" in html
+    assert "https://github.com/Khaliddray/PowerWise" in html
+    assert "Featured" in html
+
+
+

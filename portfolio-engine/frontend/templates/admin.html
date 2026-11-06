@@ -410,18 +410,18 @@
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs dark:text-slate-300 text-slate-600 leading-relaxed font-sans">
         <div class="space-y-2">
           <h3 class="font-serif font-medium text-sm dark:text-white text-slate-900">
-            1. Curated Product Showcase
+            1. Live Database Synchronization
           </h3>
           <p>
-            The public product showcase on <code class="px-1.5 py-0.5 rounded dark:bg-white/5 bg-slate-200 font-mono text-[11px]">/projects</code> is powered by <code class="px-1.5 py-0.5 rounded dark:bg-white/5 bg-slate-200 font-mono text-[11px]">backend/app/core/products.py</code> and <code class="px-1.5 py-0.5 rounded dark:bg-white/5 bg-slate-200 font-mono text-[11px]">GET /api/projects/showcase</code>. It emphasizes problem-solving and value propositions while omitting proprietary code details.
+            The projects managed here in PostgreSQL are dynamically synchronized with the public <code class="px-1.5 py-0.5 rounded dark:bg-white/5 bg-slate-200 font-mono text-[11px]">/projects</code> product showcase and REST API. Any newly added, updated, or featured project appears directly on your browser pages.
           </p>
         </div>
         <div class="space-y-2">
           <h3 class="font-serif font-medium text-sm dark:text-white text-slate-900">
-            2. Relational Database Records
+            2. Relational Content Decoupling
           </h3>
           <p>
-            The tables above manage relational records stored in PostgreSQL (<code class="px-1.5 py-0.5 rounded dark:bg-white/5 bg-slate-200 font-mono text-[11px]">projects</code>, <code class="px-1.5 py-0.5 rounded dark:bg-white/5 bg-slate-200 font-mono text-[11px]">skills</code>, <code class="px-1.5 py-0.5 rounded dark:bg-white/5 bg-slate-200 font-mono text-[11px]">portfolio_sections</code>). These are accessible via the authenticated REST API endpoints and synchronize with public aggregator endpoints.
+            Your technical stack (<code class="px-1.5 py-0.5 rounded dark:bg-white/5 bg-slate-200 font-mono text-[11px]">skills</code>), narrative sections (<code class="px-1.5 py-0.5 rounded dark:bg-white/5 bg-slate-200 font-mono text-[11px]">portfolio_sections</code>), and media records are stored independently from presentation templates, ensuring you can evolve design without losing your career data.
           </p>
         </div>
       </div>
@@ -509,6 +509,18 @@
               class="w-full px-3 py-2 rounded-lg text-xs font-mono dark:bg-dark-card dark:text-white text-slate-800 border dark:border-white/10 border-slate-300 focus:outline-none focus:border-brand-500 transition"
             />
           </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-mono dark:text-slate-300 text-slate-700 font-medium mb-1">
+            Visual Preview / Screenshot URL (Optional)
+          </label>
+          <input
+            type="url"
+            id="form-image-url"
+            placeholder="https://images.unsplash.com/... or https://.../preview.png"
+            class="w-full px-3 py-2 rounded-lg text-xs font-mono dark:bg-dark-card dark:text-white text-slate-800 border dark:border-white/10 border-slate-300 focus:outline-none focus:border-brand-500 transition"
+          />
         </div>
 
         <div class="flex items-center space-x-2 pt-1">
@@ -758,6 +770,9 @@
 <script>
   let cachedPortfolioId = 1;
   let activeTab = 'projects';
+  let cachedProjects = [];
+  let cachedSkills = [];
+  let cachedSections = [];
 
   // Initialize view on load
   document.addEventListener('DOMContentLoaded', () => {
@@ -969,6 +984,7 @@
       const res = await fetch('/api/projects');
       if (!res.ok) throw new Error('Could not fetch projects');
       const projects = await res.json();
+      cachedProjects = projects;
 
       if (projects.length === 0) {
         tbody.innerHTML = `
@@ -1005,14 +1021,14 @@
           <td class="py-3 text-right whitespace-nowrap space-x-2">
             <button
               type="button"
-              onclick="openEditProject(${JSON.stringify(p).replace(/"/g, '&quot;')})"
+              onclick="openEditProjectById(${p.id})"
               class="px-2.5 py-1 rounded text-[11px] font-mono dark:bg-white/5 bg-slate-200 text-slate-300 hover:text-brand-400 transition"
             >
               Edit
             </button>
             <button
               type="button"
-              onclick="handleDeleteProject(${p.id}, '${escapeHtml(p.title)}')"
+              onclick="handleDeleteProjectById(${p.id})"
               class="px-2.5 py-1 rounded text-[11px] font-mono bg-rose-500/10 text-rose-400 hover:bg-rose-500/20 transition"
             >
               Delete
@@ -1049,11 +1065,14 @@
     document.getElementById('form-description').value = '';
     document.getElementById('form-live-url').value = '';
     document.getElementById('form-github-url').value = '';
+    document.getElementById('form-image-url').value = '';
     document.getElementById('form-is-featured').checked = false;
     document.getElementById('project-modal').classList.remove('hidden');
   }
 
-  function openEditProject(project) {
+  async function openEditProjectById(id) {
+    const project = cachedProjects.find(p => p.id === id);
+    if (!project) return;
     document.getElementById('modal-title').textContent = `Edit: ${project.title}`;
     document.getElementById('form-project-id').value = project.id;
     document.getElementById('form-title').value = project.title;
@@ -1061,8 +1080,20 @@
     document.getElementById('form-description').value = project.description || '';
     document.getElementById('form-live-url').value = project.live_url || '';
     document.getElementById('form-github-url').value = project.github_url || '';
+    document.getElementById('form-image-url').value = '';
     document.getElementById('form-is-featured').checked = Boolean(project.is_featured);
     document.getElementById('project-modal').classList.remove('hidden');
+
+    // Attempt to load associated media if available
+    try {
+      const mRes = await fetch(`/api/project-media/project/${id}`);
+      if (mRes.ok) {
+        const media = await mRes.json();
+        if (media && media.length > 0) {
+          document.getElementById('form-image-url').value = media[0].url || '';
+        }
+      }
+    } catch (_) {}
   }
 
   function closeProjectModal() {
@@ -1074,6 +1105,7 @@
     const token = localStorage.getItem('admin_token');
     const id = document.getElementById('form-project-id').value;
     const isEdit = Boolean(id);
+    const imageUrl = document.getElementById('form-image-url').value.trim();
 
     const payload = {
       portfolio_id: cachedPortfolioId,
@@ -1104,7 +1136,51 @@
 
       if (!res.ok) {
         const err = await res.json().catch(() => ({}));
-        throw new Error(err.detail || 'Failed to save project');
+        let errMsg = 'Failed to save project';
+        if (typeof err.detail === 'string') {
+          errMsg = err.detail;
+        } else if (Array.isArray(err.detail)) {
+          errMsg = err.detail.map(d => d.msg || d.loc?.join('.')).join(', ');
+        }
+        throw new Error(errMsg);
+      }
+
+      const savedProject = await res.json();
+      const projectId = savedProject.id;
+
+      // Handle Image / Media URL if provided
+      if (imageUrl && projectId) {
+        try {
+          const mediaCheck = await fetch(`/api/project-media/project/${projectId}`);
+          if (mediaCheck.ok) {
+            const existingMedia = await mediaCheck.json();
+            if (existingMedia && existingMedia.length > 0) {
+              await fetch(`/api/project-media/${existingMedia[0].id}`, {
+                method: 'PATCH',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({ url: imageUrl })
+              });
+            } else {
+              await fetch('/api/project-media', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                  project_id: projectId,
+                  url: imageUrl,
+                  position: 1
+                })
+              });
+            }
+          }
+        } catch (mediaErr) {
+          console.warn('Could not save project media:', mediaErr);
+        }
       }
 
       closeProjectModal();
@@ -1119,7 +1195,9 @@
     }
   }
 
-  async function handleDeleteProject(id, title) {
+  async function handleDeleteProjectById(id) {
+    const project = cachedProjects.find(p => p.id === id);
+    const title = project ? project.title : 'this project';
     if (!confirm(`Are you sure you want to delete the project "${title}"?`)) {
       return;
     }
@@ -1154,6 +1232,7 @@
       const res = await fetch('/api/skills');
       if (!res.ok) throw new Error('Could not fetch skills');
       const skills = await res.json();
+      cachedSkills = skills;
 
       if (skills.length === 0) {
         tbody.innerHTML = `
@@ -1183,14 +1262,14 @@
           <td class="py-3 text-right whitespace-nowrap space-x-2">
             <button
               type="button"
-              onclick="openEditSkill(${JSON.stringify(s).replace(/"/g, '&quot;')})"
+              onclick="openEditSkillById(${s.id})"
               class="px-2.5 py-1 rounded text-[11px] font-mono dark:bg-white/5 bg-slate-200 text-slate-300 hover:text-brand-400 transition"
             >
               Edit
             </button>
             <button
               type="button"
-              onclick="handleDeleteSkill(${s.id}, '${escapeHtml(s.name)}')"
+              onclick="handleDeleteSkillById(${s.id})"
               class="px-2.5 py-1 rounded text-[11px] font-mono bg-rose-500/10 text-rose-400 hover:bg-rose-500/20 transition"
             >
               Delete
@@ -1230,7 +1309,9 @@
     document.getElementById('skill-modal').classList.remove('hidden');
   }
 
-  function openEditSkill(skill) {
+  function openEditSkillById(id) {
+    const skill = cachedSkills.find(s => s.id === id);
+    if (!skill) return;
     document.getElementById('skill-modal-title').textContent = `Edit Skill: ${skill.name}`;
     document.getElementById('form-skill-id').value = skill.id;
     document.getElementById('form-skill-name').value = skill.name;
@@ -1295,7 +1376,9 @@
     }
   }
 
-  async function handleDeleteSkill(id, name) {
+  async function handleDeleteSkillById(id) {
+    const skill = cachedSkills.find(s => s.id === id);
+    const name = skill ? skill.name : 'this skill';
     if (!confirm(`Are you sure you want to delete the skill "${name}"?`)) {
       return;
     }
@@ -1330,6 +1413,7 @@
       const res = await fetch('/api/sections');
       if (!res.ok) throw new Error('Could not fetch sections');
       const sections = await res.json();
+      cachedSections = sections;
 
       if (sections.length === 0) {
         tbody.innerHTML = `
@@ -1360,14 +1444,14 @@
           <td class="py-3 text-right whitespace-nowrap space-x-2">
             <button
               type="button"
-              onclick="openEditSection(${JSON.stringify(s).replace(/"/g, '&quot;')})"
+              onclick="openEditSectionById(${s.id})"
               class="px-2.5 py-1 rounded text-[11px] font-mono dark:bg-white/5 bg-slate-200 text-slate-300 hover:text-brand-400 transition"
             >
               Edit
             </button>
             <button
               type="button"
-              onclick="handleDeleteSection(${s.id}, '${escapeHtml(s.title)}')"
+              onclick="handleDeleteSectionById(${s.id})"
               class="px-2.5 py-1 rounded text-[11px] font-mono bg-rose-500/10 text-rose-400 hover:bg-rose-500/20 transition"
             >
               Delete
@@ -1407,7 +1491,9 @@
     document.getElementById('section-modal').classList.remove('hidden');
   }
 
-  function openEditSection(section) {
+  function openEditSectionById(id) {
+    const section = cachedSections.find(s => s.id === id);
+    if (!section) return;
     document.getElementById('section-modal-title').textContent = `Edit Section: ${section.title}`;
     document.getElementById('form-section-id').value = section.id;
     document.getElementById('form-section-title').value = section.title;

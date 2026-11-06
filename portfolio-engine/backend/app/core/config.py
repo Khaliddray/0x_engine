@@ -22,11 +22,17 @@ class Settings(BaseSettings):
     @classmethod
     def assemble_database_url(cls, v: str) -> str:
         if isinstance(v, str):
-            # Normalize legacy postgres:// and generic postgresql:// schemes to psycopg 3 driver
+            driver = "postgresql+psycopg://"
+            try:
+                import psycopg  # noqa: F401
+            except ImportError:
+                driver = "postgresql+psycopg2://"
+
+            # Normalize legacy postgres:// and generic postgresql:// schemes to available driver
             if v.startswith("postgres://"):
-                return v.replace("postgres://", "postgresql+psycopg://", 1)
+                return v.replace("postgres://", driver, 1)
             if v.startswith("postgresql://") and not v.startswith("postgresql+"):
-                return v.replace("postgresql://", "postgresql+psycopg://", 1)
+                return v.replace("postgresql://", driver, 1)
         return v
 
     @field_validator("cors_origins", mode="before")

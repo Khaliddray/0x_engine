@@ -26,14 +26,14 @@
     <!-- Curated Products Count Badge -->
     <div class="self-start sm:self-auto">
       <div class="px-3 py-1.5 rounded-lg text-xs font-mono font-semibold dark:bg-brand-500/10 bg-brand-50 text-brand-600 dark:text-brand-400 border border-brand-500/20">
-        <span>{{ products|length }} {{ 'Curated Product' if products|length == 1 else 'Curated Products' }}</span>
+        <span>{{ projects|length }} {{ 'Featured Product' if projects|length == 1 else 'Featured Products' }}</span>
       </div>
     </div>
   </header>
 
   <!-- Curated Products Showcase Grid -->
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="products-grid-container">
-    {% for product in products %}
+    {% for product in projects %}
       {% include "partials/project_card.html" %}
     {% endfor %}
   </div>

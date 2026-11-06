@@ -94,7 +94,18 @@ def _get_portfolio_safely(db: Session, slug: str = "khalid"):
     try:
         return service.get_by_slug(slug)
     except PublicPortfolioNotFoundError:
-        return None
+        pass
+
+    # Fallback to the first available portfolio if the specific slug is not found
+    try:
+        from app.models.portfolio import Portfolio
+        first_p = db.query(Portfolio).first()
+        if first_p and first_p.slug != slug:
+            return service.get_by_slug(first_p.slug)
+    except Exception:
+        pass
+
+    return None
 
 
 @router.get("/")
@@ -146,13 +157,19 @@ def projects_page(
     db: Session = Depends(get_db),
 ):
     portfolio = _get_portfolio_safely(db, "khalid")
+    display_projects = (
+        portfolio.projects
+        if (portfolio and portfolio.projects)
+        else PRODUCTS
+    )
     return templates.TemplateResponse(
         request=request,
         name="projects.html",
         context={
             "request": request,
             "portfolio": portfolio,
-            "products": PRODUCTS,
+            "projects": display_projects,
+            "products": display_projects,
             "current_route": "projects",
         },
     )
